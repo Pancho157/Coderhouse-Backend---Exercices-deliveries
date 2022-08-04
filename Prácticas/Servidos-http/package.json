@@ -1,0 +1,15 @@
+{
+  "name": "servidos-http",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Practica_clase_6.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
