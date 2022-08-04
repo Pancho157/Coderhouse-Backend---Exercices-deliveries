@@ -1,119 +1,103 @@
-const fs = require("fs");
+/* 
+CONSIGNA: Implementar un programa que contenga una clase llamada Contenedor que reciba el nombre del archivo con el que va a trabajar e implemente los siguientes métodos:
+
+* save(Object): Number 
+ - Recibe un objeto, lo guarda en el archivo, devuelve el id asignado
+ - El método save incorporará al producto un id numérico, que deberá ser siempre uno más que el id del último objeto agregado (o id 1 si es el primer objeto que se agrega) y no puede estar repetido
+* getById(Number): Object
+ - Recibe un id y devielve el objeto con ese id, o null si no está
+* getAll(): Object[]
+ - Devuelve un array con todos los objetos presentes en el archivo
+* deleteById(Number): void
+ - Elimina del archivo el objeto con el id buscado
+* deleteAll(): void
+ - Elimina todos los objetos presentes en el archivo
+
+* Observaciones:
+ - Tomar en consideración el contenido previo del archivo, en caso de utilizar uno existente
+ - Implementar el manejo de archivos con el módulo fs de node.js, utilizando promesas con async/await y manejo de errores
+ - Probar el módulo creando un contenedor de productos que se guarde en el archivo "productos.txt"
+ - Incluir un llamado de prueba a cada método y mostrando por pantalla según corresponda para verificar el correcto funcionamiento del módulo constuído
+ - El formato de cada producto será:
+        {
+            title: (nombre del producto),
+            price: (precio),
+            thumbnail: (url de la foto del producto)
+        }
+*/
+
+const { promises: fs } = require("fs");
 
 class Contenedor {
-  constructor(file, fields, unique) {
-    this.file = file;
-    this.fields = fields;
-    this.unique = unique;
+  constructor(ruta) {
+    this.ruta = ruta;
   }
 
-  isItemOk(item) {
-    if (Object.keys(item).length !== this.fields.length) {
-      return false;
-    }
-    let isOk = true;
-    for (let f of this.fields) {
-      if (!item.hasOwnProperty(f)) {
-        isOk = false;
-        break;
-      }
-    }
-    return isOk;
-  }
+  async save(newObject) {
+    // Obtiene los datos del archivo
+    const objetos = await this.getAll();
 
-  isUnique(colection, item) {
-    let flag = true;
-    for (let obj of colection) {
-      if (obj[this.unique] === item[this.unique]) {
-        flag = false;
-        break;
-      }
+    // Genera el id
+    let newId;
+    if (objetos.length == 0) {
+      newId = 1;
+    } else {
+      const ultimoId = objetos[objetos.length - 1].id;
+      newId = ultimoId + 1;
     }
-    return flag;
-  }
 
-  async getAll() {
+    // Agrega el nuevo objeto al array
+    objetos.push({ ...newObject, id: newId });
+
     try {
-      const content = await fs.promises.readFile(this.file, "utf-8");
-      const response = JSON.parse(content);
-      let isArray = Array.isArray(response);
-      if (!isArray) {
-        throw new Error("El formato del archivo no es el esperado");
-      }
-      return response;
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
-
-  async save(item) {
-    if (!this.isItemOk(item)) {
-      throw new Error("El objeto no tiene el formato esperado");
-    }
-    try {
-      const content = await this.getAll();
-      if (!this.isUnique(content, item)) {
-        throw new Error("Error: item duplicado");
-      }
-      const ids = content.map((item) => item.id);
-      const newItem = { ...item };
-      if (ids.length === 0) {
-        newItem.id = 1;
-      } else {
-        newItem.id = Math.max(...ids) + 1;
-      }
-      content.push(newItem);
-      await fs.promises.writeFile(this.file, JSON.stringify(content, null, 2));
-      return newItem.id;
-    } catch (err) {
-      throw new Error(err);
+      await fs.writeFile(this.ruta, JSON.stringify(objetos, null, 2));
+      return newId;
+    } catch {
+      throw new Error(`Error al guardar: ${Error}`);
     }
   }
 
   async getById(id) {
-    try {
-      const content = await this.getAll();
-      const item = content.filter((item) => item.id === id);
-      if (item.length === 0) {
-        return null;
-      }
-      return item[0];
-    } catch (err) {
-      throw new Error(err);
-    }
+    const products = await this.getAll();
+    const filteredProduct = products.find((product) => product.id === id);
+
+    console.log(filteredProduct);
+
+    return filteredProduct;
   }
 
-  async getByField(field, value) {
+  async getAll() {
     try {
-      const content = await this.getAll();
-      const items = content.filter((item) => item[field] === value);
-      if (items.length === 0) {
-        return null;
-      }
-      return items[0];
-    } catch (err) {
-      throw new Error(err);
+      const objetos = await fs.readFile(this.ruta, "utf-8");
+      return JSON.parse(objetos);
+    } catch {
+      return [];
     }
   }
 
   async deleteById(id) {
+    const products = await this.getAll();
+
+    const filteredProducts = products.filter((product) => product.id != id);
+
+    if (filteredProducts.length === products.length) {
+      throw new Error(
+        `Error al borrar: No se encontró el id ingresado (${id})`
+      );
+    }
+
     try {
-      const content = await this.getAll();
-      const items = content.filter((item) => item.id !== id);
-      if (content.length !== items.length) {
-        fs.promises.writeFile(this.file, JSON.stringify(items, null, 2));
-      }
-    } catch (err) {
-      throw new Error(err);
+      await fs.writeFile(this.ruta, JSON.stringify(filteredProducts, null, 2));
+    } catch {
+      throw new Error(`Error al guardar: ${Error}`);
     }
   }
 
   async deleteAll() {
     try {
-      const content = [];
-      fs.promises.writeFile(this.file, JSON.stringify(content, null, 2));
-    } catch (err) {
-      throw new Error(err);
+      await fs.writeFile(this.ruta, JSON.stringify([], null, 2));
+    } catch {
+      throw new Error(`Error al borrar: ${Error}`);
     }
   }
 }

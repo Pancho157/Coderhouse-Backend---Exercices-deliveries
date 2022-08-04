@@ -16,3 +16,15 @@ for (let i = 0; i < 10; i++) {
 }
 
 console.log(numbers);
+
+// Hacer un algoritmo en el cual se ingrese una fecha de nacimiento e indique cuantos años y días pasadon desde esa fecha
+
+const moment = require("moment");
+
+const hoy = moment();
+const fechaNacimiento = moment("19/11/1999", "DD/MM/YYYY");
+
+const difYears = hoy.diff(fechaNacimiento, "years");
+const difDays = hoy.diff(fechaNacimiento, "days");
+
+console.log(`Hoy es ${hoy.format}`);

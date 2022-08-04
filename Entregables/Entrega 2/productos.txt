@@ -1,14 +1,26 @@
 [
   {
-    "title": "Escuadra",
-    "price": 123.45,
-    "thumbnail": "http://localhost:3000",
+    "title": "Redragon Horus K621 TKL",
+    "price": "$13.500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
     "id": 1
   },
   {
-    "title": "Globo Terráqueo",
-    "price": 459.9,
-    "thumbnail": "http://localhost:3000",
+    "title": "Redragon Horus K621 TKL",
+    "price": "$13.500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
+    "id": 2
+  },
+  {
+    "title": "Redragon Horus K621 TKL",
+    "price": "$13.500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
     "id": 3
+  },
+  {
+    "title": "Redragon Horus K621 TKL",
+    "price": "$13.500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
+    "id": 4
   }
 ]
