@@ -77,7 +77,6 @@ class Contenedor {
   async getAll() {
     try {
       const objetos = await fs.readFile(this.ruta, "utf-8");
-      console.log(`Devueltos todos los elementos`);
       return JSON.parse(objetos);
     } catch {
       return [];
@@ -103,6 +102,7 @@ class Contenedor {
 
     try {
       await fs.writeFile(this.ruta, JSON.stringify(filteredProducts, null, 2));
+      console.log(`Eliminado el elemento con el ID = ${id}`);
     } catch {
       throw new Error(`Error al guardar: ${Error}`);
     }

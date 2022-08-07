@@ -20,28 +20,22 @@ llamados = async () => {
   console.log(await productos.getAll());
 
   console.log("");
-  console.log("Impresos todos los productos");
   console.log("");
 
   await productos.getById(1);
   await productos.deleteById(2);
 
   console.log("");
-  console.log(
-    "Traído el elemento con ID = 1 y eliminado el elemento con ID = 2"
-  );
   console.log("");
 
   await productos.getById(2);
 
   console.log("");
-  console.log("Traído el elemento con ID = 2 (no debería existir)");
   console.log("");
 
   console.log(await productos.getAll());
 
   console.log("");
-  console.log("Traídos todos los productos");
   console.log("");
 
   await productos.deleteAll();
