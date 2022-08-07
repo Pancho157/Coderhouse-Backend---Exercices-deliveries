@@ -2,20 +2,52 @@ const { Contenedor } = require("./Contenedor");
 
 const productos = new Contenedor("./productos.txt");
 
-productos.deleteAll();
+llamados = async () => {
+  await productos.save({
+    title: "Redragon Horus K621 TKL",
+    price: "$13.500",
+    thumbnail:
+      "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
+  });
 
-productos.deleteById(3);
+  await productos.save({
+    title: "Redragon Lamia 2 RGB Blanco",
+    price: "$7.800",
+    thumbnail:
+      "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
+  });
 
-productos.getAll();
+  console.log(await productos.getAll());
 
-productos.getById(3);
+  console.log("");
+  console.log("Impresos todos los productos");
+  console.log("");
 
-productos.save({
-  title: "Redragon Horus K621 TKL",
-  price: "$13.500",
-  thumbnail:
-    "https://http2.mlstatic.com/D_NQ_NP_767326-MLA50976497312_082022-O.webp",
-});
+  await productos.getById(1);
+  await productos.deleteById(2);
+
+  console.log("");
+  console.log(
+    "Traído el elemento con ID = 1 y eliminado el elemento con ID = 2"
+  );
+  console.log("");
+
+  await productos.getById(2);
+
+  console.log("");
+  console.log("Traído el elemento con ID = 2 (no debería existir)");
+  console.log("");
+
+  console.log(await productos.getAll());
+
+  console.log("");
+  console.log("Traídos todos los productos");
+  console.log("");
+
+  await productos.deleteAll();
+};
+
+llamados();
 
 // Se probó cada uno de los métodos y todos funcionan
 // Es cuestión de ir comentandolos para poder ir probandolos por separado

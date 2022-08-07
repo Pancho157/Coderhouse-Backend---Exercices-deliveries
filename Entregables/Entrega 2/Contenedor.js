@@ -35,7 +35,12 @@ class Contenedor {
 
   async save(newObject) {
     // Obtiene los datos del archivo
-    const objetos = await this.getAll();
+    let objetos = [];
+    try {
+      objetos = await this.getAll();
+    } catch {
+      throw new Error(`Error al traer los productos: ${Error}`);
+    }
 
     // Genera el id
     let newId;
@@ -51,24 +56,28 @@ class Contenedor {
 
     try {
       await fs.writeFile(this.ruta, JSON.stringify(objetos, null, 2));
-      return newId;
+      return console.log(`Se guardó el producto con el id: ${newId}`);
     } catch {
       throw new Error(`Error al guardar: ${Error}`);
     }
   }
 
   async getById(id) {
-    const products = await this.getAll();
+    let products;
+    try {
+      products = await this.getAll();
+    } catch {
+      throw new Error(`Error al traer los productos: ${Error}`);
+    }
     const filteredProduct = products.find((product) => product.id === id);
-
-    console.log(filteredProduct);
-
+    console.log(`Devuelto el elemento con ID = ${id}`);
     return filteredProduct;
   }
 
   async getAll() {
     try {
       const objetos = await fs.readFile(this.ruta, "utf-8");
+      console.log(`Devueltos todos los elementos`);
       return JSON.parse(objetos);
     } catch {
       return [];
@@ -76,7 +85,13 @@ class Contenedor {
   }
 
   async deleteById(id) {
-    const products = await this.getAll();
+    let products;
+
+    try {
+      products = await this.getAll();
+    } catch {
+      throw new Error(`Error al traer los productos: ${Error}`);
+    }
 
     const filteredProducts = products.filter((product) => product.id != id);
 
@@ -96,6 +111,7 @@ class Contenedor {
   async deleteAll() {
     try {
       await fs.writeFile(this.ruta, JSON.stringify([], null, 2));
+      console.log(`Eliminados todos los productos`);
     } catch {
       throw new Error(`Error al borrar: ${Error}`);
     }
