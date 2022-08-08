@@ -42,6 +42,3 @@ llamados = async () => {
 };
 
 llamados();
-
-// Se probó cada uno de los métodos y todos funcionan
-// Es cuestión de ir comentandolos para poder ir probandolos por separado
