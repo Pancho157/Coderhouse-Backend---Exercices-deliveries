@@ -42,6 +42,13 @@ class Contenedor {
       throw new Error(`Error al traer los productos: ${Error}`);
     }
 
+    let isUnique = objetos.find((product) => product.title === newObject.title);
+    if (isUnique !== undefined) {
+      return console.log(
+        `No se ha guardado el producto, ya que se encuentra actualmente`
+      );
+    }
+
     // Genera el id
     let newId;
     if (objetos.length == 0) {
