@@ -15,10 +15,14 @@ class Contenedor {
     }
 
     let isUnique = objetos.find((product) => product.title === newObject.title);
-    if (isUnique !== undefined) {
-      return console.log(
-        `No se ha guardado el producto, ya que se encuentra actualmente`
-      );
+    if (isUnique != undefined) {
+      objetos.forEach((product) => {
+        if (product.title === isUnique.title) {
+          product.price = newObject.price;
+          product.thumbnail = newObject.thumbnail;
+        }
+      });
+      return console.log(`Se ha actualizado el producto`);
     }
 
     // Genera el id
@@ -49,6 +53,9 @@ class Contenedor {
       throw new Error(`Error al traer los productos: ${Error}`);
     }
     const filteredProduct = products.find((product) => product.id === id);
+    if (filteredProduct == undefined) {
+      return [];
+    }
     console.log(`Devuelto el elemento con ID = ${id}`);
     return filteredProduct;
   }

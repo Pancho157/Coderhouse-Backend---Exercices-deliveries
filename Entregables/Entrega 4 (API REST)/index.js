@@ -18,10 +18,14 @@ app.get("/api/productos", async (req, res) => {
   }
 });
 
-app.get("/api/productos", async (req, res) => {
+app.get("/api/productos:id", async (req, res) => {
   try {
     let id = req.params.id;
     let product = await products.getById(`${id}`);
+
+    if (product == []) {
+      product = { Error: "Producto no encontrado" };
+    }
     res.json(product);
   } catch (error) {
     console.log(error);
@@ -59,7 +63,7 @@ app.put("/api/productos/:id", async (req, res) => {
   }
 });
 
-app.delete("/api/productos", async (req, res) => {
+app.delete("/api/productos/:id", async (req, res) => {
   try {
     let id = req.params.id;
     await products.deleteById(`${id}`);
@@ -70,7 +74,12 @@ app.delete("/api/productos", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 8080;
+// Da el error 404, debe estar debajo de todas las rutas
+app.use((req, res, next) => {
+  res.status(404).send("No se encontró la página que estás buscando");
+});
+
+const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
