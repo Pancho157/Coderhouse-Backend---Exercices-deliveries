@@ -1,90 +1,98 @@
 const express = require("express");
 const router = express.Router();
 
-var app = express();
+let products = [
+  {
+    title: "Redragon Horus K621 TKL",
+    price: "$13.500",
+    thumbnail:
+      "https://cdn.shopify.com/s/files/1/0606/6529/9176/products/TKL-2_79565deb-364f-4b52-a3c2-22e34d19aeed_800x.jpg?v=1653779226",
+    id: 1,
+  },
+  {
+    title: "Redragon Lamia 2 RGB Blanco",
+    price: "$7.800",
+    thumbnail:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdA2DDK4Z0ZgLuM387x2rqnB97LUyFLtpmbQHQAqyXJdpOFiGSQU1RKyopY9dOi9h7heA&usqp=CAU",
+    id: 2,
+  },
+  {
+    title: "Redragon Magic Wand K587",
+    price: "$11.000",
+    thumbnail: "https://i.ytimg.com/vi/SME6NCVQhD0/maxresdefault.jpg",
+    id: 3,
+  },
+];
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+let lastID = 3;
 
-const { Contenedor } = require("../Contenedor");
-
-const products = new Contenedor("./productos.txt");
-
-router.get("/", async (req, res) => {
-  try {
-    let allProducts = await products.getAll();
-    res.json(allProducts);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Hubo un error al traer los productos");
-  }
+router.get("/", (req, res) => {
+  // Devuelve todos los productos
+  res.send(products);
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    let product = await products.getById(`${id}`);
+router.get("/:id", (req, res) => {
+  // Devuelve un producto según su id
+  let id = req.params.id;
+  let product = products.findIndex((product) => {
+    product.id == id;
+  });
 
-    if (product == []) {
-      product = { Error: "Producto no encontrado" };
-    }
-    res.json(product);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Hubo un error al traer el producto");
+  if (!product) {
+    // En la duda sobre si poner un status(204) => sin contenido
+    res.status(400).send("Error: producto no encontrado");
   }
+
+  res.send(product);
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const { productTitle, productPrice, productThumbnail } = req.body;
+router.post("/", (req, res) => {
+  const { productTitle, productPrice, productThumbnail } = req.body;
 
-    if (!productTitle || !productPrice || !productThumbnail) {
-      res.status(400).send("Tus datos no están completos");
-    }
-
-    let product = await products.save({
-      title: productTitle,
-      price: productPrice,
-      thumbnail: productThumbnail,
-    });
-
-    res.send(`El ID del producto guardado es: ${product.id}`);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Hubo un error al guardar el producto");
+  if (!productTitle || !productPrice || !productThumbnail) {
+    res.status(400).send("Tus datos no están completos");
   }
+
+  lastID++;
+
+  products.push({
+    title: productTitle,
+    price: productPrice,
+    thumbnail: productThumbnail,
+    id: lastID,
+  });
+
+  res.send(`El ID del producto guardado es: ${lastID}`);
 });
 
-router.put("/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { productTitle, productPrice, productThumbnail } = req.body;
+router.put("/:id", (req, res) => {
+  const paramsId = req.params.id;
 
-    if (!productTitle || !productPrice || !productThumbnail) {
-      res.status(400).send("Tus datos no están completos");
+  let productIndex = productos.findIndex((product) => {
+    product.id = paramsId;
+  });
+
+  if (!productIndex) {
+    res.status(400).send("Error: producto no encontrado");
+  } else {
+    // Actualiza los datos en caso de que existan
+    if (req.body.productTitle) {
+      products[productIndex].title = productTitle;
     }
-
-    let product = await products.update(id, {
-      title: productTitle,
-      price: productPrice,
-      thumbnail: productThumbnail,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Hubo un error al guardar el producto");
+    if (req.body.productPrice) {
+      products[productIndex].price = productPrice;
+    }
+    if (req.body.productThumbnail) {
+      products[productIndex].thumbnail = productThumbnail;
+    }
   }
 });
 
 router.delete("/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    await products.deleteById(`${id}`);
-    res.json(`Se ha eliminado el producto con el ID: ${id}`);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Hubo un error al eliminar el producto");
-  }
+  let id = req.params.id;
+  const filteredProducts = products.filter((product) => product.id != id);
+  products = filteredProducts;
+  res.send(`Se ha eliminado el producto con el ID: ${id}`);
 });
 
 module.exports = router;
