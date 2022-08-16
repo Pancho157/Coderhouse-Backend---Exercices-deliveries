@@ -51,18 +51,26 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { productTitle, productPrice, productThumbnail } = req.body;
+  const { title, price, thumbnail } = req.body;
 
-  if (!productTitle || !productPrice || !productThumbnail) {
+  let exists = products.find((actualProduct) => {
+    if (actualProduct.title == title) {
+      return actualProduct;
+    }
+  });
+
+  if (!title || !price || !thumbnail) {
     res.status(400).send({ Error: "Tus datos no están completos" });
+  } else if (exists) {
+    res.status(400).send({ Error: "Ya existe un producto con ese título" });
   }
 
   lastID++;
 
   products.push({
-    title: productTitle,
-    price: productPrice,
-    thumbnail: productThumbnail,
+    title: title,
+    price: price,
+    thumbnail: thumbnail,
     id: lastID,
   });
 
@@ -71,7 +79,7 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { productTitle, productPrice, productThumbnail } = req.body;
+  const { title, price, thumbnail } = req.body;
 
   let productIndex = products.findIndex((product) => {
     return product.id == id;
@@ -81,20 +89,20 @@ router.put("/:id", (req, res) => {
 
   if (productIndex == -1) {
     res.status(400).send({ Error: "producto no encontrado" });
-  } else if (!productTitle && !productPrice && !productThumbnail) {
+  } else if (!title && !price && !thumbnail) {
     res
       .status(400)
       .send({ Error: "No se ingresaron modificaciones al producto" });
   } else {
     // Actualiza los datos en caso de que existan
-    if (productTitle) {
-      products[productIndex].title = productTitle;
+    if (title) {
+      products[productIndex].title = title;
     }
-    if (productPrice) {
-      products[productIndex].price = productPrice;
+    if (price) {
+      products[productIndex].price = price;
     }
-    if (productThumbnail) {
-      products[productIndex].thumbnail = productThumbnail;
+    if (thumbnail) {
+      products[productIndex].thumbnail = thumbnail;
     }
 
     res.send(`Se ha actualizado el producto con el ID = ${id}`);
