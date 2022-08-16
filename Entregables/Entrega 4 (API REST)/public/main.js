@@ -12,19 +12,17 @@ const postProduct = async () => {
       const request = await fetch("/api/productos", {
         method: "POST",
         body: JSON.stringify({
-          productTitle: title,
-          productPrice: price,
-          productThumbnail: thumbnail,
+          title: title,
+          price: price,
+          thumbnail: thumbnail,
         }),
         headers: { "Content-Type": "application/json" },
-      });
-
-      const result = await request.json();
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
 
       // Deja la data en el formulario si hay un error
       form.reset();
-
-      return result;
     } catch (err) {
       return new Error(err);
     }
