@@ -33,14 +33,18 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   // Devuelve un producto según su id
-  let id = req.params.id;
-  let product = products.findIndex((product) => {
-    product.id == id;
+  let { id } = req.params;
+  let product = products.find((actualProduct) => {
+    if (actualProduct.id == id) {
+      return actualProduct;
+    }
   });
+
+  console.log(product);
 
   if (!product) {
     // En la duda sobre si poner un status(204) => sin contenido
-    res.status(400).send("Error: producto no encontrado");
+    res.status(400).send({ Error: "producto no encontrado" });
   }
 
   res.send(product);
@@ -50,7 +54,7 @@ router.post("/", (req, res) => {
   const { productTitle, productPrice, productThumbnail } = req.body;
 
   if (!productTitle || !productPrice || !productThumbnail) {
-    res.status(400).send("Tus datos no están completos");
+    res.status(400).send({ Error: "Tus datos no están completos" });
   }
 
   lastID++;
@@ -66,10 +70,10 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  const paramsId = req.params.id;
+  const { id } = req.params;
 
-  let productIndex = productos.findIndex((product) => {
-    product.id = paramsId;
+  let productIndex = products.findIndex((product) => {
+    product.id = id;
   });
 
   if (!productIndex) {

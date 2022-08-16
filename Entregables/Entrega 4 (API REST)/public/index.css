@@ -50,6 +50,7 @@ body {
   color: #fff;
   font-weight: bold;
   box-shadow: inset 0px 0px #fff;
+  cursor: pointer;
   transition: box-shadow 300ms;
 }
 

@@ -1,26 +1,32 @@
 const postProduct = async () => {
+  const form = document.getElementById("form");
   const title = document.getElementById("title");
   const price = document.getElementById("price");
   const thumbnail = document.getElementById("thumbnail");
-  document.getElementById("form").reset();
 
   // TODO: Reparar el fetch para el POST
-  try {
-    const request = await fetch("/api/productos", {
-      method: "POST",
-      body: {
-        productTitle: title,
-        productPrice: price,
-        productThumbnail: thumbnail,
-      },
-    });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    const result = await request.json();
+    try {
+      const request = await fetch("/api/productos", {
+        method: "POST",
+        body: JSON.stringify({
+          productTitle: title,
+          productPrice: price,
+          productThumbnail: thumbnail,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    // Deja la data en el formulario si hay un error
+      const result = await request.json();
 
-    return result;
-  } catch (err) {
-    return new Error(err);
-  }
+      // Deja la data en el formulario si hay un error
+      form.reset();
+
+      return result;
+    } catch (err) {
+      return new Error(err);
+    }
+  });
 };
