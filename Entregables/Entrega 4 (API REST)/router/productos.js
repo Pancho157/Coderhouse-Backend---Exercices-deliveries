@@ -71,30 +71,33 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const { id } = req.params;
+  const { productTitle, productPrice, productThumbnail } = req.body;
 
   let productIndex = products.findIndex((product) => {
-    product.id = id;
+    return product.id == id;
   });
 
-  if (!productIndex) {
-    res.status(400).send("Error: producto no encontrado");
-  } else if (
-    !req.body.productTitle &&
-    !req.body.productPrice &&
-    !req.body.productThumbnail
-  ) {
-    res.status(400).send("Error: No se ingresaron modificaciones al producto");
+  console.log(productIndex);
+
+  if (productIndex == -1) {
+    res.status(400).send({ Error: "producto no encontrado" });
+  } else if (!productTitle && !productPrice && !productThumbnail) {
+    res
+      .status(400)
+      .send({ Error: "No se ingresaron modificaciones al producto" });
   } else {
     // Actualiza los datos en caso de que existan
-    if (req.body.productTitle) {
+    if (productTitle) {
       products[productIndex].title = productTitle;
     }
-    if (req.body.productPrice) {
+    if (productPrice) {
       products[productIndex].price = productPrice;
     }
-    if (req.body.productThumbnail) {
+    if (productThumbnail) {
       products[productIndex].thumbnail = productThumbnail;
     }
+
+    res.send(`Se ha actualizado el producto con el ID = ${id}`);
   }
 });
 
