@@ -49,10 +49,12 @@ body {
   background-color: #e57e1f;
   color: #fff;
   font-weight: bold;
+  box-shadow: inset 0px 0px #fff;
+  transition: box-shadow 300ms;
 }
 
 .form__button:hover {
-  box-shadow: inset -200px 200px #fff;
+  box-shadow: inset -200px 0px #fff;
   background-color: #e57e1f;
   color: #333333;
 }
