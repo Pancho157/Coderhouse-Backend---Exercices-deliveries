@@ -10,8 +10,6 @@ const { Contenedor } = require("../Contenedor");
 
 const products = new Contenedor("./productos.txt");
 
-
-
 router.get("/", async (req, res) => {
   try {
     let allProducts = await products.getAll();
@@ -50,8 +48,8 @@ router.post("/", async (req, res) => {
       price: productPrice,
       thumbnail: productThumbnail,
     });
-    //TODO: Modificar la clase contenedor para que devuelva el ID del producto sin ser por la consola
-    res.json(`El ID del producto guardado es: ${product.id}`);
+
+    res.send(`El ID del producto guardado es: ${product.id}`);
   } catch (error) {
     console.log(error);
     res.status(500).send("Hubo un error al guardar el producto");
@@ -60,7 +58,18 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    // TODO: Modificar la clase Contenedor para poder actualizar productos
+    const id = req.params.id;
+    const { productTitle, productPrice, productThumbnail } = req.body;
+
+    if (!productTitle || !productPrice || !productThumbnail) {
+      res.status(400).send("Tus datos no están completos");
+    }
+
+    let product = await products.update(id, {
+      title: productTitle,
+      price: productPrice,
+      thumbnail: productThumbnail,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send("Hubo un error al guardar el producto");

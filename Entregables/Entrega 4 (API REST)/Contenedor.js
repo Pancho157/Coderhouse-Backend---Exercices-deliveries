@@ -16,13 +16,7 @@ class Contenedor {
 
     let isUnique = objetos.find((product) => product.title === newObject.title);
     if (isUnique != undefined) {
-      objetos.forEach((product) => {
-        if (product.title === isUnique.title) {
-          product.price = newObject.price;
-          product.thumbnail = newObject.thumbnail;
-        }
-      });
-      return console.log(`Se ha actualizado el producto`);
+      return `El objeto ingresado ya existe`;
     }
 
     // Genera el id
@@ -39,7 +33,35 @@ class Contenedor {
 
     try {
       await fs.writeFile(this.ruta, JSON.stringify(objetos, null, 2));
-      return console.log(`Se guardó el producto con el id: ${newId}`);
+      return newId;
+    } catch {
+      throw new Error(`Error al guardar: ${Error}`);
+    }
+  }
+
+  async update(id, newObject) {
+    const { title, price, thumbnail } = newObject;
+    let productos;
+
+    try {
+      productos = await this.getAll();
+    } catch {
+      throw new Error(`Error: no fue posible traer los productos`);
+    }
+
+    let productIndex = productos.findIndex((product) => product.id === id);
+
+    if (!product) {
+      throw new Error(`Error: producto no encontrado`);
+    } else {
+      productos[productIndex].title = title;
+      productos[productIndex].price = price;
+      productos[productIndex].thumbnail = thumbnail;
+    }
+
+    try {
+      await fs.writeFile(this.ruta, JSON.stringify(productos, null, 2));
+      return console.log(`Se ha actualizado el producto`);
     } catch {
       throw new Error(`Error al guardar: ${Error}`);
     }
