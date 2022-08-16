@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <main class="main">}
+    <main class="main">
         <h1 class="main__title">Ingrese un nuevo producto</h1>
 
-        <form id="form" class="form">
+        <form id="form" class="form" onsubmit="postProduct()">
 
             <input class="form__input" type="text" name="title" id="title" placeholder="Nombre del producto" required>
 
@@ -22,7 +22,7 @@
             <input class="form__input" type="text" name="thumbnail" id="thumbnail"
                 placeholder="Miniatura del producto (url)" required>
 
-            <button class="form__button" type="button" onclick="postProduct()">Guardar producto</button>
+            <button class="form__button" type="submit">Guardar producto</button>
         </form>
     </main>
 
