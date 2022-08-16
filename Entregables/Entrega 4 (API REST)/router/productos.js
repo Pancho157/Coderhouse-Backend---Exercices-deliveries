@@ -74,6 +74,12 @@ router.put("/:id", (req, res) => {
 
   if (!productIndex) {
     res.status(400).send("Error: producto no encontrado");
+  } else if (
+    !req.body.productTitle &&
+    !req.body.productPrice &&
+    !req.body.productThumbnail
+  ) {
+    res.status(400).send("Error: No se ingresaron modificaciones al producto");
   } else {
     // Actualiza los datos en caso de que existan
     if (req.body.productTitle) {
