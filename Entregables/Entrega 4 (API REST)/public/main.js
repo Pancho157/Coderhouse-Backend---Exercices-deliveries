@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   const thumbnail = document.getElementById("thumbnail").value;
 
   try {
-    const request = await fetch("/api/productos", {
+    await fetch("/api/productos", {
       method: "POST",
       body: JSON.stringify({
         title: title,

@@ -4,18 +4,24 @@ class Products {
     this.lastId = 0;
   }
 
-  save(newProduct) {
-    // Obtiene los datos del archivo
-    let isUnique = products.find(
+  add(newProduct) {
+    const { title, price, thumbnail } = newProduct;
+
+    if (!title && !price && !thumbnail) {
+      throw new Error("No se ha enviado toda la información requerida");
+    }
+
+    let isUnique = this.products.find(
       (product) => product.title === newProduct.title
     );
+
     if (isUnique !== undefined) {
-      return { error: "Este producto ya se encuentra creado" };
+      throw new Error("Este producto ya se encuentra creado");
     }
 
     // En este caso this hace referencia a la clase, ya que se generó en el constructor
-    const productToAdd = { ...newProduct, id: ++this.id };
-    this.productos.push(productToAdd);
+    const productToAdd = { ...newProduct, id: ++this.lastId };
+    this.products.push(productToAdd);
     return productToAdd;
   }
 
@@ -25,8 +31,11 @@ class Products {
         return product;
       }
     });
-    const result = product ? product : { error: "Producto no encontrado" };
-    return result;
+
+    if (!product) {
+      throw new Error("Producto no encontrado");
+    }
+    return product;
   }
 
   getAll() {
@@ -38,10 +47,10 @@ class Products {
       (product) => product.id != id
     );
 
-    if (filteredProducts.length === products.length) {
-      return {
-        error: `No se encontró un producto con el ID ingresado ( ${id} )`,
-      };
+    if (filteredProducts.length === this.products.length) {
+      throw new Error(
+        `No se encontró un producto con el ID ingresado ( ${id} )`
+      );
     }
 
     this.products = filteredProducts;
@@ -49,18 +58,16 @@ class Products {
 
   update(id, newInfo) {
     const { title, price, thumbnail } = newInfo;
-    let productIndex = products.findIndex((product) => {
+    let productIndex = this.products.findIndex((product) => {
       return product.id == id;
     });
 
-    if (!productIndex) {
-      return {
-        error: `No se encontró un producto con el ID ingresado ( ${id} )`,
-      };
+    if (productIndex == -1) {
+      throw new Error(
+        `No se encontró un producto con el ID ingresado ( ${id} )`
+      );
     } else if (!title && !price && !thumbnail) {
-      return {
-        error: `No se ingresaron datos para actualizar`,
-      };
+      throw new Error(`No se ingresaron datos para actualizar el producto`);
     } else {
       if (title) {
         this.products[productIndex].title = title;
