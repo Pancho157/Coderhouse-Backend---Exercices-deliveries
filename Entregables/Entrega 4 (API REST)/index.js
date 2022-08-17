@@ -9,7 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 // Ruta para el formulario
 app.use(express.static(path.join(__dirname, "public")));
 
-// Rutas de la API
+// Rutas de la API - Sin usar clases
+// app.use("/api/productos", require("./router/sin_usar_clases"));
+
+// Rutas de la API - Usando una clase
 app.use("/api/productos", require("./router/productos"));
 
 // Da el error 404, debe estar debajo de todas las rutas
