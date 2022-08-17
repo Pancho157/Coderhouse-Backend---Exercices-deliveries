@@ -51,30 +51,30 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  console.log(req.body);
+
   const { title, price, thumbnail } = req.body;
 
   let exists = products.find((actualProduct) => {
-    if (actualProduct.title == title) {
-      return actualProduct;
-    }
+    actualProduct.title == title;
   });
 
   if (!title || !price || !thumbnail) {
     res.status(400).send({ Error: "Tus datos no están completos" });
   } else if (exists) {
     res.status(400).send({ Error: "Ya existe un producto con ese título" });
+  } else {
+    lastID++;
+
+    products.push({
+      title: title,
+      price: price,
+      thumbnail: thumbnail,
+      id: lastID,
+    });
+
+    res.send(`El ID del producto guardado es: ${lastID}`);
   }
-
-  lastID++;
-
-  products.push({
-    title: title,
-    price: price,
-    thumbnail: thumbnail,
-    id: lastID,
-  });
-
-  res.send(`El ID del producto guardado es: ${lastID}`);
 });
 
 router.put("/:id", (req, res) => {
