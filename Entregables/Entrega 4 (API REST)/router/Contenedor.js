@@ -22,6 +22,7 @@ class Products {
     // En este caso this hace referencia a la clase, ya que se generó en el constructor
     const productToAdd = { ...newProduct, id: ++this.lastId };
     this.products.push(productToAdd);
+    console.log(productToAdd)
     return productToAdd;
   }
 

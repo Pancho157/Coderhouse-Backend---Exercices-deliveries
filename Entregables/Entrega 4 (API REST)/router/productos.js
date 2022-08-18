@@ -1,6 +1,7 @@
-const classes = require("./Contenedor");
 const express = require("express");
 const router = express.Router();
+
+const classes = require("./Contenedor");
 
 let products = new classes.Products();
 

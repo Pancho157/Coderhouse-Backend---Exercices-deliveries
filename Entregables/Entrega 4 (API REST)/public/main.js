@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   const thumbnail = document.getElementById("thumbnail").value;
 
   try {
-    await fetch("/api/productos", {
+    const response = await fetch("/api/productos", {
       method: "POST",
       body: JSON.stringify({
         title: title,
@@ -16,10 +16,8 @@ form.addEventListener("submit", async (e) => {
         thumbnail: thumbnail,
       }),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
+    });
+    console.log(response)
     // Deja la data en el formulario si hay un error
     form.reset();
   } catch (err) {
