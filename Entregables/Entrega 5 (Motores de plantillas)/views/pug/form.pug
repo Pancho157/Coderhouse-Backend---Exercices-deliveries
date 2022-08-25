@@ -1,0 +1,17 @@
+include partials/head.pug
+include partials/nav.pug
+div(class='container mt-5')
+    div(class='row')
+        div(class='col')
+            form(id="data")
+                div(class='mb-3')
+                    label(class='form-label') Nombre del Producto
+                    input(class='form-control' id='nombre' )
+                div(class='mb-3')
+                    labe(class='form-label') Precio en AR$
+                    input(class='form-control' id='precio' )
+                div(class='mb-3')
+                    label(class='form-label') URL de la imagen
+                    input(class='form-control' id='urlImagen' )
+                button(type='submit' class='btn btn-primary' onclick='guardarProducto()') Guardar
+script(src="js/main.js") 
