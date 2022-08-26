@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 let products = [];
-
 let lastID = 3;
 
 router.get("/", (req, res) => {

@@ -1,43 +1,49 @@
 const express = require("express");
-const { router, productos } = require("./routes/routes");
-
-// Templates requeridos por el desafio
+const path = require("path");
 const { engine } = require("express-handlebars");
 const ejs = require("ejs");
 const pug = require("pug");
+const { products } = require("./router/productos");
 
-const path = require("path");
+var app = express();
 
-const app = express();
 const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, (req, res) => {
-  console.log("Server on in port: ", PORT);
+const server = app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
 
-// Para utilizar handlebars descomentar las 2 lineas siguientes
-/* app.engine('.hbs', engine({ extname: '.hbs' }))
-app.set('view engine', '.hbs') */
+// Todo: Para utilizar handlebars descomentar las 3 lineas siguientes
+// app.engine(".hbs", engine({ extname: ".hbs" }));
+// app.set("view engine", ".hbs");
+// app.set("views", path.join(__dirname, "views/handlebars"));
 
-// Para utilizar ejs descomentar la siguiente linea
-/* app.set('view engine', '.ejs') */
+// Todo: Para utilizar ejs descomentar la siguiente linea
+app.set("view engine", ".ejs");
+app.set("views", path.join(__dirname, "views/ejs"));
 
-// Para utilizar pug descomentar la siguiente linea
-/* app.set('view engine', 'pug') */
+// Todo: Para utilizar pug descomentar la siguiente linea
+// app.set('view engine', 'pug')
+// app.set("views", path.join(__dirname, "views/pug"));
 
-app.set("views", path.join(__dirname, "views"));
+// Establece donde buscar las vistas
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, "public")));
+// Rutas de la API - Usando una clase
+app.use("/api/productos", require("./router/productos"));
 
-app.use("/api/productos", router);
-
+// Renderiza el formulario
 app.get("/", (req, res) => {
   res.render("form");
 });
 
+// Renderiza la tabla con los productos y le envía los productos
 app.get("/productos", (req, res) => {
-  res.render("prodTable", { lista: productos });
+  res.render("productsTable", { products: products.getAll() });
+});
+
+// Da el error 404 en caso de no encontrar un endpoint (debe estar debajo de todas las rutas)
+app.use((req, res) => {
+  res.status(404).send("No se encontró la página que estás buscando");
 });

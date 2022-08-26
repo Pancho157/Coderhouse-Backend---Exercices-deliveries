@@ -23,20 +23,25 @@
                         </thead>
                         <tbody>
 
-                            <% lista.forEach(producto=> { %>
+                            <% if (!products) { %>
                                 <tr>
-                                    <td>
-                                        <%= producto.id %>
-                                    </td>
-                                    <td>
-                                        <%= producto.nombre %>
-                                    </td>
-                                    <td> AR$<%= producto.precio %>
-                                    </td>
-                                    <td> <img src="<%= producto.urlImagen %>" height="30px"> </td>
+                                    <td>No se hallaron productos</td>
                                 </tr>
-                                <% }) %>
-
+                                <% } else { %>
+                                    <% products.forEach(product=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= product.id %>
+                                            </td>
+                                            <td>
+                                                <%= product.nombre %>
+                                            </td>
+                                            <td> AR$<%= product.precio %>
+                                            </td>
+                                            <td> <img src="<%= product.urlImagen %>" height="30px"> </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } %>
                         </tbody>
                     </table>
                 </div>
