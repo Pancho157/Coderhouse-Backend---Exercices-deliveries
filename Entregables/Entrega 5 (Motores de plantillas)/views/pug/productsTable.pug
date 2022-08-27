@@ -1,19 +1,26 @@
 include partials/head.pug
 include partials/nav.pug
 div(class='container mt-5')
-    div(class='row')
-        div(class='col')
-            table(class='table')
-                thead(class='table-dark')
-                    th ID
-                    th Nombre
-                    th Precio
-                    th Imagen
-                tbody
-                    each producto in lista
-                        tr
-                            td= producto.id 
-                            td= producto.nombre
-                            td= `AR$ ${producto.precio}`
-                            td
-                                img(src=producto.urlImagen height='30px')
+  div(class='row')
+    div(class='col')
+      table(class='table')
+        thead(class='table-dark')
+          th ID
+          th Nombre
+          th Precio
+          th Imagen
+        tbody
+if products
+  each producto in products
+    tr
+      td= producto.id 
+      td= producto.nombre
+      td= `AR$ ${producto.precio}`
+      td
+        img(src=producto.urlImagen height='30px')
+else 
+  tr
+    td= "No se hallaron productos"
+    td
+    td
+    td

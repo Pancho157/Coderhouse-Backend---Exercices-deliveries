@@ -18,19 +18,19 @@ const server = app.listen(PORT, () => {
 // app.set("views", path.join(__dirname, "views/handlebars"));
 
 // Todo: Para utilizar ejs descomentar la siguiente linea
-app.set("view engine", ".ejs");
-app.set("views", path.join(__dirname, "views/ejs"));
+// app.set("view engine", ".ejs");
+// app.set("views", path.join(__dirname, "views/ejs"));
 
 // Todo: Para utilizar pug descomentar la siguiente linea
-// app.set('view engine', 'pug')
-// app.set("views", path.join(__dirname, "views/pug"));
+app.set('view engine', 'pug')
+app.set("views", path.join(__dirname, "views/pug"));
 
 // Establece donde buscar las vistas
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas de la API - Usando una clase
+// Router
 app.use("/api/productos", require("./router/productos"));
 
 // Renderiza el formulario
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
 
 // Renderiza la tabla con los productos y le envía los productos
 app.get("/productos", (req, res) => {
-  res.render("productsTable", { products: products.getAll() });
+  res.render("productsTable", { products: products });
 });
 
 // Da el error 404 en caso de no encontrar un endpoint (debe estar debajo de todas las rutas)
