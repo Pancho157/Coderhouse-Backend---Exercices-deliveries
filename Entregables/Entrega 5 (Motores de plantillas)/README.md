@@ -8,7 +8,7 @@
 
 ---
 
-1. Utilizando la misma API de productos del proyecto entregabled de la clase anterior, construir un web server (no REST) que incorpore:
+1. Utilizando la misma API de productos del proyecto entregables de la clase anterior, construir un web server (no REST) que incorpore:
 
    a - Un formulario de carga de productos en la ruta raíz (configurar la ruta '/productos' para recibir el POST, y redirigir al mismo formulario).
 

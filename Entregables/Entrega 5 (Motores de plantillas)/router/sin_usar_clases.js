@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 let products = [];
-let lastID = 3;
+let lastID = 0;
 
 router.get("/", (req, res) => {
   // Devuelve todos los productos
