@@ -18,12 +18,12 @@ const server = app.listen(PORT, () => {
 // app.set("views", path.join(__dirname, "views/handlebars"));
 
 // Todo: Para utilizar ejs descomentar la siguiente linea
-// app.set("view engine", ".ejs");
-// app.set("views", path.join(__dirname, "views/ejs"));
+app.set("view engine", ".ejs");
+app.set("views", path.join(__dirname, "views/ejs"));
 
 // Todo: Para utilizar pug descomentar la siguiente linea
-app.set('view engine', 'pug')
-app.set("views", path.join(__dirname, "views/pug"));
+// app.set('view engine', 'pug')
+// app.set("views", path.join(__dirname, "views/pug"));
 
 // Establece donde buscar las vistas
 
