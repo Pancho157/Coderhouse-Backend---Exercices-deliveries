@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Router
-app.use("/api/productos", require("./router/productos"));
+app.use("/api/productos", require("./router/sin_usar_clases"));
 
 // Renderiza el formulario
 app.get("/", (req, res) => {
