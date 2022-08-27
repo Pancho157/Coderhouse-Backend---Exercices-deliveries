@@ -1,23 +1,24 @@
-{{ nav }}
-<div class='container mt-5'>
-    <div class='row'>
-        <div class='col'>
-            <form id="data">
-                <div class='mb-3'>
-                    <label class='form-label'>Nombre del Producto</label>
-                    <input class='form-control' id='nombre' />
-                </div>
-                <div class='mb-3'>
-                    <label class='form-label'>Precio en AR$</label>
-                    <input class='form-control' id='precio' />
-                </div>
-                <div class='mb-3'>
-                    <label class='form-label'>URL de la imagen</label>
-                    <input class='form-control' id='urlImagen' />
-                </div>
-                <button type='submit' class='btn btn-primary' onclick='guardarProducto()'>Guardar</button>
-            </form>
+{{> nav }}
+
+
+<div class='form__container'>
+    <form id="form">
+        <div class='form__inputContainer'>
+            <label class='form__label'>Nombre del Producto</label>
+            <input class='form__input' id='nombre' />
         </div>
-    </div>
+
+        <div class='form__inputContainer'>
+            <label class='form__label'>Precio en AR$</label>
+            <input class='form__input' id='precio' />
+        </div>
+
+        <div class='form__inputContainer'>
+            <label class='form__label'>URL de la imagen</label>
+            <input class='form__input' id='urlImagen' />
+        </div>
+
+        <button type='submit' class='form__button' onclick='guardarProducto()'>Guardar</button>
+    </form>
 </div>
 <script src="js/main.js"></script>

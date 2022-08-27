@@ -13,15 +13,15 @@ const server = app.listen(PORT, () => {
 });
 
 // Todo: Para utilizar handlebars descomentar las 3 lineas siguientes
-// app.engine(".hbs", engine({ extname: ".hbs" }));
-// app.set("view engine", ".hbs");
-// app.set("views", path.join(__dirname, "views/handlebars"));
+app.engine(".hbs", engine({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.set("views", path.join(__dirname, "views/handlebars"));
 
-// Todo: Para utilizar ejs descomentar la siguiente linea
-app.set("view engine", ".ejs");
-app.set("views", path.join(__dirname, "views/ejs"));
+// Todo: Para utilizar ejs descomentar las siguientes 2 lineas
+// app.set("view engine", ".ejs");
+// app.set("views", path.join(__dirname, "views/ejs"));
 
-// Todo: Para utilizar pug descomentar la siguiente linea
+// Todo: Para utilizar pug descomentar las siguientes 2 lineas
 // app.set('view engine', 'pug')
 // app.set("views", path.join(__dirname, "views/pug"));
 

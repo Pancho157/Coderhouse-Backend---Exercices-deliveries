@@ -1,26 +1,29 @@
-{{nav}}
-<div class="container mt-5">
-  <div class="row">
-    <div class="col">
-      <table class="table">
-        <thead class="table-dark">
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Imagen</th>
-        </thead>
-        <tbody>
-          {{! Mientras alla productos que vaya cargando una linea }}
-          {{#each lista}}
-            <tr>
-              <td>{{this.id}}</td>
-              <td>{{this.nombre}}</td>
-              <td>AR${{this.precio}}</td>
-              <td><img src="{{this.urlImagen}}" height="30px" /></td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+{{> nav}}
+
+<table class="table">
+  <thead class='table__head'>
+    <th class='table__th'>ID</th>
+    <th class='table__th'>Nombre</th>
+    <th class='table__th'>Precio</th>
+    <th class='table__th'>Imagen</th>
+  </thead>
+  <tbody>
+    {{#if products}}
+      {{#each products}}
+        <tr class='table__tr'>
+          <td class='table__td'>{{this.id}}</td>
+          <td class='table__td'>{{this.title}}</td>
+          <td class='table__td'>AR${{this.price}}</td>
+          <td class='table__td'><img src="{{this.thumbnail}}" /></td>
+        </tr>
+      {{/each}}
+    {{else}}
+        <tr class='table__tr'>
+          <td class='table__td'></td>
+          <td class='table__td'> No se hallaron productos </td>
+          <td class='table__td'></td>
+          <td class='table__td'></td>
+        </tr>
+    {{/if}}
+  </tbody>
+</table>
