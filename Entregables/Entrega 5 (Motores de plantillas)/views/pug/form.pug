@@ -2,19 +2,19 @@ include partials/head.pug
 include partials/nav.pug
 
 div(class='form__container')
-  form(id="data" class='form')
+  form(id="form" class='form')
     div(class='form__inputContainer')
       label(class='form__label') Nombre del Producto
-      input(class='form__input' id='nombre' placeholder='Nombre del Producto:')
+      input(class='form__input' id='title' placeholder='Nombre del Producto:')
 
     div(class='form__inputContainer')
       label(class='form__label') Precio en AR$
-      input(class='form__input' id='precio' placeholder='Precio en AR$:')
+      input(class='form__input' id='price' placeholder='Precio en AR$:')
 
     div(class='form__inputContainer')
       label(class='form__label') URL de la imagen
-      input(class='form__input' id='urlImagen' placeholder='URL de la imagen:')
+      input(class='form__input' id='thumbnail' placeholder='URL de la imagen:')
 
     button(type='submit' class='form__button' onclick='guardarProducto()') Guardar
 
-script(src="js/main.js") 
+script(src="/main.js") 

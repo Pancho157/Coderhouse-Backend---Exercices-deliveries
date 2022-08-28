@@ -1,19 +1,23 @@
 const guardarProducto = async () => {
-  const nombre = document.getElementById("nombre").value;
-  const precio = document.getElementById("precio").value;
-  const urlImagen = document.getElementById("urlImagen").value;
+  const form = document.getElementById("form").value;
+  const title = document.getElementById("title").value;
+  const price = document.getElementById("price").value;
+  const thumbnail = document.getElementById("thumbnail").value;
 
   try {
-    const data = { nombre, precio, urlImagen };
     const response = await fetch("/api/productos", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        title: title,
+        price: price,
+        thumbnail: thumbnail,
+      }),
       headers: { "Content-Type": "application/json" },
     });
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    let err = new Error(error);
-    return err;
+    console.log(response);
+    // Deja la data en el formulario si hay un error
+    form.reset();
+  } catch (err) {
+    return new Error(err);
   }
 };
