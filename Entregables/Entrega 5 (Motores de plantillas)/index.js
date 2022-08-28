@@ -29,6 +29,7 @@ app.set("views", path.join(__dirname, "views/handlebars"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
 
 // Router
 app.use("/api/productos", require("./router/sin_usar_clases"));
