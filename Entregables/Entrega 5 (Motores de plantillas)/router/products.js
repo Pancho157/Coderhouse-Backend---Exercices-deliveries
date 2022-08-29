@@ -94,4 +94,7 @@ router.delete("/:id", async (req, res) => {
   res.send(`Se ha eliminado el producto con el ID: ${id}`);
 });
 
-(module.exports = router), { products };
+module.exports = {
+  router: router,
+  products: products,
+};

@@ -45,3 +45,17 @@
 - Link a un repositorio en GitHub con los tres proyectos en carpetas separadas
 
 - No inluír la carpeta _node_modules_
+
+
+---
+---
+---
+### Opinión sobre los motores utilizados
+
+- Consigna: Por escrito, indicar cuál de los tres motores de plantillas prefieres para tu proyecto y por qué
+
+- Respuesta: 
+
+De los tres motores de plantillas utilizados me gustó más PUG, debido a que es el más sencillo de utilizar para mi gusto, sin contar de que es el más rápido de escribirse y más sencillo de aprender.
+
+Si bien hay que prestar atención a la identación, no es algo que me moleste, ya que me encuentro acostumbrado a ello

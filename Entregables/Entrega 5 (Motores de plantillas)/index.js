@@ -3,7 +3,13 @@ const path = require("path");
 const { engine } = require("express-handlebars");
 const ejs = require("ejs");
 const pug = require("pug");
-const { products } = require("./router/productos");
+const { router, products } = require("./router/products");
+
+// const { products } = require("./router/productos");
+
+// const classes = require("./router/Contenedor");
+
+// let products = new classes.Products();
 
 var app = express();
 
@@ -22,7 +28,7 @@ const server = app.listen(PORT, () => {
 // app.set("views", path.join(__dirname, "views/ejs"));
 
 // Todo: Para utilizar pug descomentar las siguientes 2 lineas
-app.set('view engine', 'pug')
+app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views/pug"));
 
 // Establece donde buscar las vistas
@@ -32,7 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
 // Router
-app.use("/api/productos", require("./router/sin_usar_clases"));
+app.use("/api/productos", router);
 
 // Renderiza el formulario
 app.get("/", (req, res) => {
@@ -48,3 +54,5 @@ app.get("/productos", (req, res) => {
 app.use((req, res) => {
   res.status(404).send("No se encontró la página que estás buscando");
 });
+
+module.exports = products;
