@@ -6,15 +6,17 @@ const app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-io.on(`connection`, (socket) => {
-  console.log("Nuevo cliente conectado");
-});
-
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 const PORT = process.env.PORT || 8080;
 const connectedServer = httpServer.listen(PORT, () => {
   console.log(`Http - Socket Server On - Port: ${PORT}`);
+});
+
+io.on(`connection`, (socket) => {
+  console.log("Nuevo cliente conectado");
 });
 
 connectedServer.on("error", (error) => console.warn(error));
