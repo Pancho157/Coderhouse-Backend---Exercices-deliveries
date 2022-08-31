@@ -7,5 +7,5 @@ input.addEventListener("input", () => {
 });
 
 socket.on("messageFromServer", (messages) => {
-  document.querySelectorAll("p").innerText = mensajes;
+  document.querySelectorAll("p").innerText = messages;
 });
