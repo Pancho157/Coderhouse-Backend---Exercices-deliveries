@@ -17,6 +17,11 @@ const connectedServer = httpServer.listen(PORT, () => {
 
 io.on(`connection`, (socket) => {
   console.log("Nuevo cliente conectado");
+
+  // Solo se puede distinguir los sockets desde dentro de io (conexión)
+  socket.on("messageToServer", (messages) => {
+    io.sockets.emit("messagesFromServer", messages);
+  });
 });
 
 connectedServer.on("error", (error) => console.warn(error));
