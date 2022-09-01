@@ -19,8 +19,8 @@ io.on(`connection`, (socket) => {
   console.log("Nuevo cliente conectado");
 
   // Solo se puede distinguir los sockets desde dentro de io (conexión)
-  socket.on("messageToServer", (messages) => {
-    io.sockets.emit("messagesFromServer", messages);
+  socket.on("messageToServer", (data) => {
+    io.sockets.emit("messagesFromServer", data);
   });
 });
 
