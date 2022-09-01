@@ -50,7 +50,7 @@ io.on(`connection`, (socket) => {
 
   socket.on("new-product", (data) => {
     products.add(data);
-    
+
     let messagesAndProducts = {
       messages: messages,
       products: products.getAll(),

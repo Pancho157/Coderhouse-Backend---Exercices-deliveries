@@ -46,6 +46,6 @@ Para la consigna 2:
 
 ---
 
-- Link a un repositorio en GitHub con los tres proyectos en carpetas separadas
+- Link a un repositorio en GitHub
 
 - No inluír la carpeta _node_modules_
