@@ -13,15 +13,50 @@ socket.on("serverProducts", (data) => {
   tableBody.appendChild(p);
 });
 
-// input.addEventListener("input", () => {
-//   socket.emit("messageToServer", input.value);
-// });
+// -------------------- Mensajes del chat ---------------------
+const addMessage = (e) => {
+  let date = new Date().toLocaleDateString() + " " + new Date().toTimeString();
+  let dateTime = date.split(" ");
 
-socket.on("messagesFromServer", (data) => {
-  var p = document.createElement("p");
-  p.innerText = data;
-  messagesContainer.appendChild(p);
-});
+  const message = {
+    email: document.getElementById("email").value,
+    message: document.getElementById("message").value,
+    date: dateTime[0] + " " + fyh[1],
+  };
+
+  socket.emit("new-message", message);
+
+  // Limpia el input para el mensaje, dejando el correo
+  document.getElementById("message").value = " ";
+  return false;
+};
+
+const renderMessages = (data) => {
+  const html = data.messages
+    .map((elem, index) => {
+      return `<div>
+                <strong class="text-primary">${elem.author}</strong>:
+                <span class="text-danger">[${elem.date}]<span>
+                <em class="text-success">${elem.text}</em>
+              </div>`;
+    })
+    .join(" ");
+
+  document.getElementById("chat__messagesContainer").innerHTML = html;
+  const productsHTML = data.products
+    .map((product) => {
+      return `
+      <tr class='table__tr'>
+        <td class='table__td'>${product.id}</td>
+        <td class='table__td'>${product.title}</td>
+        <td class='table__td'>AR${product.price}</td>
+        <td class='table__td'><img src="${product.thumbnail}" /></td>
+      </tr>`;
+    })
+    .join(" ");
+
+  document.getElementById("table__body").innerHTML = productsHTML;
+};
 
 // -------------------- Guardar producto (formulario) ---------------------
 const guardarProducto = async () => {

@@ -3,7 +3,7 @@ const path = require("path");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const { engine } = require("express-handlebars");
-const { router, products } = require("./router/products");
+const router = require("./router/products");
 
 var app = express();
 const httpServer = new HttpServer(app);
@@ -39,11 +39,6 @@ app.use("/api/productos", router);
 // ----------------------- Renderiza el formulario -----------------------
 app.get("/", (req, res) => {
   res.render("form");
-});
-
-// ----------------------- Renderiza la tabla -----------------------
-app.get("/productos", (req, res) => {
-  res.render("productsTable", { products: products });
 });
 
 // ----------------------- Error 404 -----------------------
