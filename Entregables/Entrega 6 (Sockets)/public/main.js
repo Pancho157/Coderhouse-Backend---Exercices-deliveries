@@ -1,3 +1,19 @@
+// -------------------- Conexión Sockets ---------------------
+const socket = io.connect();
+const input = document.getElementById("input");
+const messagesContainer = document.getElementById("messagesContainer");
+
+input.addEventListener("input", () => {
+  socket.emit("messageToServer", input.value);
+});
+
+socket.on("messagesFromServer", (data) => {
+  var p = document.createElement("p");
+  p.innerText = data;
+  messagesContainer.appendChild(p);
+});
+
+// -------------------- Guardar producto (formulario) ---------------------
 const guardarProducto = async () => {
   const form = document.getElementById("form").value;
   const title = document.getElementById("title").value;
