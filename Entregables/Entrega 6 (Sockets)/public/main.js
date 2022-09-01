@@ -3,16 +3,6 @@ const socket = io.connect();
 const tableBody = document.getElementById("table__body");
 const messagesContainer = document.getElementById("messagesContainer");
 
-window.onload = function () {
-  socket.emit("productsRequest");
-};
-
-socket.on("serverProducts", (data) => {
-  var p = document.createElement("p");
-  p.innerText = data;
-  tableBody.appendChild(p);
-});
-
 // -------------------- Mensajes del chat ---------------------
 const addMessage = (e) => {
   let date = new Date().toLocaleDateString() + " " + new Date().toTimeString();

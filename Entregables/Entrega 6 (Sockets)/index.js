@@ -4,14 +4,22 @@ const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const { engine } = require("express-handlebars");
 const router = require("./router/products");
+const products = require("./router/Contenedor");
 
 var app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
+let messages = [];
+
 const PORT = process.env.PORT || 8080;
 const connectedServer = httpServer.listen(PORT, () => {
   console.log(`Http - Socket Server On - Port: ${PORT}`);
+});
+
+// En caso de fallar el servidor de sockets
+connectedServer.on("error", (err) => {
+  console.log(err);
 });
 
 // ----------------------- Handlebars -----------------------
@@ -26,10 +34,28 @@ app.use(express.static(__dirname + "/public"));
 // ----------------------- Manejo con sockets -----------------------
 io.on(`connection`, (socket) => {
   console.log("Nuevo cliente conectado");
+  // * Solo se puede manejar los sockets desde dentro de io
 
-  // Solo se puede distinguir los sockets desde dentro de io (conexión)
-  socket.on("messageToServer", (data) => {
-    io.sockets.emit("messagesFromServer", data);
+  socket.emit("messages", { messages, products: products.getAll() });
+
+  socket.on("new-message", (data) => {
+    messages.push(data);
+
+    let messagesAndProducts = {
+      messages: messages,
+      products: products.getAll(),
+    };
+    io.sockets.emit("messages", messagesAndProducts);
+  });
+
+  socket.on("new-product", (data) => {
+    products.add(data);
+    
+    let messagesAndProducts = {
+      messages: messages,
+      products: products.getAll(),
+    };
+    io.sockets.emit("messages", messagesAndProducts);
   });
 });
 
