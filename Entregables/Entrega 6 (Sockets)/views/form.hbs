@@ -20,4 +20,37 @@
         <button type='submit' class='form__button' onclick='guardarProducto()'>Guardar</button>
     </form>
 </div>
+
+<div class="chat-table__container">
+  <div class="chat__container">
+    <div class="chat__messagesContainer"></div>
+
+    <input class='chat__input' id='email' type="email" required placeholder="Ingresar email"/>
+    <input class='chat__input' id='message' type="text" required placeholder="Ingresar mensaje"/>
+    <button type="button" onclick="envíarMensaje()" class="chat__sendButton">
+      <img src="https://static.thenounproject.com/png/373675-200.png" alt=">" class="chat__buttonIMG">
+    </button>
+  </div>
+
+
+  <table class="table">
+    <thead class='table__head'>
+      <th class='table__th'>ID</th>
+      <th class='table__th'>Nombre</th>
+      <th class='table__th'>Precio</th>
+      <th class='table__th'>Imagen</th>
+    </thead>
+    <tbody id="table__body">
+      {{!-- <tr class='table__tr'>
+          <td class='table__td'>{{this.id}}</td>
+          <td class='table__td'>{{this.title}}</td>
+          <td class='table__td'>AR${{this.price}}</td>
+          <td class='table__td'><img src="{{this.thumbnail}}" /></td>
+      </tr> --}}
+    </tbody>
+  </table>
+</div>
+
+
+
 <script src="/main.js"></script>
