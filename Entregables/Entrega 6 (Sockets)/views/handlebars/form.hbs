@@ -1,0 +1,23 @@
+{{> nav }}
+
+<div class='form__container'>
+    <form id="form" class="form">
+        <div class='form__inputContainer'>
+            <label class='form__label'>Nombre del Producto</label>
+            <input class='form__input' id='title' />
+        </div>
+
+        <div class='form__inputContainer'>
+            <label class='form__label'>Precio en AR$</label>
+            <input class='form__input' id='price' />
+        </div>
+
+        <div class='form__inputContainer'>
+            <label class='form__label'>URL de la imagen</label>
+            <input class='form__input' id='thumbnail' />
+        </div>
+
+        <button type='submit' class='form__button' onclick='guardarProducto()'>Guardar</button>
+    </form>
+</div>
+<script src="/main.js"></script>

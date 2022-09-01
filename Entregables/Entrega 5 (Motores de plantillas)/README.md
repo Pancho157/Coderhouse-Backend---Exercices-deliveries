@@ -2,7 +2,7 @@
 
 # Comisión #32095
 
-# Desafio 6
+# Desafio 5
 
 ## Consigna:
 

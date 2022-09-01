@@ -1,27 +1,47 @@
 const express = require("express");
-const { Server: HttpServer } = require("http");
-const { Server: IOServer } = require("socket.io");
+const path = require("path");
+const { engine } = require("express-handlebars");
+const ejs = require("ejs");
+const pug = require("pug");
+const { router, products } = require("./router/products");
 
-const app = express();
-const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
+// const { products } = require("./router/productos");
+
+// const classes = require("./router/Contenedor");
+
+// let products = new classes.Products();
+
+var app = express();
+
+const PORT = process.env.PORT || 8080;
+const server = app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
+
+app.engine(".hbs", engine({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.set("views", path.join(__dirname, "views/handlebars"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
-const PORT = process.env.PORT || 8080;
-const connectedServer = httpServer.listen(PORT, () => {
-  console.log(`Http - Socket Server On - Port: ${PORT}`);
+// Router
+app.use("/api/productos", router);
+
+// Renderiza el formulario
+app.get("/", (req, res) => {
+  res.render("form");
 });
 
-io.on(`connection`, (socket) => {
-  console.log("Nuevo cliente conectado");
-
-  // Solo se puede distinguir los sockets desde dentro de io (conexión)
-  socket.on("messageToServer", (data) => {
-    io.sockets.emit("messagesFromServer", data);
-  });
+// Renderiza la tabla con los productos y le envía los productos
+app.get("/productos", (req, res) => {
+  res.render("productsTable", { products: products });
 });
 
-connectedServer.on("error", (error) => console.warn(error));
+// Da el error 404 en caso de no encontrar un endpoint (debe estar debajo de todas las rutas)
+app.use((req, res) => {
+  res.status(404).send("No se encontró la página que estás buscando");
+});
+
+module.exports = products;
