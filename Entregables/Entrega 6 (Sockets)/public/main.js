@@ -23,9 +23,10 @@ const addMessage = (e) => {
 };
 
 const renderMessagesAndProducts = (data) => {
-  const html = data.messages
-    .map((elem, index) => {
-      return `
+  if (data.messages.length != 0) {
+    const html = data.messages
+      .map((elem, index) => {
+        return `
       <div>
         <span class="message__email">${elem.email}</span>:
         <span class="message__date">[${elem.date}]<span>
@@ -33,27 +34,32 @@ const renderMessagesAndProducts = (data) => {
         <p class="message__text">${elem.message}</p>
       </div>
       `;
-    })
-    .join(" ");
+      })
+      .join(" ");
 
-  // Renderiza los mensajes
-  const messagesContainer = document.querySelector(".chat__messagesContainer");
-  messagesContainer.innerHTML = html;
+    // Renderiza los mensajes
+    const messagesContainer = document.querySelector(
+      ".chat__messagesContainer"
+    );
+    messagesContainer.innerHTML = html;
+  }
 
-  // Renderiza los productos en la tabla
-  const productsHTML = data.products
-    .map((product) => {
-      return `
-      <tr class='table__tr'>
-        <td class='table__td'>${product.id}</td>
-        <td class='table__td'>${product.title}</td>
-        <td class='table__td'>AR${product.price}</td>
-        <td class='table__td'><img src="${product.thumbnail}" /></td>
-      </tr>`;
-    })
-    .join(" ");
+  if (data.products) {
+    // Renderiza los productos en la tabla
+    const productsHTML = data.products
+      .map((product) => {
+        return `
+    <tr class='table__tr'>
+      <td class='table__td'>${product.id}</td>
+      <td class='table__td'>${product.title}</td>
+      <td class='table__td'>AR${product.price}</td>
+      <td class='table__td'><img src="${product.thumbnail}" /></td>
+    </tr>`;
+      })
+      .join(" ");
 
-  document.getElementById("table__body").innerHTML = productsHTML;
+    document.getElementById("table__body").innerHTML = productsHTML;
+  }
 };
 
 // -------------------- Guardar producto (formulario) ---------------------
