@@ -5,7 +5,7 @@ const messagesContainer = document.getElementById("messagesContainer");
 
 // -------------------- Mensajes del chat ---------------------
 const addMessage = (e) => {
-  console.log('addMessage')
+  console.log("addMessage");
   let date = new Date().toLocaleDateString() + " " + new Date().toTimeString();
   let dateTime = date.split(" ");
 
@@ -27,16 +27,18 @@ const renderMessagesAndProducts = (data) => {
     .map((elem, index) => {
       return `
       <div>
-        <span class="message__email">${elem.author}</span>:
+        <span class="message__email">${elem.email}</span>:
         <span class="message__date">[${elem.date}]<span>
         <br>
-        <p class="message__text">${elem.text}</p>
+        <p class="message__text">${elem.message}</p>
       </div>
       `;
     })
     .join(" ");
+
   // Renderiza los mensajes
-  document.getElementById("chat__messagesContainer").innerHTML = html;
+  const messagesContainer = document.querySelector(".chat__messagesContainer");
+  messagesContainer.innerHTML = html;
 
   // Renderiza los productos en la tabla
   const productsHTML = data.products
