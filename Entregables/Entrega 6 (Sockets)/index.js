@@ -39,13 +39,14 @@ io.on(`connection`, (socket) => {
   socket.emit("messages", { messages, products: products.getAll() });
 
   socket.on("new-message", (data) => {
+    console.log(data);
     messages.push(data);
 
     let messagesAndProducts = {
       messages: messages,
       products: products.getAll(),
     };
-    io.sockets.emit("messages", messagesAndProducts);
+    io.sockets.emit("messagesFromServer", messagesAndProducts);
   });
 
   socket.on("new-product", (data) => {

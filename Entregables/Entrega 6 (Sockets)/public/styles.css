@@ -137,10 +137,26 @@
 .chat__messagesContainer {
   width: 100%;
   height: 310px;
+  padding: 10px 10px 10px 10px;
   background-color: #fff;
   border-radius: 20px;
   margin-bottom: 20px;
   overflow: auto;
+}
+
+.message__email {
+  margin-top: 20px;
+  color: #0000ff;
+  font-weight: bold;
+}
+
+.message__date {
+  color: #88531e;
+}
+
+.message__text {
+  color: #1bc72f;
+  font-style: italic;
 }
 
 .chat__input {
@@ -159,6 +175,7 @@
   background-color: #e57e1f;
   border-radius: 8px;
   float: right;
+  cursor: pointer;
 }
 
 .chat__buttonIMG {

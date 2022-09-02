@@ -5,13 +5,14 @@ const messagesContainer = document.getElementById("messagesContainer");
 
 // -------------------- Mensajes del chat ---------------------
 const addMessage = (e) => {
+  console.log('addMessage')
   let date = new Date().toLocaleDateString() + " " + new Date().toTimeString();
   let dateTime = date.split(" ");
 
   const message = {
     email: document.getElementById("email").value,
     message: document.getElementById("message").value,
-    date: dateTime[0] + " " + fyh[1],
+    date: dateTime[0] + " " + dateTime[1],
   };
 
   socket.emit("new-message", message);
@@ -21,14 +22,17 @@ const addMessage = (e) => {
   return false;
 };
 
-const renderMessages = (data) => {
+const renderMessagesAndProducts = (data) => {
   const html = data.messages
     .map((elem, index) => {
-      return `<div>
-                <strong class="text-primary">${elem.author}</strong>:
-                <span class="text-danger">[${elem.date}]<span>
-                <em class="text-success">${elem.text}</em>
-              </div>`;
+      return `
+      <div>
+        <span class="message__email">${elem.author}</span>:
+        <span class="message__date">[${elem.date}]<span>
+        <br>
+        <p class="message__text">${elem.text}</p>
+      </div>
+      `;
     })
     .join(" ");
   // Renderiza los mensajes
@@ -51,7 +55,7 @@ const renderMessages = (data) => {
 };
 
 // -------------------- Guardar producto (formulario) ---------------------
-const guardarProducto = () => {
+const addProduct = () => {
   const form = document.getElementById("form").value;
   const title = document.getElementById("title").value;
   const price = document.getElementById("price").value;
@@ -70,5 +74,5 @@ const guardarProducto = () => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
-  renderMessages(messages);
+  renderMessagesAndProducts(messages);
 });

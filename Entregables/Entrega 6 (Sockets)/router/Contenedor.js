@@ -85,4 +85,4 @@ class Products {
 
 let products = new Products("./products.txt");
 
-module.exports = { products };
+module.exports = products;
