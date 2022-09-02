@@ -56,7 +56,7 @@ io.on(`connection`, (socket) => {
       messages: messages,
       products: products.getAll(),
     };
-    io.sockets.emit("messages", messagesAndProducts);
+    io.sockets.emit("messagesFromServer", messagesAndProducts);
   });
 });
 

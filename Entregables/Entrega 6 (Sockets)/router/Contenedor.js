@@ -1,6 +1,7 @@
 class Products {
   constructor(route) {
     this.route = route;
+    this.products = [];
     this.lastId = 0;
   }
 
