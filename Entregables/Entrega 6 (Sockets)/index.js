@@ -5,12 +5,11 @@ const { Server: IOServer } = require("socket.io");
 const { engine } = require("express-handlebars");
 const router = require("./router/products");
 const products = require("./router/Contenedor");
+const { getChatMessages, addMessage } = require("./chat/chatFunctions");
 
 var app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
-
-let messages = [];
 
 const PORT = process.env.PORT || 8080;
 const connectedServer = httpServer.listen(PORT, () => {
@@ -32,16 +31,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
 // ----------------------- Manejo con sockets -----------------------
-io.on(`connection`, (socket) => {
+io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
-  // * Solo se puede manejar los sockets desde dentro de io
 
-  socket.emit("messagesFromServer", messages);
+  socket.emit("messagesFromServer", await getChatMessages());
   socket.emit("productsFromServer", products.getAll());
 
-  socket.on("new-message", (data) => {
-    messages.push(data);
-    io.sockets.emit("messagesFromServer", messages);
+  socket.on("new-message", async (data) => {
+    await addMessage(data);
+    io.sockets.emit("messagesFromServer", await getChatMessages());
   });
 
   socket.on("new-product", (data) => {

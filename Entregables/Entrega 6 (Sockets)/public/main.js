@@ -34,7 +34,6 @@ const renderMessages = (messages) => {
         `;
     });
   }
-  return false;
 };
 
 const renderProducts = (products) => {
@@ -48,7 +47,6 @@ const renderProducts = (products) => {
             <td class='table__td'><img src="${product.thumbnail}" /></td>
           </tr>`;
   });
-  return false;
 };
 
 // -------------------- Guardar producto (formulario) ---------------------
@@ -71,9 +69,13 @@ const addProduct = () => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
+  console.log("mensajes");
+  console.log(messages);
   renderMessages(messages);
 });
 
 socket.on("productsFromServer", (products) => {
+  console.log("productos");
+  console.log(products);
   renderProducts(products);
 });
