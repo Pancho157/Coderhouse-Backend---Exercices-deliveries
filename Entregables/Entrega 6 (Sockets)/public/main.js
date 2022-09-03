@@ -34,6 +34,7 @@ const renderMessages = (messages) => {
         `;
     });
   }
+  return false;
 };
 
 const renderProducts = (products) => {
@@ -47,6 +48,7 @@ const renderProducts = (products) => {
             <td class='table__td'><img src="${product.thumbnail}" /></td>
           </tr>`;
   });
+  return false;
 };
 
 // -------------------- Guardar producto (formulario) ---------------------

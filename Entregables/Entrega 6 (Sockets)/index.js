@@ -37,6 +37,7 @@ io.on(`connection`, (socket) => {
   // * Solo se puede manejar los sockets desde dentro de io
 
   socket.emit("messagesFromServer", messages);
+  socket.emit("productsFromServer", products.getAll());
 
   socket.on("new-message", (data) => {
     messages.push(data);
