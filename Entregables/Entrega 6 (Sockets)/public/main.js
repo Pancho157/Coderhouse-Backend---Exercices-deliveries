@@ -22,10 +22,9 @@ const addMessage = (e) => {
 };
 
 const renderMessages = (messages) => {
-  document.querySelector(".chat__messagesContainer").innerHTML = "";
-  if (messages.lenght > 0) {
-    messages.forEach((message) => {
-      document.querySelector(".chat__messagesContainer").innerHTML += `
+  const messagesHTML = messages
+    .map((message) => {
+      return `
         <div>
           <span class="message__email">${message.email}</span>:
           <span class="message__date">[${message.date}]<span>
@@ -33,8 +32,9 @@ const renderMessages = (messages) => {
           <p class="message__text">${message.message}</p>
         </div>
         `;
-    });
-  }
+    })
+    .join(" ");
+  document.getElementById("chat__messagesContainer").innerHTML = messagesHTML;
 };
 
 const renderProducts = (products) => {
@@ -71,13 +71,9 @@ const addProduct = () => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
-  console.log("mensajes");
-  console.log(messages);
   renderMessages(messages);
 });
 
 socket.on("productsFromServer", (products) => {
-  console.log("productos");
-  console.log(products);
   renderProducts(products);
 });

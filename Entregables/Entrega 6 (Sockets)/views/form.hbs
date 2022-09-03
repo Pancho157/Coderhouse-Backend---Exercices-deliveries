@@ -1,27 +1,31 @@
-<div class='form__container'>
-    <form id="form" class="form">
-        <div class='form__inputContainer'>
-            <label class='form__label'>Nombre del Producto *</label>
-            <input class='form__input' id='title' required/>
-        </div>
+<div class="form__container">
+  <form id="form" class="form">
+    <div class="form__inputContainer">
+      <label class="form__label">Nombre del Producto *</label>
+      <input class="form__input" id="title" required />
+    </div>
 
-        <div class='form__inputContainer'>
-            <label class='form__label'>Precio en AR$ *</label>
-            <input class='form__input' id='price' required/>
-        </div>
+    <div class="form__inputContainer">
+      <label class="form__label">Precio en AR$ *</label>
+      <input class="form__input" id="price" required />
+    </div>
 
-        <div class='form__inputContainer'>
-            <label class='form__label'>URL de la imagen *</label>
-            <input class='form__input' id='thumbnail' required/>
-        </div>
+    <div class="form__inputContainer">
+      <label class="form__label">URL de la imagen *</label>
+      <input class="form__input" id="thumbnail" required />
+    </div>
 
-        <button type='submit' class='form__button' onclick='addProduct()'>Guardar</button>
-    </form>
+    <button
+      type="submit"
+      class="form__button"
+      onclick="addProduct()"
+    >Guardar</button>
+  </form>
 </div>
 
 <div class="chat-table__container">
   <div class="chat__container">
-    <div class="chat__messagesContainer">
+    <div class="chat__messagesContainer" id="chat__messagesContainer">
       {{!-- <div>
         <span class="message__email">emailDePrueba@gmail.com</sp>:
         <span class="message__date">02/09/2022 18:08:10<span>
@@ -30,20 +34,35 @@
       </div> --}}
     </div>
 
-    <input class='chat__input' id='email' type="email" required placeholder="Ingresar email"/>
-    <input class='chat__input' id='message' type="text" required placeholder="Ingresar mensaje"/>
+    <input
+      class="chat__input"
+      id="email"
+      type="email"
+      required
+      placeholder="Ingresar email"
+    />
+    <input
+      class="chat__input"
+      id="message"
+      type="text"
+      required
+      placeholder="Ingresar mensaje"
+    />
     <button type="button" onclick="addMessage()" class="chat__sendButton">
-      <img src="https://static.thenounproject.com/png/373675-200.png" alt=">" class="chat__buttonIMG">
+      <img
+        src="https://static.thenounproject.com/png/373675-200.png"
+        alt=">"
+        class="chat__buttonIMG"
+      />
     </button>
   </div>
 
-
   <table class="table">
-    <thead class='table__head'>
-      <th class='table__th'>ID</th>
-      <th class='table__th'>Nombre</th>
-      <th class='table__th'>Precio</th>
-      <th class='table__th'>Imagen</th>
+    <thead class="table__head">
+      <th class="table__th">ID</th>
+      <th class="table__th">Nombre</th>
+      <th class="table__th">Precio</th>
+      <th class="table__th">Imagen</th>
     </thead>
     <tbody id="table__body">
       {{!-- <tr class='table__tr'>
@@ -51,11 +70,9 @@
           <td class='table__td'>{{this.title}}</td>
           <td class='table__td'>AR${{this.price}}</td>
           <td class='table__td'><img src="{{this.thumbnail}}" /></td>
-      </tr> --}} 
+      </tr> --}}
     </tbody>
   </table>
 </div>
-
-
 
 <script src="/main.js"></script>
