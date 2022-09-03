@@ -22,9 +22,10 @@ const addMessage = (e) => {
 };
 
 const renderMessages = (messages) => {
+  document.querySelector(".chat__messagesContainer").innerHTML = "";
   if (messages.lenght > 0) {
     messages.forEach((message) => {
-      document.getElementById("chat__messagesContainer").innerHTML += `
+      document.querySelector(".chat__messagesContainer").innerHTML += `
         <div>
           <span class="message__email">${message.email}</span>:
           <span class="message__date">[${message.date}]<span>
@@ -37,6 +38,7 @@ const renderMessages = (messages) => {
 };
 
 const renderProducts = (products) => {
+  document.getElementById("table__body").innerHTML = "";
   // Renderiza los productos en la tabla
   products.forEach((product) => {
     document.getElementById("table__body").innerHTML += `

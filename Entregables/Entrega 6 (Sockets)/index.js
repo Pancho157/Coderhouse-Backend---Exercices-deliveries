@@ -34,8 +34,8 @@ app.use(express.static(__dirname + "/public"));
 io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
 
-  socket.emit("messagesFromServer", await getChatMessages());
   socket.emit("productsFromServer", products.getAll());
+  socket.emit("messagesFromServer", await getChatMessages());
 
   socket.on("new-message", async (data) => {
     await addMessage(data);
