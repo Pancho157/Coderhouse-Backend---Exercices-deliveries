@@ -36,27 +36,16 @@ io.on(`connection`, (socket) => {
   console.log("Nuevo cliente conectado");
   // * Solo se puede manejar los sockets desde dentro de io
 
-  socket.emit("messages", { messages, products: products.getAll() });
+  socket.emit("messagesFromServer", messages);
 
   socket.on("new-message", (data) => {
-    console.log(data);
     messages.push(data);
-
-    let messagesAndProducts = {
-      messages: messages,
-      products: products.getAll(),
-    };
-    io.sockets.emit("messagesFromServer", messagesAndProducts);
+    io.sockets.emit("messagesFromServer", messages);
   });
 
   socket.on("new-product", (data) => {
     products.add(data);
-
-    let messagesAndProducts = {
-      messages: messages,
-      products: products.getAll(),
-    };
-    io.sockets.emit("messagesFromServer", messagesAndProducts);
+    io.sockets.emit("productsFromServer", products.getAll());
   });
 });
 

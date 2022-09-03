@@ -1,6 +1,5 @@
 class Products {
-  constructor(route) {
-    this.route = route;
+  constructor() {
     this.products = [];
     this.lastId = 0;
   }
@@ -84,6 +83,6 @@ class Products {
   }
 }
 
-let products = new Products("./products.txt");
+let products = new Products();
 
 module.exports = products;
