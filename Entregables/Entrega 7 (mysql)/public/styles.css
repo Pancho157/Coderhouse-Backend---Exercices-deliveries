@@ -126,7 +126,7 @@ body {
 /* ---------- Estilos del chat ------------- */
 
 .chat__container {
-  width: 400px;
+  width: 500px;
   height: 440px;
   background-color: #333333;
   border: 1px solid #fff;
@@ -146,7 +146,7 @@ body {
 }
 
 .message__email {
-  margin-top: 20px;
+  margin-top: 40px;
   color: #0000ff;
   font-weight: bold;
 }
@@ -158,6 +158,7 @@ body {
 .message__text {
   color: #1bc72f;
   font-style: italic;
+  margin-bottom: 16px;
 }
 
 .chat__input {
