@@ -1,4 +1,4 @@
-import knexLib from "knex";
+const knexLib = require("knex");
 
 class ChatSQL {
   constructor(config) {
@@ -11,8 +11,8 @@ class ChatSQL {
         return this.knex.schema.createTable("messages", (table) => {
           table.increments("id").primary();
           table.string("email", 50).notNullable();
-          table.string("fecha").notNullable();
-          table.string("mensaje").notNullable();
+          table.string("date").notNullable();
+          table.string("message").notNullable();
         });
       }
     });
@@ -27,4 +27,4 @@ class ChatSQL {
   }
 }
 
-export default ChatSQL;
+module.exports = { ChatSQL };

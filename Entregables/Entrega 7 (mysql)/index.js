@@ -4,6 +4,8 @@ const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const { engine } = require("express-handlebars");
 const router = require("./routes/apiProductos");
+const { ChatSQL } = require("./DB/controllers/ChatController");
+const { knexOptionsChat } = require("./DB/options/sqlite3-chat");
 
 var app = express();
 const httpServer = new HttpServer(app);
@@ -28,16 +30,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
+// ----------------------- Conexiones a BBDDs -----------------------
+let chatMessages = new ChatSQL(knexOptionsChat);
+// let products = new ProductosSQL(options);
+
+chatMessages.createTable();
+// products.createTable();
+
 // ----------------------- Manejo con sockets -----------------------
 io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
 
   //   socket.emit("productsFromServer", products.getAll());
-  //   socket.emit("messagesFromServer", await getChatMessages());
+  socket.emit("messagesFromServer", await chatMessages.getMessages());
 
   socket.on("new-message", async (data) => {
-    //     await addMessage(data);
-    //     io.sockets.emit("messagesFromServer", await getChatMessages());
+    await chatMessages.insertMessage(data);
+    io.sockets.emit("messagesFromServer", await chatMessages.getMessages());
   });
 
   //   socket.on("new-product", (data) => {

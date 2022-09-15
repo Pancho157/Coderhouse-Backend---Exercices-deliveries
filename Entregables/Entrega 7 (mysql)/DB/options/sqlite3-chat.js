@@ -6,4 +6,4 @@ const knexOptionsChat = {
   useNullAsDefault: true,
 };
 
-module.exports = knexOptionsChat;
+module.exports = { knexOptionsChat };

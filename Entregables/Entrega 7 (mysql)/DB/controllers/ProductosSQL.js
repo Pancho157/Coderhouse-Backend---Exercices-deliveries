@@ -20,6 +20,7 @@ class ProductosSQL {
       }
     });
   }
+
   insertProduct(data) {
     return this.knex("products").insert(data);
   }
@@ -45,4 +46,4 @@ class ProductosSQL {
   }
 }
 
-module.exports = ProductosSQL;
+module.exports = { ProductosSQL };
