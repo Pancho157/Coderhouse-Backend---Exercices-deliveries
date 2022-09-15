@@ -6,9 +6,9 @@ class ChatSQL {
   }
 
   createTable() {
-    return this.knex.schema.hasTable("productos").then((exists) => {
+    return this.knex.schema.hasTable("messages").then((exists) => {
       if (!exists) {
-        return this.knex.schema.createTable("mensajes", (table) => {
+        return this.knex.schema.createTable("messages", (table) => {
           table.increments("id").primary();
           table.string("email", 50).notNullable();
           table.string("fecha").notNullable();
@@ -17,11 +17,13 @@ class ChatSQL {
       }
     });
   }
-  insertar(data) {
-    return this.knex("mensajes").insert(data);
+
+  insertMessage(data) {
+    return this.knex("messages").insert(data);
   }
-  consultar() {
-    return this.knex("mensajes").select("*");
+
+  getMessages() {
+    return this.knex("messages").select("*");
   }
 }
 

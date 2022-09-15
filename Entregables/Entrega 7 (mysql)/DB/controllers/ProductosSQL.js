@@ -6,9 +6,9 @@ class ProductosSQL {
   }
 
   createTable() {
-    return this.knex.schema.hasTable("productos").then((exists) => {
+    return this.knex.schema.hasTable("products").then((exists) => {
       if (!exists) {
-        return this.knex.schema.createTable("productos", (table) => {
+        return this.knex.schema.createTable("products", (table) => {
           table.increments("id").primary();
           table.string("nombre", 50).notNullable();
           table.float("precio").notNullable();
@@ -16,24 +16,24 @@ class ProductosSQL {
           table.integer("stock").notNullable();
         });
       } else {
-        return "Ya exite la tabla productos";
+        return "Ya exite la tabla products";
       }
     });
   }
   insertProduct(data) {
-    return this.knex("productos").insert(data);
+    return this.knex("products").insert(data);
   }
 
   getProducts() {
-    return this.knex("productos").select("*");
+    return this.knex("products").select("*");
   }
 
   getProductById(productId) {
-    return this.knex("productos").select({ id: productId });
+    return this.knex("products").select({ id: productId });
   }
 
   deleteById(productId) {
-    return this.knex("productos")
+    return this.knex("products")
       .where({
         id: productId,
       })
@@ -41,7 +41,7 @@ class ProductosSQL {
   }
 
   deleteAll() {
-    return this.knex("productos").del("*");
+    return this.knex("products").del("*");
   }
 }
 
