@@ -1,7 +1,7 @@
 const knexOptionsChat = {
   client: "sqlite3",
   connection: {
-    filename: "src/database/ecommerce.sqlite",
+    filename: "DB/ecommerce.sqlite",
   },
   useNullAsDefault: true,
 };
