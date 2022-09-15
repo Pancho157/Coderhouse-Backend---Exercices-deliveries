@@ -1,4 +1,4 @@
-import knexLib from "knex";
+const knexLib = require("knex");
 
 class ProductosSQL {
   constructor(config) {
@@ -45,4 +45,4 @@ class ProductosSQL {
   }
 }
 
-export default ProductosSQL;
+module.exports = ProductosSQL;

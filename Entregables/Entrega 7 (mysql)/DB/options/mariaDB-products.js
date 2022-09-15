@@ -8,4 +8,4 @@ const options = {
   },
 };
 
-export default options;
+module.exports = options;

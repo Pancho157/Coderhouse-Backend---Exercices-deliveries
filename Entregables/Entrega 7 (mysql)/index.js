@@ -3,7 +3,7 @@ const path = require("path");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const { engine } = require("express-handlebars");
-const router = require("./router/products");
+const router = require("./routes/apiProductos");
 
 var app = express();
 const httpServer = new HttpServer(app);
