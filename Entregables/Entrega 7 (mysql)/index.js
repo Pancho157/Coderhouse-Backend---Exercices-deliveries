@@ -34,16 +34,16 @@ app.use(express.static(__dirname + "/public"));
 
 // ----------------------- Conexiones a BBDDs -----------------------
 let chatMessages = new ChatSQL(knexOptionsChat);
-// let products = new ProductosSQL(options);
+let products = new ProductosSQL(options);
 
 chatMessages.createTable();
-// products.createTable();
+products.createTable();
 
 // ----------------------- Manejo con sockets -----------------------
 io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
 
-  //   socket.emit("productsFromServer", products.getAll());
+  socket.emit("productsFromServer", await products.getProducts());
   socket.emit("messagesFromServer", await chatMessages.getMessages());
 
   socket.on("new-message", async (data) => {
@@ -51,10 +51,10 @@ io.on(`connection`, async (socket) => {
     io.sockets.emit("messagesFromServer", await chatMessages.getMessages());
   });
 
-  //   socket.on("new-product", (data) => {
-  //     products.add(data);
-  //     io.sockets.emit("productsFromServer", products.getAll());
-  //   });
+  socket.on("new-product", async (data) => {
+    await products.insertProduct(data);
+    io.socket.emit("productsFromServer", await products.getProducts());
+  });
 });
 
 // ----------------------- Router -----------------------
