@@ -12,9 +12,9 @@ class ProductosSQL {
         if (!exists) {
           return this.knex.schema.createTable("products", (table) => {
             table.increments("id").primary();
-            table.string("nombre", 50).notNullable();
-            table.float("precio").notNullable();
-            table.string("imagenUrl").notNullable();
+            table.string("title", 50).notNullable();
+            table.float("price").notNullable();
+            table.string("thumbnail").notNullable();
             table.integer("stock").notNullable();
           });
         } else {
