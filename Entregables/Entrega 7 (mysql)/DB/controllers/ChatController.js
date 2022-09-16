@@ -3,6 +3,7 @@ const knexLib = require("knex");
 class ChatSQL {
   constructor(config) {
     this.knex = knexLib(config);
+    this.createTable();
   }
 
   createTable() {

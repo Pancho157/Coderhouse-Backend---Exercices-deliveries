@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { ProductosSQL } = require("../DB/controllers/ProductosSQL");
+const { ProductosSQL } = require("../DB/controllers/ProductsController");
 const { options } = require("../DB/options/mariaDB-products");
 
-// let products = new ProductosSQL(options);
-
-// products.createTable();
+let products = new ProductosSQL(options);
 
 router.get("/", async (req, res) => {
   // Devuelve todos los productos
+  let allProducts = await products.getProducts();
+  res.send(allProducts);
 });
 
 router.get("/:id", async (req, res) => {

@@ -6,6 +6,8 @@ const { engine } = require("express-handlebars");
 const router = require("./routes/apiProductos");
 const { ChatSQL } = require("./DB/controllers/ChatController");
 const { knexOptionsChat } = require("./DB/options/sqlite3-chat");
+const { ProductosSQL } = require("./DB/controllers/ProductsController");
+const { options } = require("./DB/options/mariaDB-products");
 
 var app = express();
 const httpServer = new HttpServer(app);
