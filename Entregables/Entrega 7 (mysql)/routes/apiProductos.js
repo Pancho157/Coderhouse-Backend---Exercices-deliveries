@@ -36,6 +36,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   // Recibe y actualiza un producto según su id
   try {
+    res.send(await products.updateById(req.params.id, req.body));
   } catch (err) {
     console.log(`Error: ${err}`);
   }

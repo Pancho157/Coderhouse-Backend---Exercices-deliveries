@@ -22,7 +22,7 @@ class ProductosSQL {
         }
       });
     } catch (err) {
-      console.error(`Error: ${err}`);
+      return `Error: ${err}`;
     }
   }
 
@@ -30,7 +30,15 @@ class ProductosSQL {
     try {
       return this.knex("products").insert(data);
     } catch (err) {
-      console.error(`Error: ${err}`);
+      return `Error: ${err}`;
+    }
+  }
+
+  async updateById(productId, data) {
+    try {
+      return this.knex("products").where({ id: productId }).update(data);
+    } catch (err) {
+      return `El error es: ${err}`;
     }
   }
 
@@ -38,15 +46,17 @@ class ProductosSQL {
     try {
       return this.knex("products").select("*");
     } catch (err) {
-      console.error(`Error: ${err}`);
+      return `Error: ${err}`;
     }
   }
 
   getProductById(productId) {
     try {
-      return this.knex("products").select({ id: productId });
+      return this.knex("products")
+        .select("id", "title", "price", "thumbnail", "stock")
+        .where({ id: productId });
     } catch (err) {
-      console.error(`Error: ${err}`);
+      return `Error: ${err}`;
     }
   }
 
@@ -58,15 +68,15 @@ class ProductosSQL {
         })
         .del();
     } catch (err) {
-      console.error(`Error: ${err}`);
+      return `Error: ${err}`;
     }
   }
 
   deleteAll() {
     try {
-      return this.knex("products").del("*");
+      return this.knex("products").del();
     } catch (err) {
-      console.error(`Error: ${err}`);
+      `Error: ${err}`;
     }
   }
 }
