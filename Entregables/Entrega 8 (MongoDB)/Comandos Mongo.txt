@@ -1,0 +1,52 @@
+
+----------------- Selecciona BBDD (y la genera si no existe) -------------------
+
+use ecommerce
+
+
+
+----------------- Ingreso de productos a la tabla de productos (Y genera la tabla en caso de no existir) -------------------
+
+db.products.insert([
+  { id: 1, title: "Primer producto de prueba", thumbnail: "url", stock: 11 },
+  { id: 2, title: "Segundo producto de prueba", thumbnail: "url", stock: 1 },
+  { id: 3, title: "Tercer producto de prueba", thumbnail: "url", stock: 6 },
+  { id: 4, title: "Cuarto producto de prueba", thumbnail: "url", stock: 9 },
+  { id: 5, title: "Quinto producto de prueba", thumbnail: "url", stock: 9 },
+  { id: 6, title: "Sexto producto de prueba", thumbnail: "url", stock: 14 },
+  { id: 7, title: "Septimo producto de prueba", thumbnail: "url", stock: 18 },
+  { id: 8, title: "Octavo producto de prueba", thumbnail: "url", stock: 12 },
+  { id: 9, title: "Noveno producto de prueba", thumbnail: "url", stock: 2 },
+  { id: 10, title: "Decimo producto de prueba", thumbnail: "url", stock: 3 },
+]);
+
+Al hacer db.products.find() devuelve los 10 productos agregados a la tabla
+
+
+
+----------------- Ingreso de mensajes a la tabla de mensajes (Y genera la tabla en caso de no existir) -------------------
+
+db.messages.insert([
+  { id: 1, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Primer mensaje" },
+  { id: 2, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Segundo mensaje" },
+  { id: 3, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Terccer mensaje" },
+  { id: 4, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Cuarto mensaje" },
+  { id: 5, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Quinto mensaje" },
+  { id: 6, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Sexto mensaje" },
+  { id: 7, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Septimo mensaje" },
+  { id: 8, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Octavo mensaje" },
+  { id: 9, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Noveno mensaje" },
+  { id: 10, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Decimo mensaje" },
+]);
+
+Al guardar las fechas utilicé el código de debajo (comprobé que funciona)
+
+new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" ")
+Como se guarda => '21/9/2022 09:04:39,GMT-0300,(hora,estándar,de,Argentina)'
+
+
+Al hacer db.messages.find() devuelve los 10 mensajes agregados a la tabla
+
+
+
+----------------- Ingreso de mensajes a la tabla de mensajes (Y genera la tabla en caso de no existir) -------------------
