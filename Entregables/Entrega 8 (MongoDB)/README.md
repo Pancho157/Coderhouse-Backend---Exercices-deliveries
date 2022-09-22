@@ -20,7 +20,7 @@ Utilizando Mongo Shell, crear una base de datos llamada ecommerce que contenga d
 
 5.  Realizr un CRUD sobre la colección de productos
 
-    a - Agregar un producto más en la colección de roductos
+    a - Agregar un producto más en la colección de productos
 
     b - Realizar una consulta por nombre de producto específico:
 

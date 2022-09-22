@@ -66,3 +66,47 @@ db.products.aggregate([
 ]);
 
 Básicamente es la fórmula => "price": Math.floor(Math.random()*(max - min) + min)
+
+
+----------------- Listar todos los documentos de cada colección -------------------
+
+db.messages.find()
+db.products.find()
+
+
+----------------- Muestra la cantidad de documentos almacenados -------------------
+
+db.messages.countDocuments()
+db.products.countDocuments()
+
+
+----------------- Agrega un documento a la colección de productos -------------------
+
+
+db.products.insert({
+  _id: 11,
+  title: 'Producto agregado',
+  thumbnail: 'url',
+  stock: 14,
+  price: 354
+})
+
+
+db.messages.insert({
+  _id: 11,
+  email: 'emailDePrueba@gmail.com',
+  date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+  message: 'Nuevo mensaje agregado'
+})
+
+----------------- Consulta por un documento específico -------------------
+
+db.products.find({_id: 10})
+
+No funciona si en "_" antes del id, ya que esta es la llave primaria que utilicé para los productos y los mensajes
+
+
+----------------- Agrega un documento a la colección de productos -------------------
+
+
+
