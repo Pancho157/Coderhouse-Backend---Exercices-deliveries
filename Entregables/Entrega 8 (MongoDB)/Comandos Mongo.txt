@@ -1,3 +1,10 @@
+----------------- Iniciar el servidor -------------------
+
+mongod dbpath "path\to\BBDD"
+
+----------------- Conectarse al servidor -------------------
+
+mongosh
 
 ----------------- Selecciona BBDD (y la genera si no existe) -------------------
 
