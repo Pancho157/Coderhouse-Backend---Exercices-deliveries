@@ -198,3 +198,33 @@ Mostrar la cantidad de documentos almacenados en cada una de ellas
     db.collectionName.countDocuments()
 
 Devuelve la cantidad de documentos (En núemro) que se encuentran en la colección
+
+---
+
+Realizr un CRUD sobre la colección de productos
+
+    a - Agregar un producto más en la colección de productos
+
+    b - Realizar una consulta por nombre de producto específico:
+
+         i - Listar los productos con precio menor a 1000 pesos.
+
+         ii - Listar los productos con precio entre los 1000 a 3000 pesos.
+
+         iii - Listar los productos con precio mayor a 3000 pesos.
+
+         iv - Reealizar una consulta que traiga sólo el nombre del tercer producto más barato.
+
+    c - Hacer una actualización sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100
+
+    d - Cambir el stock a cero de los productos con precios mayores a 4000 pesos.
+
+    e - Borrar los productos con precio menos a 1000 pesos
+
+---
+
+---
+
+Crear un usuario 'pepe' clave 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información
+
+---
