@@ -27,91 +27,88 @@ Genera las colecciones con "schemas validation":
 (Las estructuras de las colecciones se basan en la estructura de los datos de la entrega final, la diferencia con la entrega de MariaDB es que la del proyecto final incluye un código para el producto y la fecha de creación del mismo)
 
     db.createCollection("products", {
-    validator: {
-        $jsonSchema: {
-        bsonType: "object",
-        required: [
-            "_id",
-            "timestamp",
-            "title",
-            "code",
-            "thumbnail",
-            "price",
-            "stock",
-        ],
-        properties: {
-            _id: {
-                bsonType: "int",
-                minimum: 1,
-                description: "Must be a interger and is required",
-            },
-            timestamp: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            title: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            description: {
-                bsonType: "string",
-                description: "Must be a stri ng",
-            },
-            code: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            thumbnail: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            price: {
-                bsonType: "int",
-                minimum: 100,
-                maximum: 5000,
-                description: "Must be a interger and is required",
-            },
-            stock: {
-                bsonType: "int",
-                minimum: 1,
-                description: "Must be a interger and is required",
+        validator: {
+            $jsonSchema: {
+                bsonType: "object",
+                required: [
+                    "_id",
+                    "timestamp",
+                    "title",
+                    "code",
+                    "thumbnail",
+                    "price",
+                    "stock",
+                ],
+                properties: {
+                    _id: {
+                        description: "_id is required and must be created with ObjectId().toString()",
+                    },
+                    timestamp: {
+                        bsonType: "string",
+                        description: "Timestamp must be a string and is required",
+                    },
+                    title: {
+                        bsonType: "string",
+                        description: "Title must be a string and is required",
+                    },
+                    description: {
+                        bsonType: "string",
+                        description: "Must be a stri ng",
+                    },
+                    code: {
+                        description: "Code is required and is a string",
+                    },
+                    thumbnail: {
+                        bsonType: "string",
+                        description: "Thumbnail must be a string and is required",
+                    },
+                    price: {
+                        bsonType: "int",
+                        minimum: 100,
+                        maximum: 5000,
+                        description: "Price must be a interger (between 100 and 5000) and is required",
+                    },
+                    stock: {
+                        bsonType: "int",
+                        minimum: 1,
+                        description: "Stock must be a interger and is required",
+                    },
+                },
             },
         },
-        },
-    },
     });
 
+---
+
     db.createCollection("messages", {
-    validator: {
-        $jsonSchema: {
-        bsonType: "object",
-        required: [
-            "_id",
-            "timestamp",
-            "email",
-            "message",
-        ],
-        properties: {
-            _id: {
-                bsonType: "int",
-                minimum: 1,
-                description: "Must be a interger and is required",
+        validator: {
+            $jsonSchema: {
+                bsonType: "object",
+                required: [
+                    "_id",
+                    "timestamp",
+                    "email",
+                    "message",
+                ],
+                properties: {
+                    _id: {
+                        description: "Must be ObjectId()",
+                    },
+                    timestamp: {
+                        bsonType: "string",
+                        description: "Must be a string and is required",
+                    },
+                    email: {
+                        bsonType: "string",
+                        description: "Must be a string and is required",
+                    },
+                    message: {
+                        bsonType: "string",
+                        description: "Must be a string",
+                    },
+                },
             },
-            timestamp: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            email: {
-                bsonType: "string",
-                description: "Must be a string and is required",
-            },
-            message: {
-                bsonType: "string",
-                description: "Must be a string",
-            },
-        },
-        },
-    },
+        }
     });
 
 ---
@@ -127,9 +124,16 @@ Como se guarda => '21/9/2022 09:04:39,GMT-0300,(hora,estándar,de,Argentina)'
 
 Inserción de un solo producto:
 
-    db.products.insertOne(
-        {_id: 1, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9}
-    )
+    db.products.insertOne({
+        _id: ObjectId().toString(),
+        timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), 
+        title: "Título de prueba", 
+        description: "Descripción del producto de prueba", 
+        code: "CodeN01", 
+        thumbnail: "URL de la foto", 
+        price: 600, 
+        stock: 4,
+    })
 
 Inserción de varios productos:
 
