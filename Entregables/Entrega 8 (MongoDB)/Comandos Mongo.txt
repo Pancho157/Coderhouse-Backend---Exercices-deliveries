@@ -14,6 +14,101 @@ use ecommerce
 
 ----------------- Ingreso de productos a la tabla de productos (Y genera la tabla en caso de no existir) -------------------
 
+
+db.createCollection("products", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "_id",
+        "timestamp",
+        "title",
+        "code",
+        "thumbnail",
+        "price",
+        "stock",
+      ],
+      properties: {
+        _id: {
+          bsonType: "int",
+          minimum: 1,
+          description: "Must be a interger and is required",
+        },
+        timestamp: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        title: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        description: {
+          bsonType: "string",
+          description: "Must be a string",
+        },
+        code: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        thumbnail: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        price: {
+          bsonType: "int",
+          minimum: 1,
+          description: "Must be a interger and is required",
+        },
+        stock: {
+          bsonType: "int",
+          minimum: 1,
+          description: "Must be a interger and is required",
+        },
+      },
+    },
+  },
+});
+
+
+db.createCollection("messages", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "_id",
+        "timestamp",
+        "title",
+        "code",
+        "thumbnail",
+        "price",
+        "stock",
+      ],
+      properties: {
+        _id: {
+          bsonType: "int",
+          minimum: 1,
+          description: "Must be a interger and is required",
+        },
+        timestamp: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        email: {
+          bsonType: "string",
+          description: "Must be a string and is required",
+        },
+        message: {
+          bsonType: "string",
+          description: "Must be a string",
+        },
+      },
+    },
+  },
+});
+
+
+
+
 db.products.insert([
   { _id: 1, title: "Primer producto de prueba", thumbnail: "url", stock: 11 },
   { _id: 2, title: "Segundo producto de prueba", thumbnail: "url", stock: 1 },
