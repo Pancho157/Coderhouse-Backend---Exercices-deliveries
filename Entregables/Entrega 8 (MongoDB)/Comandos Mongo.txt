@@ -56,7 +56,8 @@ db.createCollection("products", {
         },
         price: {
           bsonType: "int",
-          minimum: 1,
+          minimum: 100,
+          maximum: 5000,
           description: "Must be a interger and is required",
         },
         stock: {
@@ -69,6 +70,18 @@ db.createCollection("products", {
   },
 });
 
+
+db.products.insert({_id: 1, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9})
+
+db.products.insertMany([{_id: 8, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9},
+{_id: 9, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9}])
+
+
+Al hacer db.products.find() devuelve los 10 productos agregados a la tabla
+
+
+
+----------------- Ingreso de mensajes a la tabla de mensajes (Y genera la tabla en caso de no existir) -------------------
 
 db.createCollection("messages", {
   validator: {
@@ -106,27 +119,6 @@ db.createCollection("messages", {
   },
 });
 
-
-
-
-db.products.insert([
-  { _id: 1, title: "Primer producto de prueba", thumbnail: "url", stock: 11 },
-  { _id: 2, title: "Segundo producto de prueba", thumbnail: "url", stock: 1 },
-  { _id: 3, title: "Tercer producto de prueba", thumbnail: "url", stock: 6 },
-  { _id: 4, title: "Cuarto producto de prueba", thumbnail: "url", stock: 9 },
-  { _id: 5, title: "Quinto producto de prueba", thumbnail: "url", stock: 9 },
-  { _id: 6, title: "Sexto producto de prueba", thumbnail: "url", stock: 14 },
-  { _id: 7, title: "Septimo producto de prueba", thumbnail: "url", stock: 18 },
-  { _id: 8, title: "Octavo producto de prueba", thumbnail: "url", stock: 12 },
-  { _id: 9, title: "Noveno producto de prueba", thumbnail: "url", stock: 2 },
-  { _id: 10, title: "Decimo producto de prueba", thumbnail: "url", stock: 3 },
-]);
-
-Al hacer db.products.find() devuelve los 10 productos agregados a la tabla
-
-
-
------------------ Ingreso de mensajes a la tabla de mensajes (Y genera la tabla en caso de no existir) -------------------
 
 db.messages.insert([
   { _id: 1, email: "emailDePrueba@gmail.com", date: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), message: "Primer mensaje" },
