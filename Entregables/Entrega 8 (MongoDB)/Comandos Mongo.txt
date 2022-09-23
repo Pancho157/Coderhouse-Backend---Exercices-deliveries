@@ -90,11 +90,8 @@ db.createCollection("messages", {
       required: [
         "_id",
         "timestamp",
-        "title",
-        "code",
-        "thumbnail",
-        "price",
-        "stock",
+        "email",
+        "message",
       ],
       properties: {
         _id: {

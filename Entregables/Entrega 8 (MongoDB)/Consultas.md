@@ -24,7 +24,7 @@ Selecciona BBDD (y la genera si no existe):
 
 Genera las colecciones con "schemas validation":
 
-(Las estructuras de las colecciones se basan en la estructura de los datos de la entrega final)
+(Las estructuras de las colecciones se basan en la estructura de los datos de la entrega final, la diferencia con la entrega de MariaDB es que la del proyecto final incluye un código para el producto y la fecha de creación del mismo)
 
     db.createCollection("products", {
     validator: {
@@ -113,3 +113,88 @@ Genera las colecciones con "schemas validation":
         },
     },
     });
+
+---
+
+Agregar 10 documentos con valores distintos a las colecciones mensajes y productos. El formato de los documentos debe estar en correspondencia con el que venimos utilizando en el entregable con base de datos MariaDB
+
+---
+
+Al guardar las fechas utilicé el código de debajo (comprobé que funciona)
+
+new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" ")
+Como se guarda => '21/9/2022 09:04:39,GMT-0300,(hora,estándar,de,Argentina)'
+
+Inserción de un solo producto:
+
+    db.products.insertOne(
+        {_id: 1, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9}
+    )
+
+Inserción de varios productos:
+
+    db.products.insertMany([
+        {_id: 8, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9},
+        {_id: 9, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9}
+    ])
+
+Inserción de un mensaje:
+
+    db.messages.insertOne(
+        {_id: 1, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Este es un mensaje de prueba"}
+    )
+
+Inserción de varios mensajes
+
+    db.messages.insertMany([
+
+        {_id: 2, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Segundo mensaje de prueba"},
+
+        {{_id: 3, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Tercer mensaje de prueba"}}
+
+    ])
+
+---
+
+Definir las claves de los documentos en relación a los campos de las tablas de esa base. En el caso de los productos, poner valores al campo precio entre los 100 y 5000 pesos (eligiendo valores intermedios, ej 120, 580, 900, 1280, 2300, 2860, 3350, 4320, 4990)
+
+---
+
+Las claves de los documentos fueron definidas con la propiedad "\_id"
+
+Para los precios hice una request especial, a modo de que asigne valores random (entre 100 y 5000) a todos los documentos:
+
+(Se que podría simplemente deinirlo a la hora de agregar el documento a la colección o modificando cada documento por separado)
+
+    db.products.aggregate([
+    { $set: { price: { $multiply: [{ $rand: {} }, 4900] } } },
+    { $set: { price: { $floor: "$price" } } },
+    { $set: { price: { $sum: ["$price", 100] } } },
+    { $merge: "products" },
+    ]);
+
+Básicamente es la fórmula => "price": Math.floor(Math.random()\*(max - min) + min)
+
+---
+
+Listar todos los documentos en cada colección
+
+---
+
+    show collections
+
+Devuelve el listado de colecciones de la BBDD en la que nos encontramos trabajando
+
+    db.collectionName.find()
+
+Devuelve todos los documentos que se encuentren dentro de la colección
+
+---
+
+Mostrar la cantidad de documentos almacenados en cada una de ellas
+
+---
+
+    db.collectionName.countDocuments()
+
+Devuelve la cantidad de documentos (En núemro) que se encuentran en la colección
