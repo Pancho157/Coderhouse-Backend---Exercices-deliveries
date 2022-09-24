@@ -64,8 +64,6 @@ Genera las colecciones con "schemas validation":
                     },
                     price: {
                         bsonType: "int",
-                        minimum: 100,
-                        maximum: 5000,
                         description: "Price must be a interger (between 100 and 5000) and is required",
                     },
                     stock: {
@@ -92,6 +90,7 @@ Genera las colecciones con "schemas validation":
                 ],
                 properties: {
                     _id: {
+                        bsonType: "string",
                         description: "Must be ObjectId()",
                     },
                     timestamp: {
@@ -126,35 +125,62 @@ Inserción de un solo producto:
 
     db.products.insertOne({
         _id: ObjectId().toString(),
-        timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), 
-        title: "Título de prueba", 
-        description: "Descripción del producto de prueba", 
-        code: "CodeN01", 
-        thumbnail: "URL de la foto", 
-        price: 600, 
+        timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+        title: "Título de prueba",
+        description: "Descripción del producto de prueba",
+        code: "CodeN01",
+        thumbnail: "URL de la foto/imagen",
+        price: 600,
         stock: 4,
     })
 
 Inserción de varios productos:
 
     db.products.insertMany([
-        {_id: 8, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9},
-        {_id: 9, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), title: "", description: "", code: "20", thumbnail: "", price: 3, stock: 9}
+        {
+            _id: ObjectId().toString(),
+            timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+            title: "Otro producto de prueba",
+            description: "Alguna descripción random para matar tiempo jeje",
+            code: "20",
+            thumbnail: "URL de la foto/imagen",
+            price: 700,
+            stock: 9,
+        },{
+            _id: ObjectId().toString(),
+            timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+            title: "Un producto directo de china",
+            description: "Otra descripción random. Por qué? No hay porque",
+            code: "20",
+            thumbnail: "URL de la foto/imagen",
+            price: 400,
+            stock: 9,
+        }
     ])
 
 Inserción de un mensaje:
 
-    db.messages.insertOne(
-        {_id: 1, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Este es un mensaje de prueba"}
-    )
+    db.messages.insertOne({
+        _id: ObjectId().toString(),
+        timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+        email: "mailDePrueba@gmail.com",
+        message: "Este es un mensaje de prueba"
+    })
 
 Inserción de varios mensajes
 
     db.messages.insertMany([
-
-        {_id: 2, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Segundo mensaje de prueba"},
-
-        {{_id: 3, timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "), email: "mailDePrueba@gmail.com", message: "Tercer mensaje de prueba"}}
+        {
+            _id: ObjectId().toString(),
+            timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+            email: "mailDePrueba@gmail.com",
+            message: "Segundo mensaje de prueba"
+        },{
+            _id: ObjectId().toString(),
+            timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+            email: "mailDePrueba@gmail.com",
+            message: "Tercer mensaje de prueba"
+        }
 
     ])
 
@@ -171,10 +197,9 @@ Para los precios hice una request especial, a modo de que asigne valores random 
 (Se que podría simplemente deinirlo a la hora de agregar el documento a la colección o modificando cada documento por separado)
 
     db.products.aggregate([
-    { $set: { price: { $multiply: [{ $rand: {} }, 4900] } } },
-    { $set: { price: { $floor: "$price" } } },
-    { $set: { price: { $sum: ["$price", 100] } } },
-    { $merge: "products" },
+        { $set: { price: { $multiply: [{ $rand: {} }, 4900] } } },
+        { $set: { price: { $sum: ["$price", 100] } } },
+        { $set: { price: { $floor: "$price" } } },
     ]);
 
 Básicamente es la fórmula => "price": Math.floor(Math.random()\*(max - min) + min)
@@ -202,6 +227,13 @@ Mostrar la cantidad de documentos almacenados en cada una de ellas
     db.collectionName.countDocuments()
 
 Devuelve la cantidad de documentos (En núemro) que se encuentran en la colección
+
+    var col_list= db.yourCollection.findOne();
+    for (var col in col_list) { print (col) ; }
+
+Este script devuelve como está construido nuestro documento, es decir, cada una de sus propiedades
+
+(Si bien no se pidió me parece un buen dato)
 
 ---
 
