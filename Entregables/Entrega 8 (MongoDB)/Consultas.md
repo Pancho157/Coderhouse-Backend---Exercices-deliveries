@@ -67,7 +67,6 @@ Genera las colecciones con "schemas validation":
                     },
                     stock: {
                         bsonType: "int",
-                        minimum: 1,
                         description: "Stock must be a interger and is required",
                     },
                 },
@@ -264,11 +263,67 @@ Realizr un CRUD sobre la colección de productos
 
     c - Hacer una actualización sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100
 
-    d - Cambir el stock a cero de los productos con precios mayores a 4000 pesos.
+    d - Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.
 
     e - Borrar los productos con precio menos a 1000 pesos
 
 ---
+
+a - Agregar un producto
+
+    db.products.insertOne({
+        _id: ObjectId().toString(),
+        timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+        title: "Título de prueba",
+        description: "Descripción del producto de prueba",
+        code: "CodeN01",
+        thumbnail: "URL de la foto/imagen",
+        price: 600,
+        stock: 4,
+    })
+
+b - Encontrar un producto específico por su nombre
+
+    db.products.find({title: "Un producto directo de china"})
+
+i - Listar los productos menores a $1000
+
+    db.products.find({price: { $lt: 1000 }})
+
+ii - Listar los productos con precio entre los $1000 a $3000
+
+    db.products.find({price: { $gt: 1000, $lt: 3000 }})
+
+iii - Listar los productos con precio mayor a $3000
+
+    db.products.find({price: { $gt: 3000 }})
+
+iv - Reealizar una consulta que traiga sólo el nombre del tercer producto más barato
+
+    var sortedArray = db.products.find().sort({price: 1}).toArray();
+    sortedArray[2]
+
+    o
+
+    db.products.find().sort({price: 1}).toArray()[2]
+
+c - Hacer una actualización sobre todos los productos, agregando el campo stock a todos ellos con un valor de 100
+
+    db.products.updateMany({},
+    {
+        $set: {"stock": 100}
+    })
+
+d - Cambiar el stock a cero de los productos con precios mayores a 4000 pesos
+
+    db.products.updateMany({ price: {$gt: 4000 }},
+    {
+        $set: {"stock": 0}
+    })
+
+e- Borrar los productos con precio menos a $1000
+
+    db.products.deleteMany({price: { $lt: 1000 }})
 
 ---
 
