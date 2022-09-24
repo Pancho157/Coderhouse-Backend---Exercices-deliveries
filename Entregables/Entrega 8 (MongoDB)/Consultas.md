@@ -63,7 +63,6 @@ Genera las colecciones con "schemas validation":
                         description: "Thumbnail must be a string and is required",
                     },
                     price: {
-                        bsonType: "int",
                         description: "Price must be a interger (between 100 and 5000) and is required",
                     },
                     stock: {
@@ -155,6 +154,15 @@ Inserción de varios productos:
             thumbnail: "URL de la foto/imagen",
             price: 400,
             stock: 9,
+        },{
+            _id: ObjectId().toString(),
+            timestamp: new Date().toLocaleDateString() + " " + new Date().toTimeString().split(" "),
+            title: "Por qué no otro meme?",
+            description: "Jeje",
+            code: "20",
+            thumbnail: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rtve.es%2Fnoticias%2F20210516%2Fhistoria-disaster-girl-meme-medio-millon-dolares%2F2090101.shtml&psig=AOvVaw2beuyMd7d0m66X6wVnj_ns&ust=1664112658187000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCICxzYzFrfoCFQAAAAAdAAAAABAD",
+            price: 400,
+            stock: 9,
         }
     ])
 
@@ -200,9 +208,12 @@ Para los precios hice una request especial, a modo de que asigne valores random 
         { $set: { price: { $multiply: [{ $rand: {} }, 4900] } } },
         { $set: { price: { $sum: ["$price", 100] } } },
         { $set: { price: { $floor: "$price" } } },
+        { $merge: {into: "products"} }
     ]);
 
 Básicamente es la fórmula => "price": Math.floor(Math.random()\*(max - min) + min)
+
+(No es posible colocar el precio como int de manera obligatoria, ya que el algoritmo no funcionaría)
 
 ---
 
