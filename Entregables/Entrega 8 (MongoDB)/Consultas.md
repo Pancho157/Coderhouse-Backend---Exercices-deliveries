@@ -330,3 +330,15 @@ e- Borrar los productos con precio menos a $1000
 Crear un usuario 'pepe' clave 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información
 
 ---
+
+    terminal 1: mongod --dbpath "pathToBBDD"
+
+    terminal 2: mongosh
+    terminal 2: use admin
+    terminal 2: db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db: "ecommerce"}]});
+
+    terminal 1: ctrl + c (Para el servidor)
+    terminal 1: mongod --dbpath Desktop/mdb --auth  (para reiniciar el servidor)
+
+    terminal 2: ctrl + c (para el cliente)
+    terminal 2: mongosh -u pepe -p asd456
