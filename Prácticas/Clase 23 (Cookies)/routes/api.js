@@ -17,25 +17,38 @@ const express = require("express");
 const api = express.Router();
 
 api.post("/", (req, res) => {
+  // Recibe y guarda la cookie
   const { nombre, valor, tiempo } = req.body;
 
   if (!nombre || !valor) {
     res.json({ error: "Falta nombre o valor" });
   }
 
+  if (tiempo) {
+    res.cookie(nombre, valor, {
+      signed: true,
+      maxAge: 1000 * parseInt(tiempo),
+    });
+  } else {
+    res.cookie(nombre, valor, { signed: true });
+  }
+
   res.json({ proceso: "ok" });
 });
 
 api.get("/", (req, res) => {
-  res.json({ cookies: req.cookies, signedCookies: req.cookies.signedCookies });
+  // Devuelve las cookies
+  res.json({ cookies: req.cookies, signedCookies: req.signedCookies });
 });
 
 api.delete("/:nombreCookie", (req, res) => {
-  if (
-    !req.cookies[req.params.nombreCookie] &&
-    !req.cookies.signedCookies[req.params.nombreCookie]
-  ) {
+  // Elimina la cookie que se le pase por params
+  const { nombreCookie } = req.params;
+  if (!req.cookies[nombreCookie] && !req.cookies.signedCookies[nombreCookie]) {
     res.json({ error: "Nombre de cookie erroneo" });
   }
+  res.clearCookie(nombreCookie);
   res.json({ proceso: "ok" });
 });
+
+module.exports = api;
