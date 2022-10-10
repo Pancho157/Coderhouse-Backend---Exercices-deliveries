@@ -1,13 +1,23 @@
 const express = require("express");
-const path = require("path");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
+
+const path = require("path");
+
+// Plantillas
 const { engine } = require("express-handlebars");
+
+//  Routers
 const router = require("./routes/apiProductos");
+const routerTest = require("./routes/apiProductosTest");
+
+// BBDDs
 const { ChatSQL } = require("./DB/controllers/ChatController");
 const { knexOptionsChat } = require("./DB/options/sqlite3-chat");
 const { ProductosSQL } = require("./DB/controllers/ProductsController");
 const { options } = require("./DB/options/mariaDB-products");
+
+// ----------------------- Inicialización del servidor -----------------------
 
 var app = express();
 const httpServer = new HttpServer(app);
@@ -59,6 +69,7 @@ io.on(`connection`, async (socket) => {
 
 // ----------------------- Router -----------------------
 app.use("/api/productos", router);
+app.use("/api/productos-test", routerTest);
 
 // ----------------------- Renderiza el formulario -----------------------
 app.get("/", (req, res) => {
