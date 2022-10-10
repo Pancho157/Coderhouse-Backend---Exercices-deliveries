@@ -9,7 +9,14 @@ const addMessage = (e) => {
   let dateTime = date.split(" ");
 
   const message = {
-    email: document.getElementById("email").value,
+    author: {
+      email: document.getElementById("email").value,
+      name: document.getElementById("name").value,
+      lastName: document.getElementById("lastName").value,
+      age: document.getElementById("age").value,
+      alias: document.getElementById("alias").value,
+      avatar: document.getElementById("avatar").value,
+    },
     message: document.getElementById("message").value,
     date: dateTime[0] + " " + dateTime[1],
   };
@@ -26,7 +33,7 @@ const renderMessages = (messages) => {
     .map((message) => {
       return `
         <div>
-          <span class="message__email">${message.email}</span>:
+          <span class="message__email">${message.author.email}</span>:
           <span class="message__date">[${message.date}]<span>
           <br>
           <p class="message__text">${message.message}</p>

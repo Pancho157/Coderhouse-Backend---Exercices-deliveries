@@ -125,24 +125,41 @@ body {
 
 /* ---------- Estilos del chat ------------- */
 
+.messages__title {
+  color: #fff;
+  text-align: center;
+  margin-top: 60px;
+}
+
 .chat__container {
-  width: 500px;
-  height: 440px;
+  max-width: 900px;
   background-color: #333333;
   border: 1px solid #fff;
   border-radius: 20px;
   padding: 25px;
-  margin: 60px auto;
+  margin: 35px auto;
+  display: flex;
+  justify-content: space-around;
+  column-gap: 20px;
+  row-gap: 20px;
 }
 
 .chat__messagesContainer {
   width: 100%;
-  height: 310px;
+  max-width: 490px;
+  min-width: 300px;
+  height: 390px;
   padding: 10px 10px 10px 10px;
   background-color: #fff;
   border-radius: 20px;
-  margin-bottom: 20px;
   overflow: auto;
+}
+
+.chat__messageForm {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .message__email {
@@ -162,7 +179,7 @@ body {
 }
 
 .chat__input {
-  width: 90%;
+  width: 100%;
   height: 2rem;
   margin-top: 3px;
   border-top: none;
@@ -172,14 +189,9 @@ body {
 }
 
 .chat__sendButton {
-  width: 30px;
-  height: 30px;
+  padding: 8px 15px;
   background-color: #e57e1f;
-  border-radius: 8px;
-  float: right;
+  border-radius: 14px;
   cursor: pointer;
-}
-
-.chat__buttonIMG {
-  width: 25px;
+  margin: 10px auto;
 }
