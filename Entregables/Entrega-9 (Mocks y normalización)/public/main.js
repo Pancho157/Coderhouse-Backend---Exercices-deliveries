@@ -30,6 +30,7 @@ const addMessage = (e) => {
 const renderMessages = (messages) => {
   const messagesHTML = messages
     .map((message) => {
+      console.log(message.date);
       return `
         <div>
           <span class="message__email">${message.author.alias}</span>:

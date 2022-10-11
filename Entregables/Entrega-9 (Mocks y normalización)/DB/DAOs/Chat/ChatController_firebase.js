@@ -37,7 +37,7 @@ class ChatControllerFirebase {
         avatar: data.author.avatar,
       },
       message: data.message,
-      date: FieldValue.serverTimestamp(),
+      date: new Date(),
     };
 
     // -------- Guarda el mensaje -------
@@ -58,6 +58,7 @@ class ChatControllerFirebase {
       const messages = query.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        date: doc.data().date.toDate(),
       }));
 
       return messages;
