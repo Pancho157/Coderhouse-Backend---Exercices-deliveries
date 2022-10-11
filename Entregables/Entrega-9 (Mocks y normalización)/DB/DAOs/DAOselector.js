@@ -27,7 +27,7 @@ switch (process.env.PERS) {
   // ------------- File System (fs) -------------
   default:
     const { ChatControllerFS } = require("./Chat/ChatController_fs");
-    chatDao = new ChatControllerFS();
+    chatDao = new ChatControllerFS("./DB/chat.txt");
     break;
 }
 

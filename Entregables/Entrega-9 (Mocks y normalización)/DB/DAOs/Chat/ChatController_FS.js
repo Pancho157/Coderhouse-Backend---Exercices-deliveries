@@ -3,12 +3,75 @@
 // insertMessage(data)
 // getMessages()
 
+const { promises: fs } = require("fs");
+
 class ChatControllerFS {
-  constructor() {}
+  constructor(route) {
+    this.route = route;
+  }
 
-  async insertMessage(data) {}
+  async insertMessage(data) {
+    // Obtiene los datos del archivo
+    let messages = [];
+    try {
+      messages = await this.getAll();
+    } catch (err) {
+      return {
+        error: true,
+        message: `${err}`,
+      };
+    }
 
-  async getMessages() {}
+    // Genera el id
+    let newId;
+    if (messages.length == 0) {
+      newId = 1;
+    } else {
+      const lastId = messages[messages.length - 1].id;
+      newId = lastId + 1;
+    }
+
+    // Estructura del mensaje
+    const messageData = {
+      author: {
+        id: data.author.email,
+        name: data.author.name,
+        lastName: data.author.lastName,
+        age: data.author.age,
+        alias: data.author.alias,
+        avatar: data.author.avatar,
+      },
+      message: data.message,
+      date: new Date(),
+    };
+
+    console.log(messages);
+    // Agrega el nuevo objeto al array
+    messages.push(messageData);
+    console.log(messages);
+
+    try {
+      await fs.writeFile(this.route, JSON.stringify(messages, null, 2));
+      return `${newId}`;
+    } catch (err) {
+      return {
+        error: true,
+        message: `${err}`,
+      };
+    }
+  }
+
+  async getMessages() {
+    try {
+      const objetos = await fs.readFile(this.route, "utf-8");
+      return JSON.parse(objetos);
+    } catch (err) {
+      return {
+        error: true,
+        message: `${err}`,
+      };
+    }
+  }
 }
 
 module.exports = { ChatControllerFS };
