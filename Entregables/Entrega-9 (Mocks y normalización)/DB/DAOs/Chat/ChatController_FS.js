@@ -10,7 +10,7 @@ class ChatControllerFS {
     this.route = route;
   }
 
-  async insertMessage(data) {
+  async insertNewMessage(data) {
     // Obtiene los datos del archivo
     let messages = [];
     try {
@@ -45,10 +45,8 @@ class ChatControllerFS {
       date: new Date(),
     };
 
-    console.log(messages);
     // Agrega el nuevo objeto al array
     messages.push(messageData);
-    console.log(messages);
 
     try {
       await fs.writeFile(this.route, JSON.stringify(messages, null, 2));
@@ -71,6 +69,10 @@ class ChatControllerFS {
         message: `${err}`,
       };
     }
+  }
+
+  async insertMessage(data) {
+    await this.insertNewMessage(data);
   }
 }
 
