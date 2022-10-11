@@ -6,9 +6,9 @@ class ProductosSQL {
     this.createTable();
   }
 
-  createTable() {
+  async createTable() {
     try {
-      return this.knex.schema.hasTable("products").then((exists) => {
+      return await this.knex.schema.hasTable("products").then((exists) => {
         if (!exists) {
           return this.knex.schema.createTable("products", (table) => {
             table.increments("id").primary();
@@ -26,9 +26,9 @@ class ProductosSQL {
     }
   }
 
-  insertProduct(data) {
+  async insertProduct(data) {
     try {
-      return this.knex("products").insert(data);
+      return await this.knex("products").insert(data);
     } catch (err) {
       return `Error: ${err}`;
     }
@@ -36,23 +36,23 @@ class ProductosSQL {
 
   async updateById(productId, data) {
     try {
-      return this.knex("products").where({ id: productId }).update(data);
+      return await this.knex("products").where({ id: productId }).update(data);
     } catch (err) {
       return `El error es: ${err}`;
     }
   }
 
-  getProducts() {
+  async getProducts() {
     try {
-      return this.knex("products").select("*");
+      return await this.knex("products").select("*");
     } catch (err) {
       return `Error: ${err}`;
     }
   }
 
-  getProductById(productId) {
+  async getProductById(productId) {
     try {
-      return this.knex("products")
+      return await this.knex("products")
         .select("id", "title", "price", "thumbnail", "stock")
         .where({ id: productId });
     } catch (err) {
@@ -60,21 +60,22 @@ class ProductosSQL {
     }
   }
 
-  deleteById(productId) {
+  async deleteById(productId) {
     try {
-      return this.knex("products")
+      await this.knex("products")
         .where({
           id: productId,
         })
         .del();
+      return "Producto eliminado";
     } catch (err) {
       return `Error: ${err}`;
     }
   }
 
-  deleteAll() {
+  async deleteAll() {
     try {
-      return this.knex("products").del();
+      return await this.knex("products").del();
     } catch (err) {
       `Error: ${err}`;
     }
