@@ -18,7 +18,6 @@ const addMessage = (e) => {
       avatar: document.getElementById("avatar").value,
     },
     message: document.getElementById("message").value,
-    date: dateTime[0] + " " + dateTime[1],
   };
 
   socket.emit("new-message", message);
@@ -50,9 +49,9 @@ const renderProducts = (products) => {
   products.forEach((product) => {
     document.getElementById("table__body").innerHTML += `
           <tr class='table__tr'>
-            <td class='table__td'>${product.id}</td>
+            <td class='table__td'>${product._id}</td>
             <td class='table__td'>${product.title}</td>
-            <td class='table__td'>AR${product.price}</td>
+            <td class='table__td'>AR$ ${product.price}</td>
             <td class='table__td'><img src="${product.thumbnail}" /></td>
           </tr>`;
   });
@@ -60,6 +59,7 @@ const renderProducts = (products) => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
+  console.log(messages);
   renderMessages(messages);
 });
 

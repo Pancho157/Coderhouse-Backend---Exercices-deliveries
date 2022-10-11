@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+// Express y socket.io
 const express = require("express");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
@@ -12,10 +15,7 @@ const router = require("./routes/apiProductos");
 const routerTest = require("./routes/apiProductosTest");
 
 // BBDDs
-const { ChatSQL } = require("./DB/controllers/ChatController");
-const { knexOptionsChat } = require("./DB/options/sqlite3-chat");
-const { ProductosSQL } = require("./DB/controllers/ProductsController");
-const { options } = require("./DB/options/mariaDB-products");
+const { productsDao, chatDao } = require("./DB/DAOs/DAOselector");
 
 // ----------------------- Inicialización del servidor -----------------------
 
@@ -33,37 +33,30 @@ connectedServer.on("error", (err) => {
   console.log(err);
 });
 
-// ----------------------- Handlebars -----------------------
-app.engine(".hbs", engine({ extname: ".hbs" }));
-app.set("view engine", ".hbs");
-app.set("views", path.join(__dirname, "views"));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-// ----------------------- Conexiones a BBDDs -----------------------
-let chatMessages = new ChatSQL(knexOptionsChat);
-let products = new ProductosSQL(options);
+// ----------------------- Handlebars -----------------------
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", ".hbs");
+app.engine(".hbs", engine({ extname: ".hbs" }));
 
-chatMessages.createTable();
-products.createTable();
-
-// ----------------------- Manejo con sockets -----------------------
+// ----------------------- Sockets -----------------------
 io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
 
-  socket.emit("productsFromServer", await products.getProducts());
-  socket.emit("messagesFromServer", await chatMessages.getMessages());
+  socket.emit("productsFromServer", await productsDao.getProducts());
+  socket.emit("messagesFromServer", await chatDao.getMessages());
 
   socket.on("new-message", async (data) => {
-    await chatMessages.insertMessage(data);
-    io.sockets.emit("messagesFromServer", await chatMessages.getMessages());
+    await chatDao.insertMessage(data);
+    io.sockets.emit("messagesFromServer", await chatDao.getMessages());
   });
 
   socket.on("new-product", async (data) => {
-    await products.insertProduct(data);
-    io.socket.emit("productsFromServer", await products.getProducts());
+    await productsDao.insertProduct(data);
+    io.socket.emit("productsFromServer", await productsDao.getProducts());
   });
 });
 

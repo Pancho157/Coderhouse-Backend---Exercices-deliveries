@@ -21,7 +21,7 @@
                 alias: 'alias del usuario',
                 avatar: 'url avatar (foto, logo) del usuario',
             },
-            text: 'mensaje del usuario'
+            message: 'mensaje del usuario'
         }
 
 ### Aspectos a incluir en el entregable:
