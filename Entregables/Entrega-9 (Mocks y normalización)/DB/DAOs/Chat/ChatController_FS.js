@@ -49,7 +49,7 @@ class ChatControllerFS {
     messages.push(messageData);
 
     try {
-      await fs.writeFile(this.route, JSON.stringify(messages, null, 2));
+      await fs.writeFile(this.route, JSON.stringify(messages));
       return `${newId}`;
     } catch (err) {
       return {

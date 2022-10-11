@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "author": {
+            "id":"mail del usuario",
+            "nombre":"nombre del usuario",
+            "apellido":"apellido del usuario",
+            "edad":"edad del usuario",
+            "alias":"alias del usuario",
+            "avatar":"url avatar (foto, logo) del usuario"
+        },
+        "message":"mensaje del usuario",
+        "date":"2022-10-11T09:41:12.959Z"
+    }
+]
