@@ -1,14 +1,17 @@
 [
     {
         "author": {
-            "id":"mail del usuario",
-            "nombre":"nombre del usuario",
-            "apellido":"apellido del usuario",
-            "edad":"edad del usuario",
-            "alias":"alias del usuario",
-            "avatar":"url avatar (foto, logo) del usuario"
+            "id":"Otro email",
+            "name":"Francisco",
+            "lastName":"Algo",
+            "age":12,
+            "alias":"asdf",
+            "avatar":"asdf"
         },
-        "message":"mensaje del usuario",
-        "date":"2022-10-11T09:41:12.959Z"
+        "message":"asdf",
+        "date":"2022-10-11T09:47:10.483Z"
+    },    
+    {
+        "author":{"id":"Otro email","name":"Francisco","lastName":"Algo","age":12,"alias":"asdf","avatar":"asdf"},"message":"asdf","date":"2022-10-11T09:47:10.483Z"
     }
 ]

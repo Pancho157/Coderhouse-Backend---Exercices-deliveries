@@ -30,7 +30,6 @@ const addMessage = (e) => {
 const renderMessages = (messages) => {
   const messagesHTML = messages
     .map((message) => {
-      console.log(message.date);
       return `
         <div>
           <span class="message__email">${message.author.alias}</span>:
@@ -60,7 +59,6 @@ const renderProducts = (products) => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
-  console.log(messages);
   renderMessages(messages);
 });
 

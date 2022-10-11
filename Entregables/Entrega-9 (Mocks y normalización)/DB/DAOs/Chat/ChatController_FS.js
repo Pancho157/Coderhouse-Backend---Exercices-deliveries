@@ -14,7 +14,7 @@ class ChatControllerFS {
     // Obtiene los datos del archivo
     let messages = [];
     try {
-      messages = await this.getAll();
+      messages = await this.getMessages();
     } catch (err) {
       return {
         error: true,
