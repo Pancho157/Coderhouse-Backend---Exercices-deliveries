@@ -15,7 +15,7 @@ class ChatControllerMongo {
         message: data.message,
         author: [
           new mongoose.Schema({
-            _id: `${data.author.email}`,
+            email: `${data.author.email}`,
             name: `${data.author.name}`,
             lastName: `${data.author.lastName}`,
             age: data.author.age,
