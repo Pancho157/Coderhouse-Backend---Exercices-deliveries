@@ -1,4 +1,4 @@
-const { ProductosSQL } = require("./ProductsController");
+const { ProductosSQL } = require("./Products/ProductsController");
 
 // Por defecto FS
 
