@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const FileStore = require("session-file-store")(session);
 
 const app = express();
 
@@ -13,6 +14,7 @@ const server = app.listen(PORT, () => {
 app.use(cookieParser);
 app.use(
   session({
+    store: new FileStore({ path: "./sesions", ttl: 60 }),
     secret: "shhhh",
     resave: false,
     saveUninitialized: false,
