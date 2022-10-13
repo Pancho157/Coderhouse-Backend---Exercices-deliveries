@@ -18,11 +18,17 @@ const chat = new schema.Entity("chat", {
 
 // ------------------- Normalize data -------------------
 async function normalizeMessages(messages) {
-  const normalizedData = normalize(messages, chat);
+  let normalizedData = normalize(messages, chat);
+  console.log(normalizedData);
   return normalizedData;
 }
 
 async function desnormalizeChatMessages(messages) {
-  desnormalizedData = denormalize(messages.result, chat, messages.entities);
+  let desnormalizedData = denormalize(
+    messages.result,
+    chat,
+    messages.entities
+  );
+  console.log(desnormalizedData);
   return desnormalizedData;
 }

@@ -22,16 +22,14 @@ const chat = new schema.Entity("chat", {
 // ------------------- Normalize data -------------------
 async function getNormalizedMessages() {
   const data = await chatDao.getMessages();
-  const normalizedData = normalize(data, chat);
+  let normalizedData = normalize(data, chat);
+  console.log(normalizedData);
   return normalizedData;
 }
 
 async function desnormalizeChatMessages(messages) {
-  const desnormalizedData = denormalize(
-    messages.result,
-    chat,
-    messages.entities
-  );
+  let desnormalizedData = denormalize(messages.result, chat, messages.entities);
+  console.log(desnormalizedData);
   return desnormalizedData;
 }
 
