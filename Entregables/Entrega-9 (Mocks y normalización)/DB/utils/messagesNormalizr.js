@@ -1,5 +1,4 @@
 const normalizr = require("normalizr");
-const util = require("util");
 const { chatDao } = require("../DAOs/DAOselector");
 
 const normalize = normalizr.normalize;
@@ -20,13 +19,20 @@ const chat = new schema.Entity("chat", {
   messages: [chatMessage],
 });
 
-// ------------------- Normal data -------------------
-async function getChatMessages() {
-  const data = await chatDao.getChatMessages();
-  return data;
+// ------------------- Normalize data -------------------
+async function getNormalizedMessages() {
+  const data = await chatDao.getMessages();
+  const normalizedData = normalize(data, chat);
+  return normalizedData;
 }
 
-// ------------------- Normalized object -------------------
-const normalizedData = normalize(getChatMessages(), chat);
+async function desnormalizeChatMessages(messages) {
+  const desnormalizedData = denormalize(
+    messages.result,
+    chat,
+    messages.entities
+  );
+  return desnormalizedData;
+}
 
-module.exports = { normalizedData };
+module.exports = { getNormalizedMessages, desnormalizeChatMessages };
