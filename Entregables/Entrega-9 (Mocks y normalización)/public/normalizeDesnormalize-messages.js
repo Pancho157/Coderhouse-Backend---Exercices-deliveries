@@ -3,32 +3,31 @@ const denormalize = normalizr.denormalize;
 const schema = normalizr.schema;
 
 // ------------------- Schemas -------------------
-const message = new schema.Entity("messages");
+const author = new schema.Entity("authors", {}, { idAttribute: "id" });
+const message = new schema.Entity("messages", { autor: author });
 
-const author = new schema.Entity("authors");
+const authorMessages = new schema.Entity(
+  "authorMessages",
+  {
+    autor: author,
+    text: [message],
+  },
+  { idAttribute: "id" }
+);
 
-const chatMessage = new schema.Entity("chatMessage", {
-  author: author,
-  message: message,
-});
-
-const chat = new schema.Entity("chat", {
-  messages: [chatMessage],
-});
+const chat = new schema.Array(authorMessages);
 
 // ------------------- Normalize data -------------------
-async function normalizeMessages(messages) {
+function normalizeMessages(messages) {
+  console.log(`normalizeMessages (before): ${messages}`);
   let normalizedData = normalize(messages, chat);
-  console.log(normalizedData);
+  console.log(`normalizeMessages (after): ${normalizeMessages}`);
   return normalizedData;
 }
 
-async function desnormalizeChatMessages(messages) {
-  let desnormalizedData = denormalize(
-    messages.result,
-    chat,
-    messages.entities
-  );
-  console.log(desnormalizedData);
+function desnormalizeChatMessages(data) {
+  console.log(`desnormalizeChatMessages (before): ${data}`);
+  let desnormalizedData = denormalize(data.result, chat, data.entities);
+  console.log(`desnormalizeChatMessages (before): ${desnormalizedData}`);
   return desnormalizedData;
 }

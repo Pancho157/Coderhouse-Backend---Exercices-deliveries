@@ -1,17 +1,1 @@
-[
-    {
-        "author": {
-            "id":"Otro email",
-            "name":"Francisco",
-            "lastName":"Algo",
-            "age":12,
-            "alias":"asdf",
-            "avatar":"asdf"
-        },
-        "message":"asdf",
-        "date":"2022-10-11T09:47:10.483Z"
-    },    
-    {
-        "author":{"id":"Otro email","name":"Francisco","lastName":"Algo","age":12,"alias":"asdf","avatar":"asdf"},"message":"asdf","date":"2022-10-11T09:47:10.483Z"
-    }
-]
+[]

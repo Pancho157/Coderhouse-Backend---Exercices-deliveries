@@ -6,31 +6,34 @@ const denormalize = normalizr.denormalize;
 const schema = normalizr.schema;
 
 // ------------------- Schemas -------------------
-const message = new schema.Entity("messages");
+const author = new schema.Entity("authors", {}, { idAttribute: "id" });
+const message = new schema.Entity("messages", { autor: author });
 
-const author = new schema.Entity("authors");
+const authorMessages = new schema.Entity(
+  "authorMessages",
+  {
+    autor: author,
+    text: [message],
+  },
+  { idAttribute: "id" }
+);
 
-const chatMessage = new schema.Entity("chatMessage", {
-  author: author,
-  message: message,
-});
-
-const chat = new schema.Entity("chat", {
-  messages: [chatMessage],
-});
+const chat = new schema.Array(authorMessages);
 
 // ------------------- Normalize data -------------------
-async function getNormalizedMessages() {
-  const data = await chatDao.getMessages();
+// La normalización trabaja bien!
+async function normalizeData(data) {
+  console.log(`normalizeData (before): ${data}`);
   let normalizedData = normalize(data, chat);
-  console.log(normalizedData);
+  console.log(`normalizeData (after): ${normalizedData}`);
   return normalizedData;
 }
 
-async function desnormalizeChatMessages(messages) {
-  let desnormalizedData = denormalize(messages.result, chat, messages.entities);
-  console.log(desnormalizedData);
+function desnormalizeData(data) {
+  console.log(`desnormalizeData (before): ${data}`);
+  let desnormalizedData = denormalize(data.result, chat, data.entities);
+  console.log(`desnormalizeData (after): ${desnormalizedData}`);
   return desnormalizedData;
 }
 
-module.exports = { getNormalizedMessages, desnormalizeChatMessages };
+module.exports = { normalizeData, desnormalizeData };

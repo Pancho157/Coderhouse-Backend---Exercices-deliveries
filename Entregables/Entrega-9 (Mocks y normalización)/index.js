@@ -17,8 +17,8 @@ const routerTest = require("./routes/apiProductosTest");
 // BBDDs
 const { productsDao, chatDao } = require("./DB/DAOs/DAOselector");
 const {
-  getNormalizedMessages,
-  desnormalizeChatMessages,
+  normalizeData,
+  desnormalizeData,
 } = require("./DB/utils/messagesNormalizr");
 
 // ----------------------- Inicialización del servidor -----------------------
@@ -51,12 +51,18 @@ io.on(`connection`, async (socket) => {
   console.log("Nuevo cliente conectado");
 
   socket.emit("productsFromServer", await productsDao.getProducts());
-  socket.emit("messagesFromServer", await getNormalizedMessages());
+  socket.emit("messagesFromServer", async () => {
+    let chatMessages = await chatDao.getMessages();
+    return normalizeData(chatMessages);
+  });
 
   socket.on("new-message", async (data) => {
-    const newMessage = desnormalizeChatMessages(data);
+    const newMessage = desnormalizeData(data);
     await chatDao.insertMessage(newMessage);
-    io.sockets.emit("messagesFromServer", await getNormalizedMessages());
+    io.sockets.emit("messagesFromServer", async () => {
+      let chatMessages = await chatDao.getMessages();
+      return normalizeData(chatMessages);
+    });
   });
 
   socket.on("new-product", async (data) => {
