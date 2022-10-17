@@ -19,9 +19,7 @@ const addMessage = (e) => {
     message: document.getElementById("message").value,
   };
 
-  const normalizedMessage = normalizeMessages(message);
-
-  socket.emit("new-message", normalizedMessage);
+  socket.emit("new-message", message);
 
   // Limpia el input para el mensaje, dejando el correo
   document.getElementById("message").value = " ";
@@ -29,8 +27,7 @@ const addMessage = (e) => {
 };
 
 const renderMessages = (messages) => {
-  const desnormalizedMessages = desnormalizeChatMessages(messages);
-  const messagesHTML = desnormalizedMessages
+  const messagesHTML = messages
     .map((message) => {
       return `
         <div>
@@ -61,6 +58,7 @@ const renderProducts = (products) => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
+  console.log(messages);
   renderMessages(messages);
 });
 
