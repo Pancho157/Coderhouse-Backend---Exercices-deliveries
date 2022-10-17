@@ -4,17 +4,11 @@ async function sockets(io) {
     console.log("Nuevo cliente conectado");
 
     socket.emit("productsFromServer", await productsDao.getProducts());
-    socket.emit("messagesFromServer", async () => {
-      let chatMessages = await chatDao.getMessages();
-      return chatMessages;
-    });
+    socket.emit("messagesFromServer", await chatDao.getMessages());
 
     socket.on("new-message", async (data) => {
       await chatDao.insertMessage(newMessage);
-      io.sockets.emit("messagesFromServer", async () => {
-        let chatMessages = await chatDao.getMessages();
-        return chatMessages;
-      });
+      io.sockets.emit("messagesFromServer", await chatDao.getMessages());
     });
 
     socket.on("new-product", async (data) => {
