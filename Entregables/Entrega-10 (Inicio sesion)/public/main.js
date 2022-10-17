@@ -5,8 +5,6 @@ const messagesContainer = document.getElementById("messagesContainer");
 
 // -------------------- Renderizar mensajes y productos ---------------------
 const addMessage = (e) => {
-  let date = new Date().toLocaleDateString() + " " + new Date().toTimeString();
-
   const message = {
     author: {
       email: document.getElementById("email").value,
@@ -58,7 +56,6 @@ const renderProducts = (products) => {
 
 // Recibe los productos del servidor
 socket.on("messagesFromServer", (messages) => {
-  console.log(messages);
   renderMessages(messages);
 });
 
