@@ -18,6 +18,9 @@ const routerTest = require("./routes/apiProductosTest");
 const { sockets } = require("./sockets-sessions/sockets");
 const { Session } = require("./sockets-sessions/sessions");
 
+// Middlewares
+const { isLoggedIn } = require("./middlewares/isLoggedIn");
+
 // ----------------------- Inicialización del servidor -----------------------
 
 var app = express();
@@ -38,9 +41,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-// ----------------------- Session -----------------------
+// ----------------------- Session & Auth -----------------------
 
 app.use(Session);
+app.use(isLoggedIn);
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));
@@ -63,8 +67,19 @@ app.get("/login", (req, res) => {
   res.render("loginForm");
 });
 
+app.post("/login", (req, res) => {
+  req.session.userName = req.body.userName;
+  res.redirect("/");
+});
+
 app.get("/logout", (req, res) => {
-  res.render("logOut", { name: "Juan" });
+  const userName = req.session.userName;
+  req.session.destroy((err) => {
+    if (err) {
+      res.send({ Error: true, message: err });
+    }
+  });
+  res.render("logOut", { name: userName });
 });
 
 // ----------------------- Error 404 -----------------------
