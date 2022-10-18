@@ -1,3 +1,8 @@
-<div class="logout__container" onload="logout()">
-  <h2 class="logout__title">Hasta luego {{name}}</h2>
+<div class="logout__container">
+  <h2 id="logout-message" class="logout__title">Hasta luego
+    {{name}}</h2>
+
+  <script>
+    setTimeout( () => { window.location.href = "/login"; }, 2000 );
+  </script>
 </div>

@@ -15,7 +15,8 @@ const router = require("./routes/apiProductos");
 const routerTest = require("./routes/apiProductosTest");
 
 // BBDDs
-const { sockets } = require("./sockets/sockets");
+const { sockets } = require("./sockets-sessions/sockets");
+const { Session } = require("./sockets-sessions/sessions");
 
 // ----------------------- Inicialización del servidor -----------------------
 
@@ -37,6 +38,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
+// ----------------------- Session -----------------------
+
+app.use(Session);
+
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", ".hbs");
@@ -51,7 +56,7 @@ app.use("/api/productos-test", routerTest);
 
 // ----------------------- Renderiza el formulario -----------------------
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { name: "Juan" });
 });
 
 app.get("/login", (req, res) => {
@@ -59,7 +64,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.render("logOut");
+  res.render("logOut", { name: "Juan" });
 });
 
 // ----------------------- Error 404 -----------------------

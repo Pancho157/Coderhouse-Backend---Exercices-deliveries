@@ -80,6 +80,24 @@ body {
   box-shadow: inset -3px -3px #fff;
 }
 
+/* ----------Estilos del log out------------- */
+
+.logout__container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout__title {
+  color: #fff;
+  background-color: #333333;
+  padding: 8px 30px;
+  border-radius: 8px;
+}
+
 /* ----------Estilos del formulario------------- */
 
 .form__container {
