@@ -91,6 +91,26 @@ body {
   color: #333333;
 }
 
+/* ----------Estilos del nav de la pág chat-tabla------------ */
+.nav__container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
+.log-out__button {
+  background-color: #f42f2f;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+.log-out__button:hover {
+  box-shadow: inset -3px -3px #fff;
+}
+
 /* ----------Estilos de la tabla------------- */
 
 .table {
