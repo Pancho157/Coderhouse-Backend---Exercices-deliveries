@@ -54,6 +54,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/login", (req, res) => {
+  res.render("loginForm");
+});
+
+app.get("/logout", (req, res) => {
+  res.render("logOut");
+});
+
 // ----------------------- Error 404 -----------------------
 app.use((req, res) => {
   res.status(404).send("No se encontró la página que estás buscando");

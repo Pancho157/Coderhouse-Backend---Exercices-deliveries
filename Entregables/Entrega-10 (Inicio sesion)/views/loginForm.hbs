@@ -1,18 +1,18 @@
-<div class="form__container">
+<div class="login-form__container">
   <h2 class="messages__title">Iniciar sesión</h2>
 
-  <form action="http://localhost:3000" method="post">
+  <form class="login-form">
     <label for="name">Ingrese su nombre</label>
 
     <input
-      class="chat__input"
+      class="login__input"
       id="name"
       type="text"
       required
       placeholder="Nombre se usuario"
     />
 
-    <button type="submit" class="login-form__button">
+    <button type="button" class="login-form__button" onclick="login()">
       Enviar
     </button>
   </form>
