@@ -1,8 +1,8 @@
-function idLoggedIn(req, res, next) {
-  if (req.session.userName) {
-    next();
+function isLoggedIn(req, res, next) {
+  if (!req.session.userName) {
+    res.redirect("/login");
   }
-  res.redirect("/login");
+  next();
 }
 
 module.exports = { isLoggedIn };

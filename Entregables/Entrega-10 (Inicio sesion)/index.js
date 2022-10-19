@@ -13,13 +13,11 @@ const { engine } = require("express-handlebars");
 //  Routers
 const router = require("./routes/apiProductos");
 const routerTest = require("./routes/apiProductosTest");
+const userInterfaces = require("./routes/userInterfaces");
 
 // BBDDs
 const { sockets } = require("./sockets-sessions/sockets");
 const { Session } = require("./sockets-sessions/sessions");
-
-// Middlewares
-const { isLoggedIn } = require("./middlewares/isLoggedIn");
 
 // ----------------------- Inicialización del servidor -----------------------
 
@@ -44,7 +42,6 @@ app.use(express.static(__dirname + "/public"));
 // ----------------------- Session & Auth -----------------------
 
 app.use(Session);
-app.use(isLoggedIn);
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));
@@ -57,30 +54,7 @@ sockets(io);
 // ----------------------- Router -----------------------
 app.use("/api/productos", router);
 app.use("/api/productos-test", routerTest);
-
-// ----------------------- Renderiza el formulario -----------------------
-app.get("/", (req, res) => {
-  res.render("index", { name: "Juan" });
-});
-
-app.get("/login", (req, res) => {
-  res.render("loginForm");
-});
-
-app.post("/login", (req, res) => {
-  req.session.userName = req.body.userName;
-  res.redirect("/");
-});
-
-app.get("/logout", (req, res) => {
-  const userName = req.session.userName;
-  req.session.destroy((err) => {
-    if (err) {
-      res.send({ Error: true, message: err });
-    }
-  });
-  res.render("logOut", { name: userName });
-});
+app.use("/", userInterfaces);
 
 // ----------------------- Error 404 -----------------------
 app.use((req, res) => {
