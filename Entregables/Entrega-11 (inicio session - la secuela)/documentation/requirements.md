@@ -10,7 +10,7 @@
 
 Implementar sobre el entregable que venimos realizando, un mecanismo de autenticación. Para ello:
 
-- Se incluirá una vista de registro, en donde se pidan email y c ontraseña. Estos datos se persistirán usando MongoDb, en una (nueva) colección de usuarios, cuidando que la contraseña quede encriptada (sugerencia: usar la libredía bcrypt)
+- Se incluirá una vista de registro, en donde se pidan email y contraseña. Estos datos se persistirán usando MongoDB, en una (nueva) colección de usuarios, cuidando que la contraseña quede encriptada (sugerencia: usar la librería bcrypt)
 
 - Una vista de login, donde se pida el email y contraseña, y que realice la autenticación del lado del servidor a través de una estrategia de passport local
 
@@ -28,7 +28,7 @@ Implementar sobre el entregable que venimos realizando, un mecanismo de autentic
 
 ---
 
-Se adjuntan tres screenshot con las vistas anteriormente mencionadas.
+Se adjuntan tres screenshots con las vistas anteriormente mencionadas.
 
 ![Ejemplo 1](./assets/example-1.jpg)
 
