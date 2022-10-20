@@ -3,7 +3,7 @@ const { isLoggedIn } = require("../middlewares/isLoggedIn");
 
 const userInterfaces = Router();
 
-userInterfaces.get("/", (req, res) => {
+userInterfaces.get("/", isLoggedIn, (req, res) => {
   res.render("index", { name: req.session.userName });
 });
 
@@ -21,7 +21,7 @@ userInterfaces.post("/login", (req, res) => {
   res.redirect("/");
 });
 
-userInterfaces.get("/logout", (req, res) => {
+userInterfaces.get("/logout", isLoggedIn, (req, res) => {
   const userName = req.session.userName;
   req.session.destroy((err) => {
     if (err) {
