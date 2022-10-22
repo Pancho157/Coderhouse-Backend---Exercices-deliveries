@@ -46,6 +46,20 @@ body {
   row-gap: 40px;
 }
 
+.login--redirectionButton {
+  padding: 5px 15px;
+  color: #131316;
+  background-color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 300ms;
+  box-shadow: inset -3px -3px #1bc72f;
+}
+
+.login--redirectionButton:hover {
+  box-shadow: inset -0px -0px #1bc72f;
+}
+
 .login-form {
   width: 400px;
   background-color: #333333;

@@ -1,0 +1,47 @@
+<div class="login-form__container">
+  <a href="/login" class="login--redirectionButton">Log In</a>
+  <h2 class="messages__title">Formulario de registro</h2>
+
+  <form class="login-form">
+    <label for="userEmail">Email:</label>
+    <input
+      class="login__input"
+      id="userEmail"
+      type="text"
+      required
+      placeholder="Email del usuario"
+    />
+
+    <label for="userAlias">Nombre de usuario:</label>
+    <input
+      class="login__input"
+      id="userAlias"
+      type="text"
+      required
+      placeholder="Nombre de usuario"
+    />
+
+    <label for="userPass">Contraseña:</label>
+    <input
+      class="login__input"
+      id="userPass"
+      type="password"
+      required
+      placeholder="Contraseña de usuario"
+    />
+
+    <input
+      class="login__input"
+      id="passConfirm"
+      type="password"
+      required
+      placeholder="Confirmar contraseña"
+    />
+
+    <button type="button" class="login-form__button" onclick="login()">
+      Enviar
+    </button>
+  </form>
+
+  <script src="/login-logOut.js"></script>
+</div>

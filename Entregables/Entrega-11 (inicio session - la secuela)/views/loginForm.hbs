@@ -1,15 +1,24 @@
 <div class="login-form__container">
+  <a href="/register" class="login--redirectionButton">Register</a>
   <h2 class="messages__title">Iniciar sesión</h2>
 
   <form class="login-form">
-    <label for="name">Ingrese su nombre</label>
-
+    <label for="userAlias">Usuario:</label>
     <input
       class="login__input"
-      id="name"
+      id="user"
       type="text"
       required
-      placeholder="Nombre se usuario"
+      placeholder="Nombre de usuario / Email"
+    />
+
+    <label for="userPass">Contraseña:</label>
+    <input
+      class="login__input"
+      id="userPass"
+      type="password"
+      required
+      placeholder="Contraseña de usuario"
     />
 
     <button type="button" class="login-form__button" onclick="login()">

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// --------------------- Messages Schema & Model ------------------------
 const MessageSchema = mongoose.Schema(
   {
     message: { type: String, required: true },
@@ -22,4 +23,26 @@ const MessageSchema = mongoose.Schema(
 
 let Message = mongoose.model("messages", MessageSchema);
 
-module.exports = { Message };
+// --------------------- Messages Schema & Model ------------------------
+const UserSchema = mongoose.Schema(
+  {
+    alias: {
+      type: String,
+      required: [true, "Alias is required"],
+      unique: true,
+      dropDups: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      dropDups: true,
+    },
+    password: { type: String, required: true },
+  },
+  { _id: false }
+);
+
+let Users = mongoose.model("users", UserSchema);
+
+module.exports = { Message, Users };
