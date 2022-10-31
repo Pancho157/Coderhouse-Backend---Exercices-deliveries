@@ -4,7 +4,8 @@ async function registerUser() {
   const password = document.getElementById("password").value;
   const passwordConfirmation = document.getElementById("passConfirm").value;
 
-  if (password != passwordConfirmation) {
+  if (!password != passwordConfirmation) {
+    return renderErrorMessage("La contraseña debe coincidir");
   }
 
   const response = await fetch("http://localhost:3000/register", {
@@ -18,4 +19,8 @@ async function registerUser() {
       userPass: userPass,
     }),
   });
+
+  if (response.errorMessage) {
+    return renderErrorMessage("La contraseña debe coincidir");
+  }
 }
