@@ -3,14 +3,16 @@ const MongoStore = require("connect-mongo");
 
 const configs = JSON.parse(process.env.CONFIGS);
 
+// VkCAVriXGpPzWpc3
+
 const Session = session({
   store: MongoStore.create({
-    mongoUrl:
-      "mongodb+srv://Pancho:VkCAVriXGpPzWpc3@tests-with-mongoatlas.mnyne3y.mongodb.net/?retryWrites=true&w=majority",
-    mongoOptions: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    },
+    mongoUrl: "mongodb://localhost:27017/sessions",
+    // "mongodb+srv://Pancho:<VkCAVriXGpPzWpc3>@tests-with-mongoatlas.mnyne3y.mongodb.net/?retryWrites=true&w=majority",
+    // mongoOptions: {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    // },
   }),
   secret: "mongoSecret",
   resave: false,
