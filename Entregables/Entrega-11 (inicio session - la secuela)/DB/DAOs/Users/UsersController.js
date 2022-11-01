@@ -1,10 +1,14 @@
 const { Users } = require("../../utils/Mongoose-Schemas_Models");
+const bcrypt = require("bcrypt");
 
 class UserControllerMongo {
   constructor() {}
 
   async createUser(newUser) {
     const { alias, email, password } = newUser;
+    const encriptedPass = bcrypt.hash(password, 15, function (err, hash) {
+      return hash;
+    });
 
     if (!alias || !email || !password) {
       return "Se deben ingresar todos los datos";
@@ -21,13 +25,17 @@ class UserControllerMongo {
     }
 
     try {
-      await Users.create({ alias: alias, email: email, password: password });
+      await Users.create({
+        alias: alias,
+        email: email,
+        password: encriptedPass,
+      });
     } catch (err) {
       return err.message;
     }
   }
 
-  async verifyUser(userIdentifier) {
+  async verifyUser(userIdentifier, userPassword) {
     // userIdentifier = email || alias
     let emailExists;
     let aliasExists;
@@ -39,12 +47,31 @@ class UserControllerMongo {
       return err.message;
     }
 
-    if (emailExists) {
+    if (
+      // compara la contraseña guardada (si no la encuentra devuelve false)
+      bcrypt.compare(
+        userPassword,
+        emailExists.password,
+        function (err, result) {
+          return result;
+        }
+      )
+    ) {
       return { alias: emailExists.alias };
-    } else if (aliasExists) {
+    } else if (
+      // compara la contraseña guardada (si no la encuentra devuelve false)
+      bcrypt.compare(
+        userPassword,
+        aliasExists.password,
+        function (err, result) {
+          return result;
+        }
+      )
+    ) {
       return { alias: aliasExists.alias };
     }
 
+    // usuario o contraseña incorrecto
     return { alias: false };
   }
 }

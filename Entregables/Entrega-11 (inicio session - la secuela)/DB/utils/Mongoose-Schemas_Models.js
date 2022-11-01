@@ -38,7 +38,11 @@ const UserSchema = mongoose.Schema(
       unique: true,
       dropDups: true,
     },
-    password: { type: String, required: true },
+    password: {
+      type: String,
+      required: true,
+      minlength: [6, "La contraseña debe tener 6 caracteres como mínimo"],
+    },
   },
   { _id: false }
 );
