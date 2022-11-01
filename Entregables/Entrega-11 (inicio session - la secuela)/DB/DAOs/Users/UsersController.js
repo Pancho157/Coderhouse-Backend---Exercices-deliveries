@@ -25,7 +25,7 @@ class UserControllerMongo {
     }
 
     try {
-      await Users.create({
+      user = await Users.create({
         alias: alias,
         email: email,
         password: encriptedPass,
@@ -33,6 +33,8 @@ class UserControllerMongo {
     } catch (err) {
       return err.message;
     }
+
+    return { alias: alias };
   }
 
   async verifyUser(userIdentifier, userPassword) {

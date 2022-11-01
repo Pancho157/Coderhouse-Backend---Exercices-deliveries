@@ -1,10 +1,12 @@
 const { Router } = require("express");
+const {
+  UserControllerMongo: Users,
+} = require("../DB/DAOs/Users/UsersController");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
-const { Users } = require("../DB/utils/Mongoose-Schemas_Models");
 
 const userInterfaces = Router();
 
-// -------------------- PRODUCTOS Y CHAT --------------------
+// -------------------- TABLA DE PRODUCTOS Y CHAT --------------------
 userInterfaces.get("/", isLoggedIn, (req, res) => {
   res.render("index", { name: req.session.userName });
 });
@@ -16,29 +18,18 @@ userInterfaces.get("/login", (req, res) => {
   res.render("loginForm");
 });
 
+// ----------------
 userInterfaces.post("/login", async (req, res) => {
-  const user = req.body.user;
-  const userPass = req.body.userPass;
-  let returnedUser;
-
-  if (!user || !userPass) {
-    res.send("Ingrese los valores requeridos");
-  }
+  const { user, userPass } = req.body;
+  let response;
 
   try {
-    returnedUser = await Users.find({
-      // Devuelve el usuario si cohincide con el alias o el email
-      $or: [{ email: user }, { alias: user }],
-    });
-    if (!returnedUser || user.password != userPass) {
-      res.send("Usuario o contraseña incorrecto");
-    }
+    response = await Users.verifyUser(user, userPass);
   } catch (err) {
     res.send({ Error: true, message: err.message });
   }
 
-  // Establece el nombre dentro de la app
-  req.session.userName = returnedUser.alias;
+  req.session.userName = response.alias;
   res.redirect("/");
 });
 
@@ -59,23 +50,21 @@ userInterfaces.get("/register", (req, res) => {
 });
 
 userInterfaces.post("/register", async (req, res) => {
-  const userEmail = req.body.userEmail;
-  const userAlias = req.body.userAlias;
-  const userPass = req.body.userPass;
+  const { userEmail, userAlias, userPass } = req.body;
+  let response;
 
-  if (!userEmail || !userPass) {
+  if (!userEmail || !userAlias || !userPass) {
     res.send("Ingrese los valores requeridos");
   }
 
   try {
-    await Users.create({
-      alias: userAlias,
-      email: userEmail,
-      password: userPass,
-    });
+    response = Users.createUser(userAlias, userEmail, userPass);
   } catch (err) {
     res.status(500).send({ error: true, message: err.message });
   }
+
+  if (!response.alias) res.send(response);
+
   req.session.userName = req.body.userAlias;
   res.redirect("/");
 });
