@@ -21,11 +21,32 @@ class UserControllerMongo {
     }
 
     try {
-      Users.create({ alias: alias, email: email, password: password });
+      await Users.create({ alias: alias, email: email, password: password });
     } catch (err) {
       return err.message;
     }
   }
+
+  async verifyUser(userIdentifier) {
+    // userIdentifier = email || alias
+    let emailExists;
+    let aliasExists;
+
+    try {
+      emailExists = await Users.find({ email: userIdentifier });
+      aliasExists = await Users.find({ alias: userIdentifier });
+    } catch (err) {
+      return err.message;
+    }
+
+    if (emailExists) {
+      return { alias: emailExists.alias };
+    } else if (aliasExists) {
+      return { alias: aliasExists.alias };
+    }
+
+    return { alias: false };
+  }
 }
 
-module.exports = { UserControlerMongo };
+module.exports = { UserControllerMongo };
