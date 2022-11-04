@@ -19,6 +19,9 @@ const userInterfaces = require("./routes/userInterfaces");
 const { sockets } = require("./sockets-sessions/sockets");
 const { Session } = require("./sockets-sessions/sessions");
 
+// Auth
+const passport = require("passport");
+
 // ----------------------- Inicialización del servidor -----------------------
 
 var app = express();
@@ -42,6 +45,7 @@ app.use(express.static(__dirname + "/public"));
 // ----------------------- Session & Auth -----------------------
 
 app.use(Session);
+app.use(passport.initialize());
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));
