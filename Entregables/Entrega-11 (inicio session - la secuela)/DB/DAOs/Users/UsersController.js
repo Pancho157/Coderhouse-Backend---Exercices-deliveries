@@ -4,39 +4,38 @@ const bcrypt = require("bcrypt");
 class UserControllerMongo {
   constructor() {}
 
-  async createUser(newUser) {
-    const { alias, email, password } = newUser;
-    const encriptedPass = bcrypt.hash(password, 15, function (err, hash) {
-      return hash;
-    });
+  // * -------------------------- Creación de usuario ----------------------------
+  async createUser(newUserInfo) {
+    const { alias, email, password } = newUserInfo;
+    let exists = {};
 
-    if (!alias || !email || !password) {
-      return "Se deben ingresar todos los datos";
-    }
-
+    // Error al existir el email o alias
     try {
       const emailExists = await Users.find({ email: email });
       const aliasExists = await Users.find({ alias: alias });
 
-      if (emailExists) return "El email ingresado ya existe";
-      if (aliasExists) return "El alias ingresado ya existe";
+      if (emailExists) exists.email = emailExists;
+      if (aliasExists) exists.email = aliasExists;
     } catch (err) {
       return err.message;
     }
 
+    if (exists.email || exists.alias) return exists;
+
+    // Guardando el usuario
     try {
-      user = await Users.create({
-        alias: alias,
-        email: email,
-        password: encriptedPass,
-      });
+      const newUser = new User({ alias, email, password });
+      newUser.password = await newUser.encryptPassword(password);
+      await newUser.save();
     } catch (err) {
       return err.message;
     }
 
-    return { alias: alias };
+    // Devuelve el alias para guardarlo en session
+    return { newUserAlias: alias };
   }
 
+  // * -------------------------- Auth de usuario ----------------------------
   async verifyUser(userIdentifier, userPassword) {
     // userIdentifier = email || alias
     let emailExists;
@@ -49,8 +48,8 @@ class UserControllerMongo {
       return err.message;
     }
 
+    // Comparacion de contraseñas (email encontrado)
     if (
-      // compara la contraseña guardada (si no la encuentra devuelve false)
       bcrypt.compare(
         userPassword,
         emailExists.password,
@@ -61,7 +60,7 @@ class UserControllerMongo {
     ) {
       return { alias: emailExists.alias };
     } else if (
-      // compara la contraseña guardada (si no la encuentra devuelve false)
+      // Comparacion de contraseñas (alias encontrado)
       bcrypt.compare(
         userPassword,
         aliasExists.password,
@@ -74,7 +73,7 @@ class UserControllerMongo {
     }
 
     // usuario o contraseña incorrecto
-    return { alias: false };
+    return { alias: undefined };
   }
 }
 

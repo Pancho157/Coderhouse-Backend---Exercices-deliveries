@@ -1,9 +1,5 @@
 const passport = require("passport");
-const {
-  Strategy: GoogleStrategy,
-  Profile,
-  VerifyCallback,
-} = require("passport-google-oauth20");
+const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 
 passport.use(
   new GoogleStrategy(

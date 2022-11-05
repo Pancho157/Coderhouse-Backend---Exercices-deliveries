@@ -44,8 +44,8 @@ app.use(express.static(__dirname + "/public"));
 
 // ----------------------- Session & Auth -----------------------
 
-app.use(Session);
 app.use(passport.initialize());
+app.use(Session);
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));

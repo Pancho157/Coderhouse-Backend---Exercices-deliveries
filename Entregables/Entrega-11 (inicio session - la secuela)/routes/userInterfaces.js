@@ -52,21 +52,37 @@ userInterfaces.get("/register", (req, res) => {
 userInterfaces.post("/register", async (req, res) => {
   const { userEmail, userAlias, userPass } = req.body;
   let response;
-
-  if (!userEmail || !userAlias || !userPass) {
-    res.send("Ingrese los valores requeridos");
-  }
-
   try {
     response = Users.createUser(userAlias, userEmail, userPass);
   } catch (err) {
     res.status(500).send({ error: true, message: err.message });
   }
 
-  if (!response.alias) res.send(response);
+  /*
+   En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
+  
+   */
+  if (response.alias || response.email)
+    res.redirect(
+      `/register/error?email=${response.email}&alias=${response.alias}`
+    );
 
-  req.session.userName = req.body.userAlias;
+  /* En caso de salir todo correctamente devuelve un objeto con newUserAlias */
+  req.session.userName = response.newUserAlias;
   res.redirect("/");
+});
+
+// -------------------- LOGIN / REGISTER ERROR --------------------
+
+userInterfaces.get("/register/error", (req, res) => {
+  res.render("registerError", {
+    email: req.query.email,
+    alias: req.query.alias,
+  });
+});
+
+userInterfaces.get("/login/error", (req, res) => {
+  res.render("loginError");
 });
 
 module.exports = userInterfaces;
