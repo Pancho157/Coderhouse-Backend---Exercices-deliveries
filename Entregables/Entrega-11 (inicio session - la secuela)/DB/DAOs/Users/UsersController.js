@@ -77,4 +77,6 @@ class UserControllerMongo {
   }
 }
 
-module.exports = { UserControllerMongo };
+let UsersControllerInstance = new UserControllerMongo();
+
+module.exports = { UsersControllerInstance };

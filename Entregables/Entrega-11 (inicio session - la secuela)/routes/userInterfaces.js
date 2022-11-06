@@ -1,9 +1,6 @@
 const { Router } = require("express");
-const {
-  UserControllerMongo: Users,
-} = require("../DB/DAOs/Users/UsersController");
+const { UsersControllerInstance: Users } = require("../DB/DAOs/Users/UsersController");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
-
 const userInterfaces = Router();
 
 // -------------------- TABLA DE PRODUCTOS Y CHAT --------------------
@@ -25,13 +22,12 @@ userInterfaces.post("/login", async (req, res) => {
 
   try {
     response = await Users.verifyUser(user, userPass);
+    if (!response.alias) res.redirect("/login/error");
+    req.session.userName = response.alias;
   } catch (err) {
     res.send({ Error: true, message: err.message });
   }
 
-  if (!response.alias) res.redirect('/login/error')
-
-  req.session.userName = response.alias;
   res.redirect("/");
 });
 
@@ -57,7 +53,7 @@ userInterfaces.post("/register", async (req, res) => {
   try {
     response = Users.createUser(userAlias, userEmail, userPass);
   } catch (err) {
-    res.status(500).send({ error: true, message: err.message });
+    res.send({ error: true, message: err.message });
   }
 
   /*
