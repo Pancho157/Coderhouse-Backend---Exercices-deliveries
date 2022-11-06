@@ -29,6 +29,8 @@ userInterfaces.post("/login", async (req, res) => {
     res.send({ Error: true, message: err.message });
   }
 
+  if (!response.alias) res.redirect('/login/error')
+
   req.session.userName = response.alias;
   res.redirect("/");
 });

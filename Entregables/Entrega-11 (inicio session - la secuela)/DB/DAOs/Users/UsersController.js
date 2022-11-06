@@ -24,7 +24,7 @@ class UserControllerMongo {
 
     // Guardando el usuario
     try {
-      const newUser = new User({ alias, email, password });
+      const newUser = new Users({ alias, email, password });
       newUser.password = await newUser.encryptPassword(password);
       await newUser.save();
     } catch (err) {
