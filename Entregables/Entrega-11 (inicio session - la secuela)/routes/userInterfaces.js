@@ -1,5 +1,7 @@
 const { Router } = require("express");
-const { UsersControllerInstance: Users } = require("../DB/DAOs/Users/UsersController");
+const {
+  UsersControllerInstance: Users,
+} = require("../DB/DAOs/Users/UsersController");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
 const userInterfaces = Router();
 
@@ -58,7 +60,6 @@ userInterfaces.post("/register", async (req, res) => {
 
   /*
    En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
-  
    */
   if (response.alias || response.email)
     res.redirect(
