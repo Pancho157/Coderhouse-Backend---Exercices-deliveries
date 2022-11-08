@@ -5,8 +5,7 @@ class UserControllerMongo {
   constructor() {}
 
   // * -------------------------- Creación de usuario ----------------------------
-  async createUser(newUserInfo) {
-    const { alias, email, password } = newUserInfo;
+  async createUser(alias, email, password) {
     let exists = {};
 
     // Error al existir el email o alias
@@ -77,6 +76,4 @@ class UserControllerMongo {
   }
 }
 
-let UsersControllerInstance = new UserControllerMongo();
-
-module.exports = { UsersControllerInstance };
+module.exports = { UserControllerMongo };
