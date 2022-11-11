@@ -21,6 +21,7 @@ const { Session } = require("./sockets-sessions/sessions");
 
 // Auth
 const passport = require("passport");
+const { connectToMongo } = require("./DB/utils/mongooseConnection");
 
 // ----------------------- Inicialización del servidor -----------------------
 
@@ -41,6 +42,9 @@ connectedServer.on("error", (err) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+
+// -----------------------  Conección a Mongo -----------------------
+connectToMongo();
 
 // ----------------------- Session & Auth -----------------------
 

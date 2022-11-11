@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const md5 = require("md5");
 const { UserControllerMongo } = require("../DB/DAOs/Users/UsersController");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
 const userInterfaces = Router();
@@ -95,7 +96,8 @@ userInterfaces.get("/login/error", (req, res) => {
 
 userInterfaces.get("/prueba", async (req, res) => {
   try {
-    let response = await Users.createUser("userAlias", "userEmail", "userPass");
+    // res.send(md5("userPass"));
+    let response = await Users.verifyUser("userAlias", "userPass");
     console.log(response);
     res.send(response);
   } catch (err) {
