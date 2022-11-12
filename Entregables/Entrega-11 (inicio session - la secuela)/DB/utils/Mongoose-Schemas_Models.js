@@ -44,7 +44,7 @@ const UserSchema = mongoose.Schema(
       minlength: [6, "La contraseña debe tener 6 caracteres como mínimo"],
     },
   },
-  { _id: false, timestamps: false, versionKey: false }
+  { timestamps: false, versionKey: false }
 );
 
 let Users = mongoose.model("users", UserSchema);

@@ -1,6 +1,6 @@
 async function login() {
-  const userName = document.getElementById("name").value;
-  const userPass = document.getElementById("userPass").value;
+  const userName = document.getElementById("login-user").value;
+  const userPass = document.getElementById("login-pass").value;
   const response = await fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {

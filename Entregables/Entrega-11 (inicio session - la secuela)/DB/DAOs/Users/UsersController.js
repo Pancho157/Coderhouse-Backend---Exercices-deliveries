@@ -20,6 +20,7 @@ class UserControllerMongo {
         if (userExists.alias == alias) {
           exists.alias = userExists.alias;
         }
+
         return exists;
       }
     } catch (err) {

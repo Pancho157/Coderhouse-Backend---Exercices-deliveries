@@ -31,8 +31,7 @@ userInterfaces.post("/login", async (req, res) => {
 
   try {
     response = await Users.verifyUser(user, userPass);
-    res.send(response);
-    if (!response.alias) res.redirect("/login/error");
+    if (typeof response == "string") res.redirect("/login/error");
     req.session.userName = response.alias;
   } catch (err) {
     res.send({ Error: true, message: err.message });
@@ -60,18 +59,20 @@ userInterfaces.get("/register", (req, res) => {
 userInterfaces.post("/register", async (req, res) => {
   const { userEmail, userAlias, userPass } = req.body;
   let response;
+
   try {
     response = await Users.createUser(userAlias, userEmail, userPass);
 
+    console.log(response);
     //  En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
-    if (response.alias || response.email)
+    if (response.alias || response.email) {
       res.redirect(
         `/register/error?email=${response.email}&alias=${response.alias}`
       );
+    }
 
     /* En caso de salir todo correctamente devuelve un objeto con newUserAlias */
     req.session.userName = response.newUserAlias;
-    console.log(response);
   } catch (err) {
     res.send({ error: true, message: err.message });
   }
@@ -90,19 +91,6 @@ userInterfaces.get("/register/error", (req, res) => {
 
 userInterfaces.get("/login/error", (req, res) => {
   res.render("loginError");
-});
-
-// -------------------- Pruebas --------------------
-
-userInterfaces.get("/prueba", async (req, res) => {
-  try {
-    // res.send(md5("userPass"));
-    let response = await Users.verifyUser("userAlias", "userPass");
-    console.log(response);
-    res.send(response);
-  } catch (err) {
-    res.send({ error: true, message: err.message });
-  }
 });
 
 module.exports = userInterfaces;

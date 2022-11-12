@@ -1,17 +1,19 @@
 async function registerUser() {
-  const userEmail = document.getElementById("userEmail").value;
-  const userAlias = document.getElementById("userAlias").value;
-  const password = document.getElementById("password").value;
+  const newUserEmail = document.getElementById("register-email").value;
+  const newUserAlias = document.getElementById("register-alias").value;
+  const newUserPassword = document.getElementById("register-password").value;
   const passwordConfirmation = document.getElementById("passConfirm").value;
 
   const registerButton = document.getElementById("register-button");
 
-  if (!password != passwordConfirmation || password.length < 6) {
-    registerButton.disabled = true;
-    return renderErrorMessage(
-      "La contraseña debe coincidir y tener por lo menos 6 caracteres"
-    );
-  }
+  // if (!newUserPassword != passwordConfirmation || newUserPassword.length < 6) {
+  //   registerButton.disabled = true;
+  //   return renderErrorMessage(
+  //     "La contraseña debe coincidir y tener por lo menos 6 caracteres"
+  //   );
+  // } else {
+  //   registerButton.disabled = false;
+  // }
 
   registerButton.disabled = false;
 
@@ -21,13 +23,9 @@ async function registerUser() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      userEmail: userEmail,
-      userAlias: userAlias,
-      userPass: userPass,
+      userEmail: newUserEmail,
+      userAlias: newUserAlias,
+      userPass: newUserPassword,
     }),
   });
-
-  if (response.errorMessage) {
-    return renderErrorMessage("La contraseña debe coincidir");
-  }
 }

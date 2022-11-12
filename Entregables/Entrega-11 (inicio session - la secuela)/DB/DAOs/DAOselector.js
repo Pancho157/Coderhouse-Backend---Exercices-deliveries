@@ -17,9 +17,6 @@ switch (process.env.PERS) {
 
   // ------------- Mongoose -------------
   case "mongodb":
-    const { connectToMongo } = require("../utils/mongooseConnection");
-    connectToMongo();
-
     const { ChatControllerMongo } = require("./Chat/ChatController_mongoose");
     chatDao = new ChatControllerMongo();
     break;
