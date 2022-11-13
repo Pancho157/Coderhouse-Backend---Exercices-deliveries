@@ -4,11 +4,12 @@
   <a href="/login" class="login--redirectionButton">Log In Form</a>
   <h2 class="messages__title">Formulario de registro</h2>
 
-  <form class="login-form">
+  <form class="login-form" action="/register" method="post">
     <label for="userEmail">Email:</label>
     <input
       class="login__input"
-      id="register-email"
+      id="userEmail"
+      name="userEmail"
       type="text"
       required
       placeholder="Email del usuario"
@@ -17,7 +18,8 @@
     <label for="userAlias">Nombre de usuario:</label>
     <input
       class="login__input"
-      id="register-alias"
+      id="userAlias"
+      name="userAlias"
       type="text"
       required
       placeholder="Nombre de usuario"
@@ -26,29 +28,21 @@
     <label for="userPass">Contraseña:</label>
     <input
       class="login__input"
-      id="register-password"
+      id="userPass"
+      name="userPass"
       type="password"
       required
       placeholder="Contraseña de usuario"
     />
 
-    <input
-      class="login__input"
-      id="passConfirm"
-      type="password"
-      required
-      placeholder="Confirmar contraseña"
-    />
-
     <button
-      type="button"
+      type="submit"
       id="register-button"
+      name=""
       class="login-form__button"
       onclick="registerUser()"
     >
       Enviar
     </button>
   </form>
-
-  <script src="/register.js"></script>
 </div>

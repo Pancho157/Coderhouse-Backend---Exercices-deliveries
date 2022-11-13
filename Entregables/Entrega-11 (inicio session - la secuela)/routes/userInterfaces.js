@@ -31,13 +31,16 @@ userInterfaces.post("/login", async (req, res) => {
 
   try {
     response = await Users.verifyUser(user, userPass);
-    if (typeof response == "string") res.redirect("/login/error");
-    req.session.userName = response.alias;
   } catch (err) {
     res.send({ Error: true, message: err.message });
   }
 
-  res.redirect("/");
+  if (typeof response == "string") {
+    res.render("loginError");
+  } else {
+    req.session.userName = response.alias;
+    res.redirect("/");
+  }
 });
 
 // -------------------- LOGOUT --------------------
@@ -68,25 +71,13 @@ userInterfaces.post("/register", async (req, res) => {
 
   //  En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
   if (response.alias || response.email) {
-    return res.redirect(
-      `/register/error?email=${response.email}&alias=${response.alias}`
-    );
+    res.render("registerError", {
+      email: response.email,
+      alias: response.alias,
+    });
   } else {
     req.session.userName = response.newUserAlias;
   }
-});
-
-// -------------------- LOGIN / REGISTER ERROR --------------------
-
-userInterfaces.get("/register/error", (req, res) => {
-  res.render("registerError", {
-    email: req.query.email,
-    alias: req.query.alias,
-  });
-});
-
-userInterfaces.get("/login/error", (req, res) => {
-  res.render("loginError");
 });
 
 module.exports = userInterfaces;
