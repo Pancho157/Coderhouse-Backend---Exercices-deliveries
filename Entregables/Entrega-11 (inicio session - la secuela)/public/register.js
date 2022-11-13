@@ -28,4 +28,6 @@ async function registerUser() {
       userPass: newUserPassword,
     }),
   });
+
+  window.location.replace("/");
 }

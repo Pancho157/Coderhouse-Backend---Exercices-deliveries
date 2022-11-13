@@ -62,22 +62,18 @@ userInterfaces.post("/register", async (req, res) => {
 
   try {
     response = await Users.createUser(userAlias, userEmail, userPass);
-
-    console.log(response);
-    //  En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
-    if (response.alias || response.email) {
-      res.redirect(
-        `/register/error?email=${response.email}&alias=${response.alias}`
-      );
-    }
-
-    /* En caso de salir todo correctamente devuelve un objeto con newUserAlias */
-    req.session.userName = response.newUserAlias;
   } catch (err) {
     res.send({ error: true, message: err.message });
   }
 
-  res.redirect("/");
+  //  En caso de existir un email y/o alias la respuesta es un objeto con el valor encontrado
+  if (response.alias || response.email) {
+    return res.redirect(
+      `/register/error?email=${response.email}&alias=${response.alias}`
+    );
+  } else {
+    req.session.userName = response.newUserAlias;
+  }
 });
 
 // -------------------- LOGIN / REGISTER ERROR --------------------
