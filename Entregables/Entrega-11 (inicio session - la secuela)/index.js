@@ -46,10 +46,11 @@ app.use(express.static(__dirname + "/public"));
 // -----------------------  Conección a Mongo -----------------------
 connectToMongo();
 
-// ----------------------- Session & Auth -----------------------
+// ----------------------- Passport & Sessions -----------------------
+app.use(Session);
 
 app.use(passport.initialize());
-app.use(Session);
+// app.use(passport.session());
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));

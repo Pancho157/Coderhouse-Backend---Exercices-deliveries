@@ -17,7 +17,7 @@ userInterfaces.get("/", (req, res) => {
 
 // ----------------- LOGIN --------------------
 userInterfaces.get("/login", (req, res) => {
-  if (req.session?.usuario) {
+  if (req.session?.userName) {
     res.redirect("/");
   } else {
     res.render("loginForm");
