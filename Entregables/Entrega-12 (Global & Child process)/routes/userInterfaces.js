@@ -2,8 +2,8 @@ const { Router } = require("express");
 const md5 = require("md5");
 const { UserControllerMongo } = require("../DB/DAOs/Users/UsersController");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
-const userInterfaces = Router();
 
+const userInterfaces = Router();
 let Users = new UserControllerMongo();
 
 // -------------------- TABLA DE PRODUCTOS Y CHAT --------------------

@@ -12,6 +12,8 @@ const { engine } = require("express-handlebars");
 
 //  Routers
 const userInterfaces = require("./routes/userInterfaces");
+const { info } = require("./routes/info");
+const { apiRandoms } = require("./routes/apiRandoms");
 
 // BBDDs
 const { sockets } = require("./sockets-sessions/sockets");
@@ -60,6 +62,8 @@ sockets(io);
 
 // ----------------------- Router -----------------------
 app.use("/", userInterfaces);
+app.use("/", info);
+app.use("/api", apiRandoms);
 
 // ----------------------- Error 404 -----------------------
 app.use((req, res) => {
