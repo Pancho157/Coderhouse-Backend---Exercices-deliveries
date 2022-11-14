@@ -7,12 +7,7 @@ const configs = JSON.parse(process.env.CONFIGS);
 
 const Session = session({
   store: MongoStore.create({
-    mongoUrl: "mongodb://localhost:27017/sessions",
-    // "mongodb+srv://Pancho:<VkCAVriXGpPzWpc3>@tests-with-mongoatlas.mnyne3y.mongodb.net/?retryWrites=true&w=majority",
-    // mongoOptions: {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    // },
+    mongoUrl: "mongodb://0.0.0.0:27017/sessions",
   }),
   secret: "mongoSecret",
   resave: false,
