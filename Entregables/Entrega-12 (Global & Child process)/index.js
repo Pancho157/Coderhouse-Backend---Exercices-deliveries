@@ -23,15 +23,25 @@ const { Session } = require("./sockets-sessions/sessions");
 const passport = require("passport");
 const { connectToMongo } = require("./DB/utils/mongooseConnection");
 
+// Argumentos de línea de comandos
+const yargs = require("yargs/yargs")(process.argv.slice(2));
+
+const { puerto, _ } = yargs
+  .alias({
+    p: "puerto",
+  })
+  .default({
+    p: 8080,
+  }).argv;
+
 // ----------------------- Inicialización del servidor -----------------------
 
 var app = express();
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
 
-const PORT = process.env.PORT || 8080;
-const connectedServer = httpServer.listen(PORT, () => {
-  console.log(`Http - Socket Server On - Port: ${PORT}`);
+const connectedServer = httpServer.listen(puerto, () => {
+  console.log(`Http - Socket Server On - Port: ${puerto}`);
 });
 
 // En caso de fallar el servidor de sockets
