@@ -15,7 +15,7 @@ function getNumbersObject(quantity = 100000000) {
 }
 
 process.on("exit", () => {
-  console.log(`End of process`);
+  console.log(`worker #${process.pid} cerrado`);
 });
 
 process.on("message", (reps) => {
