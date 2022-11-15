@@ -14,14 +14,13 @@ function getNumbersObject(quantity = 100000000) {
   return objectToReturn;
 }
 
-process.on("message", (cantidad) => {
-  console.log(`Creating object`);
-  const obj = objNumRandomGenerate(cantidad);
-  process.send(obj);
-  console.log(`Objeto creado y enviado`);
-  process.exit();
-});
-
 process.on("exit", () => {
   console.log(`End of process`);
+});
+
+process.on("message", (reps) => {
+  console.log(`Creating object`);
+  const obj = getNumbersObject(reps);
+  process.send(obj);
+  process.exit();
 });
