@@ -26,13 +26,41 @@ const { connectToMongo } = require("./DB/utils/mongooseConnection");
 // Argumentos de línea de comandos
 const yargs = require("yargs/yargs")(process.argv.slice(2));
 
-const { puerto, _ } = yargs
+// Cluster
+const cluster = require("cluster");
+const numCPUs = require("os").cpus().length;
+
+const { puerto, modo, _ } = yargs
   .alias({
     p: "puerto",
+    m: "modo",
   })
   .default({
     p: 8080,
+    m: "FORK",
   }).argv;
+
+//  ----------------------- Cluster -----------------------
+if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
+  console.log(`processor cores: ${numCPUs}`);
+  console.log(`Primary PID: ${process.pid}`);
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on("exit", (worker) => {
+    console.log(
+      "Worker",
+      worker.process.pid,
+      "died",
+      new Date().toLocaleString()
+    );
+    cluster.fork();
+  });
+} else {
+  
+}
 
 // ----------------------- Inicialización del servidor -----------------------
 
@@ -58,9 +86,7 @@ connectToMongo();
 
 // ----------------------- Passport & Sessions -----------------------
 app.use(Session);
-
 app.use(passport.initialize());
-// app.use(passport.session());
 
 // ----------------------- Handlebars -----------------------
 app.set("views", path.join(__dirname, "views"));
