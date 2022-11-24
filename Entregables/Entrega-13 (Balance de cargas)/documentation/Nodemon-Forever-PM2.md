@@ -67,8 +67,9 @@ Parámetros para ejecutar los servidores:
 
 - Ejemplo de servidor FORK (puerto 8081) y CLUSTER (puerto 8082) con PM"
 
-      pm2 start index.js --name="ServerFork" --watch -- 8081
-      pm2 start index.js --name="ServerCluster" --watch -i 2 -- 8082
+      pm2 start index.js --name="ServerFork" --watch --node-args="-p 8081"     
+
+      pm2 start index.js --name="ServerCluster" --watch -i 3 --node-args="-p 8081"
 
   ![image](./assets/pm2-start.png)
 
