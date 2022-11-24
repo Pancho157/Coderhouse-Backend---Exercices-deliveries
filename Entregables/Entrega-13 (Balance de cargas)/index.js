@@ -49,59 +49,61 @@ if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
     cluster.fork();
   }
 
+  cluster.on("online", (worker) => {
+    console.log("Worker " + worker.process.pid + " is online");
+  });
+
   cluster.on("exit", (worker) => {
     console.log(
-      "Worker",
+      "Worker: ",
       worker.process.pid,
-      "died",
+      "died - Date: ",
       new Date().toLocaleString()
     );
     cluster.fork();
   });
 } else {
-  
+  // ----------------------- Inicialización del servidor -----------------------
+
+  var app = express();
+  const httpServer = new HttpServer(app);
+  const io = new IOServer(httpServer);
+
+  const connectedServer = httpServer.listen(puerto, () => {
+    // console.log(`Http - Socket Server On - Port: ${puerto}`);
+  });
+
+  // En caso de fallar el servidor de sockets
+  connectedServer.on("error", (err) => {
+    console.log(err);
+  });
+
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.static(__dirname + "/public"));
+
+  // -----------------------  Conección a Mongo -----------------------
+  connectToMongo();
+
+  // ----------------------- Passport & Sessions -----------------------
+  app.use(Session);
+  app.use(passport.initialize());
+
+  // ----------------------- Handlebars -----------------------
+  app.set("views", path.join(__dirname, "views"));
+  app.set("view engine", ".hbs");
+  app.engine(".hbs", engine({ extname: ".hbs" }));
+
+  // ----------------------- Sockets -----------------------
+  sockets(io);
+
+  // ----------------------- Router -----------------------
+  app.use("/", userInterfaces);
+  app.use("/", info);
+  app.use("/api", apiRandoms);
+
+  // ----------------------- Error 404 -----------------------
+  app.use((req, res) => {
+    res.status(404).send("No se encontró la página que estás buscando");
+  });
 }
-
-// ----------------------- Inicialización del servidor -----------------------
-
-var app = express();
-const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
-
-const connectedServer = httpServer.listen(puerto, () => {
-  console.log(`Http - Socket Server On - Port: ${puerto}`);
-});
-
-// En caso de fallar el servidor de sockets
-connectedServer.on("error", (err) => {
-  console.log(err);
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
-
-// -----------------------  Conección a Mongo -----------------------
-connectToMongo();
-
-// ----------------------- Passport & Sessions -----------------------
-app.use(Session);
-app.use(passport.initialize());
-
-// ----------------------- Handlebars -----------------------
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", ".hbs");
-app.engine(".hbs", engine({ extname: ".hbs" }));
-
-// ----------------------- Sockets -----------------------
-sockets(io);
-
-// ----------------------- Router -----------------------
-app.use("/", userInterfaces);
-app.use("/", info);
-app.use("/api", apiRandoms);
-
-// ----------------------- Error 404 -----------------------
-app.use((req, res) => {
-  res.status(404).send("No se encontró la página que estás buscando");
-});
