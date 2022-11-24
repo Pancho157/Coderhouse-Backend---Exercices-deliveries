@@ -40,7 +40,7 @@ const { puerto, modo, _ } = yargs
     m: "FORK",
   }).argv;
 
-//  ----------------------- Cluster -----------------------
+//  ----------------------- Cluster Primario -----------------------
 if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
   console.log(`processor cores: ${numCPUs}`);
   console.log(`Primary PID: ${process.pid}`);
@@ -63,14 +63,15 @@ if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
     cluster.fork();
   });
 } else {
-  // ----------------------- Inicialización del servidor -----------------------
+  //* Se ejecuta en los clusters secundarios y cuando se ejecuta en modo fork
 
+  // ----------------------- Inicialización de servidor HTTP -----------------------
   var app = express();
   const httpServer = new HttpServer(app);
   const io = new IOServer(httpServer);
 
   const connectedServer = httpServer.listen(puerto, () => {
-    // console.log(`Http - Socket Server On - Port: ${puerto}`);
+    console.log(`Http - Socket Server On - Port: ${puerto}`);
   });
 
   // En caso de fallar el servidor de sockets

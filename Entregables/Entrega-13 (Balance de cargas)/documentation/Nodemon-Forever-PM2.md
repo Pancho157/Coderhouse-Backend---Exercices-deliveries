@@ -23,7 +23,6 @@ Parámetros para ejecutar los servidores:
 - Ejemplo del modo Fork:
 
         nodemon index.js -p 8081 -m "FORK"       (para nodemon)
-        npm start -p 8081                        (para nodemon - alternativo)
         node index.js -p 8081                    (para node)
 
   ![image](./assets/node-fork.png)
@@ -33,8 +32,7 @@ Parámetros para ejecutar los servidores:
   No es necesario escribir cluster en mayusculas, ya que en cualquier caso lo transforma a minúsculas
 
         nodemon index.js -p 8081 -m "cluster"         (para nodemon)
-        npm start -p 8081 -m "CLUSTER"                (para nodemon - alternativo)
-        node index.js -p 8081 -m "Cluster"            (para node)
+        node index.js -p 8081 -m "CLUSTER"            (para node)
 
   ![image](./assets/node-cluster.png)
 
@@ -44,8 +42,8 @@ Parámetros para ejecutar los servidores:
 
 - Ejemplo de ejecución de dos servidores con el módulo forever:
 
-      forever start server.js 8081
-      forever start server.js 8082
+      forever start index.js -p 8081
+      forever start index.js -p 8082
 
   ![image](./assets/forever-start.png)
 
@@ -69,8 +67,8 @@ Parámetros para ejecutar los servidores:
 
 - Ejemplo de servidor FORK (puerto 8081) y CLUSTER (puerto 8082) con PM"
 
-      pm2 start server.js --name="Server1" --watch -- 8081
-      pm2 start server.js --name="Server2" --watch -i 2 -- 8082
+      pm2 start index.js --name="ServerFork" --watch -- 8081
+      pm2 start index.js --name="ServerCluster" --watch -i 2 -- 8082
 
   ![image](./assets/pm2-start.png)
 
