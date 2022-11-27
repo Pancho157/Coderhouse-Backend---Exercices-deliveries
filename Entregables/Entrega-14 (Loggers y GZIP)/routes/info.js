@@ -5,7 +5,9 @@ const { loggerInfo } = require("../middlewares/infoLogger");
 
 const info = Router();
 
-info.get("/info", loggerInfo, compression(), (req, res) => {
+info.use(loggerInfo);
+
+info.get("/info", compression, (req, res) => {
   const info = {
     entryArgs: process.execArgv,
     platformName: process.platform,

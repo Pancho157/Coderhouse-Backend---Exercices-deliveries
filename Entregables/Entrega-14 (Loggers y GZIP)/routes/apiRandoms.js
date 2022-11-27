@@ -5,7 +5,9 @@ const { loggerInfo } = require("../middlewares/infoLogger");
 
 const apiRandoms = Router();
 
-apiRandoms.get("/randoms:reps?", loggerInfo, (req, res) => {
+apiRandoms.use(loggerInfo);
+
+apiRandoms.get("/randoms:reps?", (req, res) => {
   const repetitions = parseInt(req.query.reps) || 100000000;
 
   const randomObject = fork(

@@ -6,8 +6,10 @@ const { isLoggedIn } = require("../middlewares/isLoggedIn");
 const userInterfaces = Router();
 let Users = new UserControllerMongo();
 
+userInterfaces.use(loggerInfo);
+
 // -------------------- TABLA DE PRODUCTOS Y CHAT --------------------
-userInterfaces.get("/", loggerInfo, (req, res) => {
+userInterfaces.get("/", (req, res) => {
   if (req.session.userName == undefined) {
     res.redirect("/login");
   } else {
@@ -16,7 +18,7 @@ userInterfaces.get("/", loggerInfo, (req, res) => {
 });
 
 // ----------------- LOGIN --------------------
-userInterfaces.get("/login", loggerInfo, (req, res) => {
+userInterfaces.get("/login", (req, res) => {
   if (req.session?.userName) {
     res.redirect("/");
   } else {
@@ -25,7 +27,7 @@ userInterfaces.get("/login", loggerInfo, (req, res) => {
 });
 
 // ----------------
-userInterfaces.post("/login", loggerInfo, async (req, res) => {
+userInterfaces.post("/login", async (req, res) => {
   const { user, userPass } = req.body;
   let response;
 
@@ -44,7 +46,7 @@ userInterfaces.post("/login", loggerInfo, async (req, res) => {
 });
 
 // -------------------- LOGOUT --------------------
-userInterfaces.get("/logout", loggerInfo, isLoggedIn, (req, res) => {
+userInterfaces.get("/logout", isLoggedIn, (req, res) => {
   const userName = req.session.userName;
   req.session.destroy((err) => {
     if (err) {
@@ -55,11 +57,11 @@ userInterfaces.get("/logout", loggerInfo, isLoggedIn, (req, res) => {
 });
 
 // -------------------- REGISTER --------------------
-userInterfaces.get("/register", loggerInfo, (req, res) => {
+userInterfaces.get("/register", (req, res) => {
   res.render("registerForm");
 });
 
-userInterfaces.post("/register", loggerInfo, async (req, res) => {
+userInterfaces.post("/register", async (req, res) => {
   const { userEmail, userAlias, userPass } = req.body;
   let response;
 
