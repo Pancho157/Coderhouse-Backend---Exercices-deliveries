@@ -1,7 +1,9 @@
 const { productsDao, chatDao } = require("../DB/DAOs/DAOselector");
+const { logger } = require("../loggers/log4js-config");
+
 async function sockets(io) {
   io.on(`connection`, async (socket) => {
-    console.log("Nuevo cliente conectado");
+    logger.info("Nuevo cliente conectado");
 
     socket.emit("productsFromServer", await productsDao.getProducts());
     socket.emit("messagesFromServer", await chatDao.getMessages());

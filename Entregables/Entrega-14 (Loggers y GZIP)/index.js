@@ -30,6 +30,9 @@ const yargs = require("yargs/yargs")(process.argv.slice(2));
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 
+// Loggers
+const { logger } = require("./loggers/log4js-config");
+
 const { puerto, modo, _ } = yargs
   .alias({
     p: "puerto",
@@ -42,19 +45,19 @@ const { puerto, modo, _ } = yargs
 
 //  ----------------------- Cluster Primario -----------------------
 if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
-  console.log(`processor cores: ${numCPUs}`);
-  console.log(`Primary PID: ${process.pid}`);
+  logger.info(`processor cores: ${numCPUs}`);
+  logger.info(`Primary PID: ${process.pid}`);
 
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
 
   cluster.on("online", (worker) => {
-    console.log("Worker " + worker.process.pid + " is online");
+    logger.info("Worker " + worker.process.pid + " is online");
   });
 
   cluster.on("exit", (worker) => {
-    console.log(
+    logger.warn(
       "Worker: ",
       worker.process.pid,
       "died - Date: ",
@@ -71,12 +74,12 @@ if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
   const io = new IOServer(httpServer);
 
   const connectedServer = httpServer.listen(puerto, () => {
-    console.log(`Http - Socket Server On - Port: ${puerto}`);
+    logger.info(`Http - Socket Server On - Port: ${puerto}`);
   });
 
   // En caso de fallar el servidor de sockets
   connectedServer.on("error", (err) => {
-    console.log(err);
+    logger.error(err);
   });
 
   app.use(express.json());
