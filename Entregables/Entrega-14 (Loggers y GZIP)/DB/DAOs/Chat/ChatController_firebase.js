@@ -4,7 +4,7 @@
 // getMessages()
 
 const { db } = require("../../utils/firebaseConnection");
-const { FieldValue } = require("firebase-admin/firestore");
+const { logger } = require("../../../loggers/log4js-config");
 
 class ChatControllerFirebase {
   constructor() {
@@ -20,10 +20,7 @@ class ChatControllerFirebase {
       allMessages = await this.coleccion.get();
       newId = allMessages.size + 1;
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
 
     // -------- Estructura del mensaje a guardar -------
@@ -45,10 +42,7 @@ class ChatControllerFirebase {
       await this.coleccion.doc(`${newId}`).set(docData);
       return `${newId}`;
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -63,10 +57,7 @@ class ChatControllerFirebase {
 
       return messages;
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
   }
 }

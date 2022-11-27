@@ -13,6 +13,12 @@ log4js.configure({
       level: "info",
     },
 
+    consoleLoggerAll: {
+      type: "logLevelFilter",
+      appender: "console",
+      level: "trace",
+    },
+
     errorsLogger: {
       type: "logLevelFilter",
       appender: "errorsFile",
@@ -30,6 +36,9 @@ log4js.configure({
 
   categories: {
     default: { appenders: ["consoleLogger"], level: "all" },
+
+    dev: { appenders: ["consoleLoggerAll"], level: "all" },
+
     prod: {
       appenders: ["consoleLogger", "errorsLogger", "warnsLogger"],
       level: "all",
@@ -37,6 +46,6 @@ log4js.configure({
   },
 });
 
-let logger = log4js.getLogger("prod");
+let logger = log4js.getLogger(process.env.ENV.toLowerCase());
 
 module.exports = { logger };

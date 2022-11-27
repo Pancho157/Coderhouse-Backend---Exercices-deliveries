@@ -1,10 +1,11 @@
 const { Router } = require("express");
 const numCPUs = require("os").cpus().length;
 const compression = require("compression");
+const { loggerInfo } = require("../middlewares/infoLogger");
 
 const info = Router();
 
-info.get("/info", compression(), (req, res) => {
+info.get("/info", loggerInfo, compression(), (req, res) => {
   const info = {
     entryArgs: process.execArgv,
     platformName: process.platform,

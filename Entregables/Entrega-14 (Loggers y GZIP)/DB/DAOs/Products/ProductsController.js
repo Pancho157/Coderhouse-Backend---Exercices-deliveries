@@ -1,4 +1,5 @@
 const knexLib = require("knex");
+const { logger } = require("../../../loggers/log4js-config");
 
 class ProductosSQL {
   constructor(config) {
@@ -22,7 +23,7 @@ class ProductosSQL {
         }
       });
     } catch (err) {
-      return `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -30,7 +31,7 @@ class ProductosSQL {
     try {
       return await this.knex("products").insert(data);
     } catch (err) {
-      return `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -38,7 +39,7 @@ class ProductosSQL {
     try {
       return await this.knex("products").where({ id: productId }).update(data);
     } catch (err) {
-      return `El error es: ${err}`;
+      logger.error(`El error es: ${err}`);
     }
   }
 
@@ -46,7 +47,7 @@ class ProductosSQL {
     try {
       return await this.knex("products").select("*");
     } catch (err) {
-      return `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -56,7 +57,7 @@ class ProductosSQL {
         .select("id", "title", "price", "thumbnail", "stock")
         .where({ id: productId });
     } catch (err) {
-      return `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -69,7 +70,7 @@ class ProductosSQL {
         .del();
       return "Producto eliminado";
     } catch (err) {
-      return `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -77,7 +78,7 @@ class ProductosSQL {
     try {
       return await this.knex("products").del();
     } catch (err) {
-      `Error: ${err}`;
+      logger.error(`Error: ${err}`);
     }
   }
 }

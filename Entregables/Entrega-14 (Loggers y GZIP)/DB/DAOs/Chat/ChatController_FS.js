@@ -4,6 +4,7 @@
 // getMessages()
 
 const { promises: fs } = require("fs");
+const { logger } = require("../../../loggers/log4js-config");
 
 class ChatControllerFS {
   constructor(route) {
@@ -16,10 +17,7 @@ class ChatControllerFS {
     try {
       messages = await this.getMessages();
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
 
     // Genera el id
@@ -52,10 +50,7 @@ class ChatControllerFS {
       await fs.writeFile(this.route, JSON.stringify(messages));
       return `${newId}`;
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
   }
 
@@ -64,10 +59,7 @@ class ChatControllerFS {
       const objetos = await fs.readFile(this.route, "utf-8");
       return JSON.parse(objetos);
     } catch (err) {
-      return {
-        error: true,
-        message: `${err}`,
-      };
+      logger.error(`Error: ${err}`);
     }
   }
 

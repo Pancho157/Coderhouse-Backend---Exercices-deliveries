@@ -10,15 +10,15 @@
 
 1. Incorporar al proyecto de servidor de trabajo la compresión gzip.
 
-Verificar sobre la ruta '/info' con y sin compresión, la diferencia de cantidad de bytes devueltos en un caso y otro.
+   Verificar sobre la ruta '/info' con y sin compresión, la diferencia de cantidad de bytes devueltos en un caso y otro.
 
-Luego inplementas loggeo (con alguna librería vista en clase) que registre lo siguiente:
+   Luego inplementas loggeo (con alguna librería vista en clase) que registre lo siguiente:
 
-- Ruta y método de todas las peticiones recibidas por el servidor (info)
+   - Ruta y método de todas las peticiones recibidas por el servidor (info)
 
-- Ruta y método de las peticiones a rutas inexistentes en el servidor (warning)
+   - Ruta y método de las peticiones a rutas inexistentes en el servidor (warning)
 
-- Errores lanzados por las apis de mensajes y productos, únicamente (error)
+   - Errores lanzados por las apis de mensajes y productos, únicamente (error)
 
 2. Luego, realizar el análisis completo de performance del servidor con el que venimos trabajando.
 
@@ -28,7 +28,7 @@ Luego inplementas loggeo (con alguna librería vista en clase) que registre lo s
 
      1. El perfilamiento del servidor, realizando el test con --prof de node.js. Analizar los resultados obtenidos luego de procesarlos con --prof-process
 
-     Utilizaremos como test de carga Artillery en línea de comandos, emulando 0 conexiones concurrentes con 20 requests por cada una. Extraer un reporte co los resuados en archivo de texto
+     2. Utilizaremos como test de carga Artillery en línea de comandos, emulando 0 conexiones concurrentes con 20 requests por cada una. Extraer un reporte co los resuados en archivo de texto
 
 3. Luego utilizaremos Autocannon en línea de comandos, emulando 100 conexiones concurrentes realizadas en un tiempo de 20 segundos. Extraer un reporte con los resultados (puede ser un print screen de la consola)
 

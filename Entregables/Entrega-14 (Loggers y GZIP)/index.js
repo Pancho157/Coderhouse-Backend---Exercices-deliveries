@@ -108,6 +108,7 @@ if (modo.toLowerCase() == "cluster" && cluster.isPrimary) {
 
   // ----------------------- Error 404 -----------------------
   app.use((req, res) => {
+    logger.warn(`Bad request - Route: "${req.originalUrl}", Method: "${req.method}"`);
     res.status(404).send("No se encontró la página que estás buscando");
   });
 }

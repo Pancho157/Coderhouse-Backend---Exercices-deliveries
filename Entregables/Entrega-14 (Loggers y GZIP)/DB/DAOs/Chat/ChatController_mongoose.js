@@ -5,6 +5,7 @@
 
 const mongoose = require("mongoose");
 const { Message } = require("../../utils/Mongoose-Schemas_Models");
+const { logger } = require("../../../loggers/log4js-config");
 
 class ChatControllerMongo {
   constructor() {}
@@ -25,7 +26,7 @@ class ChatControllerMongo {
         ],
       });
     } catch (err) {
-      console.log(err.message);
+      logger.error(`Error: ${err}`);
     }
     // El ID del autor es su email
   }
@@ -35,7 +36,7 @@ class ChatControllerMongo {
       const allMessages = await Message.find();
       return allMessages;
     } catch (err) {
-      console.log(err.message);
+      logger.error(`Error: ${err}`);
     }
   }
 }
