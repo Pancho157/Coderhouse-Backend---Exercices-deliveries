@@ -40,7 +40,7 @@ Peso del archivo "/info" SIN compresión:
 
 ---
 
-Se utilizó Log4js como logger
+Se utilizó Log4js como logger y su configuración se encuentra dentro de la carpeta llamada "loggers"
 
 Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizando dotenv
 
@@ -61,6 +61,32 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 
         - Todas las salidas se mostrarán por consola (incluidas las tipo "trace" y "debug")
 
-Observación:
+---
 
-- La configuración de log4js se encuentra dentro de la carpeta llamada "loggers"
+## Artillery
+
+---
+
+    Servidor en modo FORK
+
+- Ruta /info sin console.log
+
+![image](./assets/artillery-info-noConsole.png)
+
+- Ruta /info con console.log
+
+![image](./assets/artillery-info-console.png)
+
+Servidor en modo CLUSTER
+
+---
+
+## 0x
+
+---
+
+---
+
+## Conclusión
+
+---

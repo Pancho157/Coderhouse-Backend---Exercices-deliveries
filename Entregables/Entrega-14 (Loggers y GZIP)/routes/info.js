@@ -8,7 +8,7 @@ const info = Router();
 info.use(loggerInfo);
 
 info.get("/info", compression, (req, res) => {
-  const info = {
+  const information = {
     entryArgs: process.execArgv,
     platformName: process.platform,
     nodeVersion: process.version,
@@ -19,7 +19,9 @@ info.get("/info", compression, (req, res) => {
     processorCores: numCPUs,
   };
 
-  res.render("info", info);
+  console.log(information);
+
+  res.render("info", information);
 });
 
 module.exports = { info };

@@ -14,13 +14,15 @@ function getNumbersObject(quantity = 100000000) {
   return objectToReturn;
 }
 
-process.on("exit", () => {
-  console.log(`worker #${process.pid} cerrado`);
-});
+// process.on("exit", () => {
+//   console.log(`worker #${process.pid} cerrado`);
+// });
 
-process.on("message", (reps) => {
-  console.log(`Creating object`);
-  const obj = getNumbersObject(reps);
-  process.send(obj);
-  process.exit();
-});
+// process.on("message", (reps) => {
+//   console.log(`Creating object`);
+//   const obj = getNumbersObject(reps);
+//   process.send(obj);
+//   process.exit();
+// });
+
+module.exports = { getNumbersObject };
