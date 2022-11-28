@@ -67,17 +67,28 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 
 ---
 
+    Comando utilizado en Artillery
+    artillery quick --count 50 -n 40 http://localhost:8080/info > noConsole.txt
+
+---
+
     Servidor en modo FORK
 
 - Ruta /info sin console.log
 
-![image](./assets/artillery-info-noConsole.png)
+![image](./assets/fork-info-noConsole.png)
 
 - Ruta /info con console.log
 
-![image](./assets/artillery-info-console.png)
+![image](./assets/fork-info-console.png)
 
-Servidor en modo CLUSTER
+    Servidor en modo CLUSTER
+
+![image](./assets/cluster-info-noConsole.png)
+
+- Ruta /info con console.log
+
+![image](./assets/cluster-info-console.png)
 
 ---
 
