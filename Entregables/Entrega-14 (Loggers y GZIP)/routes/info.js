@@ -1,10 +1,7 @@
 const { Router } = require("express");
 const numCPUs = require("os").cpus().length;
-const { loggerInfo } = require("../middlewares/infoLogger");
 
 const info = Router();
-
-info.use(loggerInfo);
 
 info.get("/info", (req, res) => {
   const information = {

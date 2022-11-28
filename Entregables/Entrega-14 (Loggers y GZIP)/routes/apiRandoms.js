@@ -1,12 +1,9 @@
 const { Router } = require("express");
-const { loggerInfo } = require("../middlewares/infoLogger");
 const { getNumbersObject } = require("../child-process/randomNumbers");
 // const { fork } = require("child_process");
 // const path = require("path");
 
 const apiRandoms = Router();
-
-apiRandoms.use(loggerInfo);
 
 apiRandoms.get("/randoms:reps?", (req, res) => {
   const repetitions = parseInt(req.query.reps);
