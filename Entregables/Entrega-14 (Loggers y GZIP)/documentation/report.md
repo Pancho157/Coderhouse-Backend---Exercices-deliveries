@@ -71,8 +71,8 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
     node --prof index.js
             (ejecutar el servidor con el console.log y sin el console.log)
 
-    node --prof.process fork-console.log > result_fork-console.txt
-    node --prof.process fork-noConsole.log > result_fork-noConsole.txt
+    node --prof-process fork-console.log > result_fork-console.txt
+    node --prof-process fork-noConsole.log > result_fork-noConsole.txt
             (los resultados se dejan almacenados en la carpeta "documentation")
 
     Comando utilizado en Artillery
@@ -80,15 +80,25 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 
 ---
 
-    Servidor en modo FORK
+           Servidor modo FORK - Comparación con Artillery
 
 - Ruta /info sin console.log
 
-![image](./assets/fork-info-noConsole.png)
+![image](./assets/fork-artillery-noConsole.png)
 
 - Ruta /info con console.log
 
-![image](./assets/fork-info-console.png)
+![image](./assets/fork-artillery-console.png)
+
+            Servidor modo FORK - Comparación del Profiler de Node-js
+
+- Ruta /info sin console.log
+
+![image](./assets/fork-prof-noConsole.png)
+
+- Ruta /info con console.log
+
+![image](./assets/fork-prof-console.png)
 
 ---
 
