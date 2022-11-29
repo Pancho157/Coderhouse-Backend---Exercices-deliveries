@@ -67,8 +67,16 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 
 ---
 
+    Comandos utilizados para ejecutar el servidor con el profiler de Node.js:
+    node --prof index.js
+            (ejecutar el servidor con el console.log y sin el console.log)
+
+    node --prof.process fork-console.log > result_fork-console.txt
+    node --prof.process fork-noConsole.log > result_fork-noConsole.txt
+            (los resultados se dejan almacenados en la carpeta "documentation")
+
     Comando utilizado en Artillery
-    artillery quick --count 50 -n 40 http://localhost:8080/info > noConsole.txt
+    artillery quick --count 50 -n 20 http://localhost:8080/info > result.txt
 
 ---
 
@@ -81,14 +89,6 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 - Ruta /info con console.log
 
 ![image](./assets/fork-info-console.png)
-
-    Servidor en modo CLUSTER
-
-![image](./assets/cluster-info-noConsole.png)
-
-- Ruta /info con console.log
-
-![image](./assets/cluster-info-console.png)
 
 ---
 
