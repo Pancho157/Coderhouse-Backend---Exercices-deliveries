@@ -16,9 +16,13 @@
 
 3. [Artillery](#artillery)
 
-4. [0x](#0x)
+4. [Autocannon](#autocannon)
 
-5. [Conclusión](#conclusión)
+5. [Inspect](#inspect)
+
+6. [0x](#0x)
+
+7. [Conclusión](#conclusión)
 
 ---
 
@@ -99,6 +103,60 @@ Para utilizar los logs se deberá establecer una variable llamada "ENV" utilizan
 - Ruta /info con console.log
 
 ![image](./assets/fork-prof-console.png)
+
+---
+
+## Autocannon
+
+---
+
+Resultados del test utilizando autocannon:
+
+- Ruta "/info" SIN console.log:
+
+  ![image](./assets/autocannon-noConsole.png)
+
+- Ruta "/info" CON console.log:
+
+  ![image](./assets/autocannon-console.png)
+
+- Para ejecutarlo, se deberá inicir el servidor ("npm start") y en otra consola utilizar el siguiente comando:
+
+  npm test
+
+---
+
+## Inspect
+
+---
+
+- Se deberá ejecutar el servidor como inspect:
+
+  node --inspect index.js
+
+- Luego se deberá acceder al modo inspect de chrome (URL = "chrome://inspect")
+
+- El siguiente paso sería comenzar a grabar con el profiler de Chrome
+
+- Después se deberá hacer un test de carga con Artillery (artillery quick --count 50 -n 20 http://localhost:8080/info > result.txt) y se deberá dejar de grabar con el profiler
+
+- Finalmente se procede a mirar los resultados que trae el profiler
+
+Observación:
+
+- Es más sencillo entender lo que dice el profiler cuando se va a la seccción "Sources" y se mira por archivo (es lo que se muestra en las imagenes ubicadas debajo)
+
+Resultados:
+
+- Inspect de la ruta "/info" SIN console.log:
+
+    ![image](./assets/inspect-noConsole.png)
+
+- Inspect de la ruta "/info" CON console.log:
+
+    ![image](./assets/inspect-console.png)
+
+
 
 ---
 
