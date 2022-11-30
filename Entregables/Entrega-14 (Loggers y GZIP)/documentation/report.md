@@ -150,13 +150,11 @@ Resultados:
 
 - Inspect de la ruta "/info" SIN console.log:
 
-    ![image](./assets/inspect-noConsole.png)
+  ![image](./assets/inspect-noConsole.png)
 
 - Inspect de la ruta "/info" CON console.log:
 
-    ![image](./assets/inspect-console.png)
-
-
+  ![image](./assets/inspect-console.png)
 
 ---
 
@@ -164,8 +162,28 @@ Resultados:
 
 ---
 
+[Carpeta del gráfico](./0x-graph/)
+
+![image](./assets/0x-graph.png)
+
 ---
 
 ## Conclusión
 
 ---
+
+Actualmente el desarrollar esta actividad me llevó a varios pensamientos respecto al tema:
+
+1. Hay que dar mucha atención a la forma en la que se trabajan las cosas a la hora de querer mejorar el rendimiento de nuestra aplicación, ya que por cambiar una sola línea de código (en este caso por un console.log) puede hacer que nuestra aplicación mejore mucho su rendimiento
+
+2. Si bien toma un poco más de trabaja, es mejor utilizar logs a la hora de desarrollar, haciendo perfiles paraa producción y desarrollo
+
+3. Los loggers son muy útiles a la hora de trabajar con producción, es decir, proyectos más grandes. Y log4js me resultó muy cómodo de utilizar para ello
+
+4. Si bien hay varias maneras de medir la eficiencia de neustro servidor, la verdad es que de las utilizadas hay algunas que resultan un poco molestas a la hora de utilizarlas y no me es posible sacarles provecho de manera óptima debido a mi desconocimiento y a que hay otras opciones más sencillas de entender y trabajar
+
+Ahora si, conclusión:
+
+    En lo que respecta a medir el rendimiento de los diferentes endpoints que estamos utilizando me pareció que hacer tests con Artillery y el inspect de Chrome me sería lo más útil, ya que con Artillery podría ver que endpoints me parecen lentos y con el inspector de Chrome (mirando la fuente y no el profiler) podría ver cuales son las líneas de código que más recursos me consumen y donde podría optimizar
+
+    Lo qué sí veo como una falencia en lo que acabo de decir (muy posiblemente por mi desconocimiento) es que no puedo medir endpoints en los cuales tenga autenticación de usuario (sin utilizar query params) usando Artillery
