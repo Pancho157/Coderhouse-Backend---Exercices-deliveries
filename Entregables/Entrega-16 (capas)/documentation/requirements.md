@@ -2,13 +2,13 @@
 
 # Comisión #32095
 
-# Desafio 15
+# Desafio 16
 
 ## Consigna:
 
 ---
 
-Dividir en capasa el proyecto entregable que venimos trabajando (Entregable clase 16: loggers y profilers), agrupando apropiadamente las capas de ruteo, controlador, lógica y persistencia
+Dividir en capas el proyecto entregable que venimos trabajando (Entregable clase 16: loggers y profilers), agrupando apropiadamente las capas de ruteo, controlador, lógica y persistencia
 
 Considerar agrupar las rutas por funcionalidad, con sus controladores, lógica de negocio con los casos de uso, y capas de persistencia
 
