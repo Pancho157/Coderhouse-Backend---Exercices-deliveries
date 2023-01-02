@@ -7,7 +7,16 @@ const { logger } = require("../../../../loggers-testing/loggers/log4js-config");
 const { Message } = require("../../utils/Mongoose-Schemas_Models");
 
 class ChatControllerMongo {
-  constructor() {}
+  static instance;
+
+  constructor() {
+    // Doble negación de "undefined" = false
+    if (!!ChatControllerMongo.instance) {
+      return ChatControllerMongo.instance;
+    }
+
+    ChatControllerMongo.instance = this;
+  }
 
   async insertMessage(data) {
     try {

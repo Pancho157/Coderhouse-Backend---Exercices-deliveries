@@ -2,7 +2,16 @@ const { logger } = require("../../../../loggers-testing/loggers/log4js-config");
 const { Users } = require("../../utils/Mongoose-Schemas_Models");
 
 class UserControllerMongo {
-  constructor() {}
+  static instance;
+
+  constructor() {
+    // Doble negación de "undefined" = false
+    if (!!UserControllerMongo.instance) {
+      return UserControllerMongo.instance;
+    }
+
+    UserControllerMongo.instance = this;
+  }
 
   // * -------------------------- Creación de usuario ----------------------------
   async createUser(data) {

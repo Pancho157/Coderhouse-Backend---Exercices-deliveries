@@ -7,7 +7,15 @@ const { db } = require("../../utils/firebaseConnection");
 const { logger } = require("../../../../loggers-testing/loggers/log4js-config");
 
 class ChatControllerFirebase {
+  static instance;
+
   constructor() {
+    // Doble negación de "undefined" = false
+    if (!!ChatControllerFirebase.instance) {
+      return ChatControllerFirebase.instance;
+    }
+
+    ChatControllerFirebase.instance = this;
     this.coleccion = db.collection("Messages");
   }
 

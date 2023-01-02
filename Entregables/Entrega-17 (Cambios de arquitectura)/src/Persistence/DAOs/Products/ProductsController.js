@@ -2,7 +2,15 @@ const { Products } = require("../../utils/Mongoose-Schemas_Models");
 const { logger } = require("../../../../loggers-testing/loggers/log4js-config");
 
 class ProductsMongoAtlas {
+  static instance;
+
   constructor() {
+    // Doble negación de "undefined" = false
+    if (!!ProductsMongoAtlas.instance) {
+      return ProductsMongoAtlas.instance;
+    }
+
+    ProductsMongoAtlas.instance = this;
     this.lastId = this.getLastId();
   }
 
