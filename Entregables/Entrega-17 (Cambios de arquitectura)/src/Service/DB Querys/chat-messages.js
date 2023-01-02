@@ -13,8 +13,6 @@ async function getChatMessages() {
 }
 
 async function newChatMessage(message, user) {
-  let author;
-
   if (!message || !user) {
     throw {
       error: "Ingrese todos los datos requeridos (mensaje / usuario)",
