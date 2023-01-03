@@ -1,8 +1,10 @@
-const { chatDao, usersDao } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
+
+const DAOs = new DAO("firebase");
 
 async function getChatMessages() {
   try {
-    const messages = await chatDao.getMessages();
+    const messages = await DAOs.chat.getMessages();
     return messages;
   } catch (err) {
     throw {
@@ -27,7 +29,7 @@ async function newChatMessage(message, user) {
   };
 
   try {
-    await chatDao.insertMessage(messageinfo);
+    await DAOs.chat.insertMessage(messageinfo);
     return true;
   } catch (err) {
     throw {

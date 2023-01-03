@@ -1,4 +1,4 @@
-const { usersDao } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
 const { sendNewOrderEmailToAdmin } = require("../utils/nodemailerMessages");
 const {
   sendNewOrderMessageToAdmin,
@@ -6,10 +6,12 @@ const {
 } = require("../utils/twilioMessages");
 const { getProductById } = require("./products");
 
+const DAOs = new DAO("firebase");
+
 async function getCartProducts(user) {
   let userInfo;
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
@@ -63,7 +65,7 @@ async function addProductToUserCart(user, productId, prodQuantity = 1) {
 
   let userInfo;
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
@@ -78,7 +80,7 @@ async function addProductToUserCart(user, productId, prodQuantity = 1) {
   }
 
   try {
-    const response = await usersDao.updateCart(userInfo.alias, cart);
+    const response = await DAOs.users.updateCart(userInfo.alias, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -88,7 +90,7 @@ async function addProductToUserCart(user, productId, prodQuantity = 1) {
 async function removeOneFromCartProduct(user, productId) {
   let userInfo;
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
@@ -103,7 +105,7 @@ async function removeOneFromCartProduct(user, productId) {
   }
 
   try {
-    const response = await usersDao.updateCart(userInfo.alias, cart);
+    const response = await DAOs.users.updateCart(userInfo.alias, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -113,7 +115,7 @@ async function removeOneFromCartProduct(user, productId) {
 async function deleteProductFromUserCart(user, productId) {
   let userInfo;
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
@@ -128,7 +130,7 @@ async function deleteProductFromUserCart(user, productId) {
   }
 
   try {
-    const response = await usersDao.updateCart(userInfo.alias, cart);
+    const response = await DAOs.users.updateCart(userInfo.alias, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -140,7 +142,7 @@ async function buyCart(user) {
   let userCart;
 
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }

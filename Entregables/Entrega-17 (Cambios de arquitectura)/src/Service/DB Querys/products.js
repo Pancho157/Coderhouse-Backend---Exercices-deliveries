@@ -1,8 +1,10 @@
-const { productsDao } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
+
+const DAOs = new DAO("firebase");
 
 async function getAllProducts() {
   try {
-    const products = await productsDao.getAll();
+    const products = await DAOs.products.getAll();
     return products;
   } catch (err) {
     throw {
@@ -14,7 +16,7 @@ async function getAllProducts() {
 
 async function getProductById(id) {
   try {
-    const product = await productsDao.findById(id);
+    const product = await DAOs.products.findById(id);
     return product;
   } catch (err) {
     throw {
@@ -29,7 +31,7 @@ async function insertProduct(data) {
   let exists;
 
   try {
-    exists = await productsDao.getProductByTitle(title);
+    exists = await DAOs.products.getProductByTitle(title);
   } catch (err) {
     throw {
       error: "El producto ingresado ya existe",
@@ -50,7 +52,7 @@ async function insertProduct(data) {
   }
 
   try {
-    const newProduct = await productsDao.insertProduct(data);
+    const newProduct = await DAOs.products.insertProduct(data);
     return `Producto agregado exitosamente`;
   } catch (err) {
     throw {
@@ -69,7 +71,7 @@ async function deleteProductById(id) {
   }
 
   try {
-    const productToDelete = await productsDao.deleteById(id);
+    const productToDelete = await DAOs.products.deleteById(id);
     return `Producto eliminado exitosamente (id = ${id})`;
   } catch (err) {
     throw {

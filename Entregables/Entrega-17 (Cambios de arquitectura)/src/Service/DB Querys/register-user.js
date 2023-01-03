@@ -1,7 +1,9 @@
 const md5 = require("md5");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
-const { usersDao } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
 const { deleteUserPhoto } = require("../utils/deleteUserPhoto");
+
+const DAOs = new DAO("firebase");
 
 async function registerUser(data) {
   const {
@@ -36,9 +38,9 @@ async function registerUser(data) {
   // * En caso de existir el usuario
   try {
     // if exists = true, else = false
-    if (await usersDao.verifyAlias(alias)) exists.alias = true;
+    if (await DAOs.users.verifyAlias(alias)) exists.alias = true;
 
-    if (await usersDao.verifyEmail(email)) exists.email = true;
+    if (await DAOs.users.verifyEmail(email)) exists.email = true;
   } catch (err) {
     logger.error(err);
     throw {
@@ -66,7 +68,7 @@ async function registerUser(data) {
 
   // * Creación de usuario
   try {
-    response = await usersDao.createUser({
+    response = await DAOs.users.createUser({
       email: email,
       alias: alias,
       direction: direction,

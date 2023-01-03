@@ -1,6 +1,8 @@
 const md5 = require("md5");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
-const { usersDao } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
+
+const DAOs = new DAO("firebase");
 
 async function login(data) {
   const { user, password } = data;
@@ -13,7 +15,7 @@ async function login(data) {
   }
 
   try {
-    userInfo = await usersDao.getUserInfo(user);
+    userInfo = await DAOs.users.getUserInfo(user);
     if (!userInfo) {
       throw {
         error: "El usuario ingresado no existe",
@@ -40,7 +42,7 @@ async function login(data) {
 
 async function getUserInfoFromDB(user) {
   try {
-    let userInfo = await usersDao.getUserInfo(user);
+    let userInfo = await DAOs.users.getUserInfo(user);
 
     if (!userInfo) {
       throw {
