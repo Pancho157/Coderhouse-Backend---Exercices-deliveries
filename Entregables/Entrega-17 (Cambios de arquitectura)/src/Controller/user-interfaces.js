@@ -1,6 +1,11 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
-const { login, getUserInfoFromDB } = require("../Service/DB Querys/login-user");
-const { registerUser } = require("../Service/DB Querys/register-user");
+const {
+  login,
+  getUserInfoFromDB,
+} = require("../Service/repository/login-user-repository");
+const {
+  registerUser,
+} = require("../Service/repository/register-users-repository");
 
 // -------------------- CONTENT PAGES --------------------
 function getLandingPage(req, res) {

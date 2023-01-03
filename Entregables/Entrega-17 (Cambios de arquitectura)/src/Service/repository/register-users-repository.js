@@ -3,7 +3,7 @@ const { logger } = require("../../../loggers-testing/loggers/log4js-config");
 const { DAO } = require("../../Persistence/DAOs/DAOselector");
 const { deleteUserPhoto } = require("../utils/deleteUserPhoto");
 
-const DAOs = new DAO("firebase");
+const DAOs = new DAO(process.env.PERS);
 
 async function registerUser(data) {
   const {

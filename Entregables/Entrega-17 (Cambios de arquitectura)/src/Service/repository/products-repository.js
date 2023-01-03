@@ -1,6 +1,6 @@
 const { DAO } = require("../../Persistence/DAOs/DAOselector");
 
-const DAOs = new DAO("firebase");
+const DAOs = new DAO(process.env.PERS);
 
 async function getAllProducts() {
   try {

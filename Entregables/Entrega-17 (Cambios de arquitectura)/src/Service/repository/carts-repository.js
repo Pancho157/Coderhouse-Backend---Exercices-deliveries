@@ -4,9 +4,9 @@ const {
   sendNewOrderMessageToAdmin,
   sendOrderConfirmationMessageToUser,
 } = require("../utils/twilioMessages");
-const { getProductById } = require("./products");
+const { getProductById } = require("./products-repository");
 
-const DAOs = new DAO("firebase");
+const DAOs = new DAO(process.env.PERS);
 
 async function getCartProducts(user) {
   let userInfo;

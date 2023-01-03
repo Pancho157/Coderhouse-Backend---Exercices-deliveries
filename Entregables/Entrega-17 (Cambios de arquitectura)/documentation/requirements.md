@@ -8,14 +8,16 @@
 
 ---
 
-1. Modificar la capa de persistencia incorporando los conceptos Factory, DAO y DTO
+1.  Modificar la capa de persistencia incorporando los conceptos Factory, DAO y DTO
 
-2. Los DAOs deben presentar la misma interfaz hacia la lógica de negocio de nuestro servidor
+2.  Los DAOs deben presentar la misma interfaz hacia la lógica de negocio de nuestro servidor
 
-3. El DAO seleccionado (por un parámetro en línea de comandos como lo hicimos anteriormente) será devuelto por una Factory para que la capa de negocio opere con el
+3.  El DAO seleccionado (por un parámetro en línea de comandos como lo hicimos anteriormente) será devuelto por una Factory para que la capa de negocio opere con el
 
-4. Cada uno de estos casos de persistencia, deberán ser implementados usando el patrón singleton que impida crear nuevas instancias de estos mecanísmos de acceso a los datos
+4.  Cada uno de estos casos de persistencia, deberán ser implementados usando el patrón singleton que impida crear nuevas instancias de estos mecanísmos de acceso a los datos
 
-5. Comprobar que si llamo a la factory dos veces, con una misma opción elegida, devuelva la misma instancia
+5.  Comprobar que si llamo a la factory dos veces, con una misma opción elegida, devuelva la misma instancia
 
-6. Implementar el patrón Repository para la persistencia de productos y mensajes
+6.  Implementar el patrón Repository para la persistencia de productos y mensajes
+
+        (Fue implementado en la capa de servicio, con la intención de tener toda la lógica en una sola capa)

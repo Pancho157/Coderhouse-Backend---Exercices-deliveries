@@ -2,7 +2,7 @@ const md5 = require("md5");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
 const { DAO } = require("../../Persistence/DAOs/DAOselector");
 
-const DAOs = new DAO("firebase");
+const DAOs = new DAO(process.env.PERS);
 
 async function login(data) {
   const { user, password } = data;

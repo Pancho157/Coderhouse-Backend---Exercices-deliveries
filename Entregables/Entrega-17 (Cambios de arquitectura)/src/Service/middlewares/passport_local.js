@@ -1,6 +1,8 @@
 const passport = require("passport");
-const { usersDao: Users } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../../Persistence/DAOs/DAOselector");
 const PassportLocal = require("passport-local").Strategy;
+
+const DAOs = new DAO(process.env.PERS);
 
 // Done parameters = (err, user, pass)
 passport.use(
@@ -9,7 +11,7 @@ passport.use(
 
     try {
       // user = email || alias
-      userExists = await Users.findOne({
+      userExists = await DAO.users.findOne({
         $or: [{ email: user }, { alias: user }],
       });
 
@@ -35,6 +37,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (alias, done) => {
-  const user = await Users.findOne({ alias: alias });
+  const user = await DAO.users.findOne({ alias: alias });
   done(null, user);
 });

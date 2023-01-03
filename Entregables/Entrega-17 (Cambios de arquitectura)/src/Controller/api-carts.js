@@ -5,7 +5,7 @@ const {
   deleteProductFromUserCart,
   buyCart,
   getCartProducts,
-} = require("../Service/DB Querys/carts-logic");
+} = require("../Service/repository/carts-repository");
 
 async function getUserCartProducts(req, res) {
   try {

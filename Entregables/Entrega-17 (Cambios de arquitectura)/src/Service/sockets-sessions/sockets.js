@@ -2,11 +2,14 @@ const sharedsession = require("express-socket.io-session");
 const { Session } = require("./sessions");
 
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
-const { getAllProducts, insertProduct } = require("../DB Querys/products");
+const {
+  getAllProducts,
+  insertProduct,
+} = require("../repository/products-repository");
 const {
   getChatMessages,
   newChatMessage,
-} = require("../DB Querys/chat-messages");
+} = require("../repository/chat-repository");
 
 async function sockets(io) {
   io.use(
