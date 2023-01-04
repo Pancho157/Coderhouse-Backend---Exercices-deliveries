@@ -1,7 +1,7 @@
 const md5 = require("md5");
+const { DAO } = require("../DAOs/DAOselector");
+const { deleteUserPhoto } = require("../../4-Service/utils/deleteUserPhoto");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
-const { DAO } = require("../../Persistence/DAOs/DAOselector");
-const { deleteUserPhoto } = require("../utils/deleteUserPhoto");
 
 const DAOs = new DAO(process.env.PERS);
 

@@ -5,7 +5,7 @@ const {
   deleteProductFromUserCart,
   buyCart,
   getCartProducts,
-} = require("../Service/repository/carts-repository");
+} = require("../5-Persistence/repository/carts-repository");
 
 async function getUserCartProducts(req, res) {
   try {

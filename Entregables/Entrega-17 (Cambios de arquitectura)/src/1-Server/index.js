@@ -11,19 +11,19 @@ const path = require("path");
 const { engine } = require("express-handlebars");
 
 //  Routers
-const userInterfaces = require("../Router/user-interfaces");
-const { info } = require("../Router/server-info");
-const { apiRandoms } = require("../Router/api-randoms");
-const { apiProducts } = require("../Router/api-products");
-const { carts } = require("../Router/api-carts");
+const userInterfaces = require("../2-Router/user-interfaces");
+const { info } = require("../2-Router/server-info");
+const { apiRandoms } = require("../2-Router/api-randoms");
+const { apiProducts } = require("../2-Router/api-products");
+const { carts } = require("../2-Router/api-carts");
 
 // BBDDs
-const { sockets } = require("../Service/sockets-sessions/sockets");
-const { Session } = require("../Service/sockets-sessions/sessions");
+const { sockets } = require("../4-Service/sockets-sessions/sockets");
+const { Session } = require("../4-Service/sockets-sessions/sessions");
 
 // Auth
 const passport = require("passport");
-const { connectToMongo } = require("../Persistence/utils/mongooseConnection");
+const { connectToMongo } = require("../5-Persistence/utils/mongooseConnection");
 
 // Argumentos de línea de comandos
 const yargs = require("yargs/yargs")(process.argv.slice(2));

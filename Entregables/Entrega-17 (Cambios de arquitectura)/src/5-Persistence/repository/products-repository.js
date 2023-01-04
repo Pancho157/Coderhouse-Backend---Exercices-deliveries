@@ -1,4 +1,4 @@
-const { DAO } = require("../../Persistence/DAOs/DAOselector");
+const { DAO } = require("../DAOs/DAOselector");
 
 const DAOs = new DAO(process.env.PERS);
 

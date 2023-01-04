@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 // Controllers
-const { getUserCartProducts } = require("../Controller/api-carts");
+const { getUserCartProducts } = require("../3-Controller/api-carts");
 const {
   getLandingPage,
   getProductsPage,
@@ -12,15 +12,15 @@ const {
   getRegisterForm,
   postRegisterForm,
   getUserInfo,
-} = require("../Controller/user-interfaces");
+} = require("../3-Controller/user-interfaces");
 
 // Middlewares
-const { loggerInfo } = require("../Service/middlewares/infoLogger");
-const { isLoggedIn } = require("../Service/middlewares/isLoggedIn");
-const { upload } = require("../Service/middlewares/multer");
+const { loggerInfo } = require("../4-Service/middlewares/infoLogger");
+const { isLoggedIn } = require("../4-Service/middlewares/isLoggedIn");
+const { upload } = require("../4-Service/middlewares/multer");
 const {
   getPhotoPathAsReqBody,
-} = require("../Service/middlewares/getLastImagePath");
+} = require("../4-Service/middlewares/getLastImagePath");
 
 const userInterfaces = Router();
 userInterfaces.use(loggerInfo);

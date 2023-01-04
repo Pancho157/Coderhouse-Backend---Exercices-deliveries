@@ -1,4 +1,4 @@
-const { getNumbersObject } = require("../Service/utils/randomNumbers");
+const { getNumbersObject } = require("../4-Service/utils/randomNumbers");
 const { fork } = require("child_process");
 const path = require("path");
 

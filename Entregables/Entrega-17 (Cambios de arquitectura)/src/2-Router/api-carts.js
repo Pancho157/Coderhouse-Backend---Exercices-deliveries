@@ -6,10 +6,10 @@ const {
   deleteProductFromCart,
   buyUserCart,
   removeOneOfProduct,
-} = require("../Controller/api-carts");
+} = require("../3-Controller/api-carts");
 
 // Middlewares
-const { isLoggedIn } = require("../Service/middlewares/isLoggedIn");
+const { isLoggedIn } = require("../4-Service/middlewares/isLoggedIn");
 
 const carts = Router();
 

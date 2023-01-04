@@ -5,11 +5,11 @@ const { logger } = require("../../../loggers-testing/loggers/log4js-config");
 const {
   getAllProducts,
   insertProduct,
-} = require("../repository/products-repository");
+} = require("../../5-Persistence/repository/products-repository");
 const {
   getChatMessages,
   newChatMessage,
-} = require("../repository/chat-repository");
+} = require("../../5-Persistence/repository/chat-repository");
 
 async function sockets(io) {
   io.use(

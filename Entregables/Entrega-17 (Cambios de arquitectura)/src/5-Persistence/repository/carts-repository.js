@@ -1,9 +1,11 @@
-const { DAO } = require("../../Persistence/DAOs/DAOselector");
-const { sendNewOrderEmailToAdmin } = require("../utils/nodemailerMessages");
+const { DAO } = require("../DAOs/DAOselector");
+const {
+  sendNewOrderEmailToAdmin,
+} = require("../../4-Service/utils/nodemailerMessages");
 const {
   sendNewOrderMessageToAdmin,
   sendOrderConfirmationMessageToUser,
-} = require("../utils/twilioMessages");
+} = require("../../4-Service/utils/twilioMessages");
 const { getProductById } = require("./products-repository");
 
 const DAOs = new DAO(process.env.PERS);

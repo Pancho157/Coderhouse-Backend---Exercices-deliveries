@@ -3,7 +3,7 @@ const {
   getAllProducts,
   insertProduct,
   deleteProductById,
-} = require("../Service/repository/products-repository");
+} = require("../5-Persistence/repository/products-repository");
 
 async function getProducts(req, res) {
   try {

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getRandoms } = require("../Controller/api-randoms");
+const { getRandoms } = require("../3-Controller/api-randoms");
 
 const apiRandoms = Router();
 
