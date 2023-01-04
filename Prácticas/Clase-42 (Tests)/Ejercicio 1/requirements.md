@@ -1,0 +1,11 @@
+Realizar un pedido de recursos que se encuentran en la URL: https://jsonplaceholder.typicode.com/posts.
+
+Para ello utilizar el módulo http nativo de node.js (options -> port: 80).
+
+Estos recursos vienen dentro de un array de objetos.
+
+Al recibirlos, almacenarlos en un archivo llamado postsHttp.json conservando su estructura (respetar tabuladores, saltos de línea, etc.).
+
+Realizar la misma solicitud, pero esta vez usando el módulo https interno de node.js.
+
+El archivo en el cual se guardará la respuesta será postsHttps.json (options -> port: 443).
