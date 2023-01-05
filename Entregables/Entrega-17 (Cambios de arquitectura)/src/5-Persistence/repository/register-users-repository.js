@@ -2,45 +2,22 @@ const md5 = require("md5");
 const { DAO } = require("../DAOs/DAOselector");
 const { deleteUserPhoto } = require("../../4-Service/utils/deleteUserPhoto");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
+const { registerDTO } = require("../DTOs/users-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
 async function registerUser(data) {
-  const {
-    email,
-    alias,
-    direction,
-    age,
-    prefix,
-    phoneNum,
-    password,
-    pathToPhoto,
-  } = data;
   let exists = {};
-
-  // * En caso de no ingresaro todos los datos
-  if (
-    !email ||
-    !alias ||
-    !direction ||
-    !age ||
-    !prefix ||
-    !phoneNum ||
-    !password ||
-    !pathToPhoto
-  ) {
-    throw {
-      error: "Ingrese todos los datos requeridos",
-      errorCode: 400,
-    };
-  }
+  const userDataFromDTO = registerDTO(data);
 
   // * En caso de existir el usuario
   try {
     // if exists = true, else = false
-    if (await DAOs.users.verifyAlias(alias)) exists.alias = true;
+    if (await DAOs.users.verifyAlias(userDataFromDTO.alias))
+      exists.alias = true;
 
-    if (await DAOs.users.verifyEmail(email)) exists.email = true;
+    if (await DAOs.users.verifyEmail(userDataFromDTO.email))
+      exists.email = true;
   } catch (err) {
     logger.error(err);
     throw {
@@ -68,20 +45,10 @@ async function registerUser(data) {
 
   // * Creación de usuario
   try {
-    response = await DAOs.users.createUser({
-      email: email,
-      alias: alias,
-      direction: direction,
-      age: age,
-      prefix: prefix,
-      phoneNum: phoneNum,
-      userCart: [],
-      password: md5(password),
-      pathToPhoto: pathToPhoto,
-    });
-    return alias;
+    response = await DAOs.users.createUser(userDataFromDTO);
+    return userDataFromDTO.alias;
   } catch (err) {
-    deleteUserPhoto(pathToPhoto);
+    deleteUserPhoto(userDataFromDTO.pathToPhoto);
     logger.error(err);
     throw {
       error: "Se ha producido un error",

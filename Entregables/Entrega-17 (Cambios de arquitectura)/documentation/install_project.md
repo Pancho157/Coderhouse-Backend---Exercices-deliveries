@@ -29,19 +29,50 @@
 
         MONGO_URL = (mongoDB Atlas connection url)
 
-        FIREBASE_CONFIG = (Config ubicada debajo como JSON.Stringify)
-            {
-                type: (Dado por firebase),
-                project_id: (Dado por firebase),
-                private_key_id: (Dado por firebase),
-                private_key: (Dado por firebase),
-                client_email: (Dado por firebase),
-                client_id: (Dado por firebase),
-                auth_uri: (Dado por firebase),
-                token_uri: (Dado por firebase),
-                auth_provider_x509_cert_url: (Dado por firebase),
-                client_x509_cert_url: (Dado por firebase)
-            }
+            (como JSON.Stringify dentro de la variable)
+        FIREBASE_CONFIG = {
+          type: (Dado por firebase),
+          project_id: (Dado por firebase),
+          private_key_id: (Dado por firebase),
+          private_key: (Dado por firebase),
+          client_email: (Dado por firebase),
+          client_id: (Dado por firebase),
+          auth_uri: (Dado por firebase),
+          token_uri: (Dado por firebase),
+          auth_provider_x509_cert_url: (Dado por firebase),
+          client_x509_cert_url: (Dado por firebase)
+        }
+
+4.  Instalar las dependencias del proyecto:
+
+        "dependencies": {
+          "autocannon": "^7.10.0",
+          "child_process": "^1.0.2",
+          "cluster": "^0.7.7",
+          "compression": "^1.7.4",
+          "connect-mongo": "^4.6.0",
+          "dotenv": "^16.0.3",
+          "express": "^4.18.2",
+          "express-handlebars": "^6.0.6",
+          "express-session": "^1.17.3",
+          "express-socket.io-session": "^1.3.5",
+          "firebase": "^9.14.0",
+          "firebase-admin": "^11.3.0",
+          "log4js": "^6.7.0",
+          "md5": "^2.3.0",
+          "mongodb": "^4.12.1",
+          "mongoose": "^6.7.3",
+          "multer": "^1.4.5-lts.1",
+          "nodemailer": "^6.8.0",
+          "nodemon": "^2.0.20",
+          "passport": "^0.6.0",
+          "passport-local": "^1.0.0",
+          "path": "^0.12.7",
+          "socket.io": "^4.5.4",
+          "twilio": "^3.84.0",
+          "util": "^0.12.5",
+          "yargs": "^17.6.2"
+        }
 
 ## Como instalar el proyecto:
 

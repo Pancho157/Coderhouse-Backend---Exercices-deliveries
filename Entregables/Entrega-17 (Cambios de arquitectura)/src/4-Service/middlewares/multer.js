@@ -5,7 +5,7 @@ const path = require("path");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // cb(error, storage)
-    cb(null, path.join(__dirname, "../../Server/public/images"));
+    cb(null, path.join(__dirname, "../../1-Server/public/images"));
   },
   filename: (req, file, cb) => {
     // Saves the file name with the date of upload (for error handling)

@@ -15,43 +15,16 @@ function loginDTO(data) {
 }
 
 function registerDTO(data) {
-  const {
-    email,
-    alias,
-    direction,
-    age,
-    prefix,
-    phoneNum,
-    password,
-    pathToPhoto,
-  } = data;
-
-  if (
-    !email ||
-    !alias ||
-    !direction ||
-    !age ||
-    !prefix ||
-    !phoneNum ||
-    !password ||
-    !pathToPhoto
-  ) {
-    throw {
-      error: "Ingrese todos los datos requeridos",
-      errorCode: 400,
-    };
-  }
-
   return {
-    email: email,
-    alias: alias,
-    direction: direction,
-    age: age,
-    prefix: prefix,
-    phoneNum: phoneNum,
+    email: data.email,
+    alias: data.alias,
+    direction: data.direction,
+    age: data.age,
+    prefix: data.prefix,
+    phoneNum: data.phoneNum,
     userCart: [],
-    password: md5(password),
-    pathToPhoto: pathToPhoto,
+    password: md5(data.password),
+    pathToPhoto: data.pathToPhoto,
   };
 }
 
