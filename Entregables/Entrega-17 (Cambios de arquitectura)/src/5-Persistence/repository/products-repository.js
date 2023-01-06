@@ -1,4 +1,5 @@
 const { DAO } = require("../DAOs/DAOselector");
+const { newProductDTO } = require("../DTOs/products-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
@@ -27,7 +28,6 @@ async function getProductById(id) {
 }
 
 async function insertProduct(data) {
-  const { title, price, thumbnail, stock } = data;
   let exists;
 
   try {
@@ -39,20 +39,17 @@ async function insertProduct(data) {
     };
   }
 
-  if (!title || !price || !thumbnail || !stock) {
-    throw {
-      error: "No se ingresaron todos los datos necesarios",
-      errorCode: 400,
-    };
-  } else if (exists != null) {
+  if (exists != null) {
     throw {
       error: "El producto ingresado ya existe",
       errorCode: 400,
     };
   }
 
+  const newProductInfo = newProductDTO(data);
+
   try {
-    const newProduct = await DAOs.products.insertProduct(data);
+    const newProduct = await DAOs.products.insertProduct(newProductInfo);
     return `Producto agregado exitosamente`;
   } catch (err) {
     throw {

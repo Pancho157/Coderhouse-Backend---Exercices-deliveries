@@ -1,27 +1,15 @@
 const md5 = require("md5");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
 const { DAO } = require("../DAOs/DAOselector");
+const { userInfoDTO, loginDTO } = require("../DTOs/users-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
 async function login(data) {
-  const { user, password } = data;
   let userInfo;
-  if (!user || !password) {
-    throw {
-      error: "Ingrese todos los datos requeridos (user, password)",
-      errorCode: 400,
-    };
-  }
 
   try {
     userInfo = await DAOs.users.getUserInfo(user);
-    if (!userInfo) {
-      throw {
-        error: "El usuario ingresado no existe",
-        errorCode: 400,
-      };
-    }
   } catch (err) {
     throw {
       error:
@@ -30,7 +18,16 @@ async function login(data) {
     };
   }
 
-  if (userInfo.password == md5(password)) {
+  if (!userInfo) {
+    throw {
+      error: "El usuario ingresado no existe",
+      errorCode: 400,
+    };
+  }
+
+  const userInput = loginDTO(data);
+
+  if (userInfo.password == md5(userInput.password)) {
     return { alias: userInfo.alias, userId: userInfo._id };
   } else {
     throw {
@@ -51,18 +48,9 @@ async function getUserInfoFromDB(user) {
       };
     }
 
-    let phoneLastNumbers = String(userInfo.phoneNum).slice(-2);
-    phoneLastNumbers = parseInt(phoneLastNumbers);
+    const userInfoDTO = userInfoDTO(userInfo);
 
-    const filteredUserInfo = {
-      alias: userInfo.alias,
-      email: userInfo.email,
-      direction: userInfo.direction,
-      age: userInfo.age,
-      phoneNum: phoneLastNumbers,
-    };
-
-    return filteredUserInfo;
+    return userInfoDTO;
   } catch (err) {
     logger.error(err);
     throw {

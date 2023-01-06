@@ -29,9 +29,13 @@ function registerDTO(data) {
 }
 
 function userInfoDTO(data) {
-  const { alias, email, direction, age, phoneNum } = data;
-
-  if (!alias || !email || !direction || !age || !phoneNum) {
+  if (
+    !data.alias ||
+    !data.email ||
+    !data.direction ||
+    !data.age ||
+    !data.phoneNum
+  ) {
     throw {
       error:
         "Ingrese todos los datos requeridos (alias, email, direction, age, phoneNum)",
@@ -39,14 +43,14 @@ function userInfoDTO(data) {
     };
   }
 
-  let encriptedPhoneNum = String(phoneNum).slice(-2);
+  let encriptedPhoneNum = String(data.phoneNum).slice(-2);
   encriptedPhoneNum = parseInt(encriptedPhoneNum);
 
   return {
-    alias: alias,
-    email: email,
-    direction: direction,
-    age: age,
+    alias: data.alias,
+    email: data.email,
+    direction: data.direction,
+    age: data.age,
     phoneNum: encriptedPhoneNum,
   };
 }
