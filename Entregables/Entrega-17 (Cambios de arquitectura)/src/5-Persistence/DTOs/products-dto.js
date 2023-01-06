@@ -1,6 +1,13 @@
-function allProductsDTO(data) {}
-
-function productDTO(data) {}
+function cartProductDTO(productInfo, productQuantity) {
+  return {
+    thumbnail: productInfo.thumbnail,
+    title: productInfo.title,
+    quantity: productQuantity,
+    price: productInfo.price,
+    unitaryPrice: productInfo.price * product.quantityproductQuantity,
+    _id: productInfo._id,
+  };
+}
 
 function newProductDTO(data) {
   if (!data.title || !data.price || !data.thumbnail || !data.stock) {
@@ -18,4 +25,4 @@ function newProductDTO(data) {
   };
 }
 
-module.exports = { allProductsDTO, productDTO, newProductDTO };
+module.exports = { allProductsDTO, cartProductDTO, newProductDTO };

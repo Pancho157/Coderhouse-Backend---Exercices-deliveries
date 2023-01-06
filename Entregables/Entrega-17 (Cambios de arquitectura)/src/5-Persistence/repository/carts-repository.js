@@ -7,6 +7,7 @@ const {
   sendOrderConfirmationMessageToUser,
 } = require("../../4-Service/utils/twilioMessages");
 const { getProductById } = require("./products-repository");
+const { cartProductDTO } = require("../DTOs/products-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
@@ -19,15 +20,7 @@ async function getCartProducts(user) {
   }
 
   if (userInfo.userCart == []) {
-    const emptyCart = {
-      thumbnail: "",
-      title: "No hay productos en el carrito",
-      quantity: "",
-      price: "",
-      unitaryPrice: "",
-    };
-
-    return { userCartProducts: emptyCart, total: 0, name: user };
+    return { userCartProducts: [], total: 0, name: user };
   } else {
     const cartProducts = userInfo.userCart;
     let userCartProducts = [];
@@ -37,14 +30,7 @@ async function getCartProducts(user) {
       try {
         const foundProduct = await getProductById(product.id);
 
-        const cartProductInfo = {
-          thumbnail: foundProduct.thumbnail,
-          title: foundProduct.title,
-          quantity: product.quantity,
-          price: foundProduct.price,
-          unitaryPrice: foundProduct.price * product.quantity,
-          _id: foundProduct._id,
-        };
+        const cartProductInfo = cartProductDTO(foundProduct, product.quantity);
 
         userCartProducts.push(cartProductInfo);
         total += cartProductInfo.unitaryPrice;

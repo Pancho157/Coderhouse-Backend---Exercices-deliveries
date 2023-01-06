@@ -1,4 +1,5 @@
 const { DAO } = require("../DAOs/DAOselector");
+const { newChatMessageDTO } = require("../DTOs/chat-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
@@ -22,11 +23,7 @@ async function newChatMessage(message, user) {
     };
   }
 
-  const messageinfo = {
-    message: message,
-    author: user,
-    date: new Date(),
-  };
+  const messageinfo = newChatMessageDTO(message, user);
 
   try {
     await DAOs.chat.insertMessage(messageinfo);
