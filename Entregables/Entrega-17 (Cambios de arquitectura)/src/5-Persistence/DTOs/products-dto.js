@@ -25,4 +25,4 @@ function newProductDTO(data) {
   };
 }
 
-module.exports = { allProductsDTO, cartProductDTO, newProductDTO };
+module.exports = { cartProductDTO, newProductDTO };

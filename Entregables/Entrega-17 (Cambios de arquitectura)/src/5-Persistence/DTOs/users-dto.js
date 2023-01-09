@@ -1,16 +1,10 @@
 const md5 = require("md5");
 
-function loginDTO(data) {
-  if (!data.user || !data.password) {
-    throw {
-      error: "Ingrese todos los datos requeridos (user, password)",
-      errorCode: 400,
-    };
-  }
-
+function userLoginInfoDTO(data) {
   return {
-    user: data.user,
+    alias: data.alias,
     password: data.password,
+    pathToPhoto: data.pathToPhoto
   };
 }
 
@@ -55,4 +49,4 @@ function userInfoDTO(data) {
   };
 }
 
-module.exports = { loginDTO, registerDTO, userInfoDTO };
+module.exports = { userLoginInfoDTO, registerDTO, userInfoDTO };

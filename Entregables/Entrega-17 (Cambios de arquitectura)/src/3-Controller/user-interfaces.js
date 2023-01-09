@@ -1,11 +1,9 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
 const {
+  registerUser,
   login,
   getUserInfoFromDB,
-} = require("../5-Persistence/repository/login-user-repository");
-const {
-  registerUser,
-} = require("../5-Persistence/repository/register-users-repository");
+} = require("../5-Persistence/repository/users-repository");
 
 // -------------------- CONTENT PAGES --------------------
 function getLandingPage(req, res) {

@@ -19,5 +19,3 @@
 5.  Comprobar que si llamo a la factory dos veces, con una misma opción elegida, devuelva la misma instancia
 
 6.  Implementar el patrón Repository para la persistencia de productos y mensajes
-
-        (Fue implementado en la capa de servicio, con la intención de tener toda la lógica en una sola capa)
