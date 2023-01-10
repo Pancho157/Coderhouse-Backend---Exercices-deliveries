@@ -125,34 +125,14 @@ async function deleteProductFromUserCart(user, productId) {
   }
 }
 
-async function buyCart(user) {
-  let userInfo;
-  let userCart;
-
+async function deleteUserCart(user) {
+  const cart = [];
   try {
-    userInfo = await DAOs.users.getUserInfo(user);
+    const response = await DAOs.users.updateCart(user, cart);
+    return response;
   } catch (err) {
-    throw { error: "No se encontró el usuario indicado", errorCode: 400 };
+    throw { error: "Error al actualizar el carrito", errorCode: 500 };
   }
-
-  try {
-    userCart = await getCartProducts(user);
-  } catch (err) {
-    throw { error: "No se ", errorCode: 400 };
-  }
-
-  try {
-    // Twilio Messages
-    await sendNewOrderMessageToAdmin(userCart.userCartProducts, userInfo);
-    await sendOrderConfirmationMessageToUser(userInfo);
-
-    // Nodemailer Messages
-    await sendNewOrderEmailToAdmin(userCart.userCartProducts, userInfo);
-  } catch (err) {
-    throw { error: err, errorCode: 400 };
-  }
-
-  return { status: 200 };
 }
 
 module.exports = {
@@ -160,5 +140,5 @@ module.exports = {
   addProductToUserCart,
   removeOneFromCartProduct,
   deleteProductFromUserCart,
-  buyCart,
+  deleteUserCart,
 };

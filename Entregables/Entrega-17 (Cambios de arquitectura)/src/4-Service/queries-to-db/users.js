@@ -8,7 +8,7 @@ const {
 } = require("../../5-Persistence/repository/users-repository");
 
 // ----------------------------------------------------------------
-async function registerUser(data) {
+async function newUser(data) {
   let exists;
 
   // * If user exists
@@ -78,4 +78,4 @@ async function getUserData(user) {
   }
 }
 
-module.exports = { registerUser, login, getUserData };
+module.exports = { newUser, login, getUserData };

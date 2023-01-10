@@ -1,9 +1,8 @@
-const { logger } = require("../../loggers-testing/loggers/log4js-config");
 const {
-  registerUser,
+  newUser,
   login,
-  getUserInfoFromDB,
-} = require("../5-Persistence/repository/users-repository");
+  getUserData,
+} = require("../4-Service/queries-to-db/users");
 
 // -------------------- CONTENT PAGES --------------------
 function getLandingPage(req, res) {
@@ -36,7 +35,7 @@ async function getUserInfo(req, res) {
     res.redirect("/login");
   } else {
     try {
-      userInfo = await getUserInfoFromDB(req.session.userName);
+      userInfo = await getUserData(req.session.userName);
     } catch (err) {
       res.status(err.errorCode).send(err.error);
     }
@@ -96,7 +95,7 @@ function getRegisterForm(req, res) {
 
 async function postRegisterForm(req, res) {
   try {
-    const response = await registerUser(req.body);
+    const response = await newUser(req.body);
     req.session.userName = response;
     res.redirect("/");
   } catch (err) {
