@@ -16,13 +16,6 @@ async function getChatMessages() {
 }
 
 async function newChatMessage(message, user) {
-  if (!message || !user) {
-    throw {
-      error: "Ingrese todos los datos requeridos (mensaje / usuario)",
-      errorCode: 400,
-    };
-  }
-
   const messageinfo = newChatMessageDTO(message, user);
 
   try {
