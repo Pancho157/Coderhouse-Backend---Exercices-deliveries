@@ -28,29 +28,11 @@ async function getProductById(id) {
 }
 
 async function insertProduct(data) {
-  let exists;
-
-  try {
-    exists = await DAOs.products.getProductByTitle(title);
-  } catch (err) {
-    throw {
-      error: "El producto ingresado ya existe",
-      errorCode: 400,
-    };
-  }
-
-  if (exists != null) {
-    throw {
-      error: "El producto ingresado ya existe",
-      errorCode: 400,
-    };
-  }
-
   const newProductInfo = newProductDTO(data);
 
   try {
     const newProduct = await DAOs.products.insertProduct(newProductInfo);
-    return `Producto agregado exitosamente`;
+    return true;
   } catch (err) {
     throw {
       error: "Se ha producido un error al generar el producto",
@@ -60,16 +42,9 @@ async function insertProduct(data) {
 }
 
 async function deleteProductById(id) {
-  if (!id) {
-    throw {
-      error: "Ingrese el id del producto a eliminar",
-      errorCode: 400,
-    };
-  }
-
   try {
-    const productToDelete = await DAOs.products.deleteById(id);
-    return `Producto eliminado exitosamente (id = ${id})`;
+    const response = await DAOs.products.deleteById(id);
+    return response.ok == 1 ? true : false;
   } catch (err) {
     throw {
       error: "Ha ocurrido un error al eliminar el producto",

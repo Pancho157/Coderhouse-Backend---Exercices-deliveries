@@ -93,15 +93,6 @@ class ProductsMongoAtlas {
     }
   }
 
-  async getProductByTitle(title) {
-    try {
-      const product = await Products.findOne({ title: title });
-      return product;
-    } catch (err) {
-      logger.error(`Products Error: ${err}`);
-    }
-  }
-
   async deleteById(productId) {
     try {
       const deleted = await Products.deleteOne({ _id: productId });
