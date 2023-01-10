@@ -1,13 +1,14 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
 const {
-  getAllProducts,
-  insertProduct,
-  deleteProductById,
-} = require("../5-Persistence/repository/products-repository");
+  getProductsFromDB,
+  productById,
+  createProduct,
+  deleteProductFromDB,
+} = require("../4-Service/queries-to-db/products");
 
 async function getProducts(req, res) {
   try {
-    const products = await getAllProducts();
+    const products = await getProductsFromDB();
     res.json(products);
   } catch (err) {
     logger.error(err);
@@ -16,8 +17,9 @@ async function getProducts(req, res) {
 }
 
 async function postProduct(req, res) {
+  // {title, price, thumbnail, stock} = req.body
   try {
-    const product = await insertProduct(req.body);
+    const product = await createProduct(req.body);
     res.send(product);
   } catch (err) {
     logger.error(err);
@@ -27,8 +29,7 @@ async function postProduct(req, res) {
 
 async function deleteProduct(req, res) {
   try {
-    const id = parseInt(req.params.id);
-    res.send(await deleteProductById(id));
+    res.send(await deleteProductFromDB(req.params.id));
   } catch (err) {
     logger.error(err);
     res.status(err.errorCode).send(err.error);

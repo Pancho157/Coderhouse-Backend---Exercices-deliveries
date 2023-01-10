@@ -34,6 +34,11 @@ class ProductsMongoAtlas {
     }
   }
 
+  async getLastId() {
+    const foundId = await Products.find().sort({ _id: -1 }).limit(1);
+    foundId[0] ? (this.lastId = foundId[0]._id) : (this.lastId = 1);
+  }
+
   async getProducts() {
     try {
       const allProducts = await Products.find();
@@ -41,22 +46,6 @@ class ProductsMongoAtlas {
     } catch (err) {
       logger.error(`Products Error: ${err}`);
     }
-  }
-
-  async getProductById(productId) {
-    try {
-      const product = await Products.findOne({ _id: productId });
-      return product;
-    } catch (err) {
-      logger.error(`Products Error: ${err}`);
-    }
-  }
-
-  // Funciones que quedan
-
-  async getLastId() {
-    const foundId = await Products.find().sort({ _id: -1 }).limit(1);
-    foundId[0] ? (this.lastId = foundId[0]._id) : (this.lastId = 1);
   }
 
   async insertProduct(data) {

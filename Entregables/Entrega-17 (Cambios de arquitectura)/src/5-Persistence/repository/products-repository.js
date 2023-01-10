@@ -44,7 +44,11 @@ async function insertProduct(data) {
 async function deleteProductById(id) {
   try {
     const response = await DAOs.products.deleteById(id);
-    return response.ok == 1 ? true : false;
+    if (response.ok == 1) {
+      return true;
+    } else {
+      throw { error: "No se ha encontrado el producto", errorCode: 400 };
+    }
   } catch (err) {
     throw {
       error: "Ha ocurrido un error al eliminar el producto",
