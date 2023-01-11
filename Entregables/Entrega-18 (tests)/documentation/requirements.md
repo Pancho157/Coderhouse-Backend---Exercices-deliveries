@@ -22,7 +22,7 @@
 
 ---
 
-- Revisar en forma completa el proyecto entrgable que venimos realizando, refactorizando y reformando todo lo necesario para llegar al esquema de servidor API RESTful en capas planteado en esta clase.
+- Revisar en forma completa el proyecto entregable que venimos realizando, refactorizando y reformando todo lo necesario para llegar al esquema de servidor API RESTful en capas planteado en esta clase.
 
 - Asegurarse de dejar al servidor bien estructurado con su ruteo / controlador, negocio, validaciones, persistencia, configuraciones (preferentemente utilizando en la codificación clases de ECMAScript)
 
