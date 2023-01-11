@@ -28,7 +28,7 @@ class ProductsMongoAtlas {
         dataToUpdate,
       });
 
-      return `Producto (id = ${productId}) actualizado`;
+      return updated;
     } catch (err) {
       logger.error(`Products Error: ${err}`);
     }

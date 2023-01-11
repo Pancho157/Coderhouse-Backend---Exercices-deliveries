@@ -110,7 +110,7 @@ if (process.env.CLUSTER && process.env.CLUSTER == "true" && cluster.isPrimary) {
   app.use("/", userInterfaces);
   app.use("/", info);
   app.use("/api", apiRandoms);
-  app.use("/api", apiProducts);
+  app.use("/api/products", apiProducts);
   app.use("/api/carts", carts);
 
   // ----------------------- Error 404 -----------------------

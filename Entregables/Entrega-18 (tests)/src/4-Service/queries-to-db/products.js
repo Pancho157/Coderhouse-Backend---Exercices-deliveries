@@ -2,6 +2,7 @@ const {
   getAllProducts,
   getProductById,
   insertProduct,
+  updateProduct,
   deleteProductById,
 } = require("../../5-Persistence/repository/products-repository");
 
@@ -50,6 +51,19 @@ async function createProduct(data) {
 }
 
 // ---------------------------------------------------------------
+async function updateProductFromDB(id, data) {
+  try {
+    const response = await updateProduct(id, data);
+    return response;
+  } catch (err) {
+    throw {
+      error: "Se ha producido un error al generar el producto",
+      errorCode: 500,
+    };
+  }
+}
+
+// ---------------------------------------------------------------
 async function deleteProductFromDB(id) {
   if (!id) {
     throw {
@@ -70,5 +84,6 @@ module.exports = {
   getProductsFromDB,
   productById,
   createProduct,
+  updateProductFromDB,
   deleteProductFromDB,
 };

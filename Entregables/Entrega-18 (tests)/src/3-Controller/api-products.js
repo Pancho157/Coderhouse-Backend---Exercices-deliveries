@@ -4,6 +4,7 @@ const {
   productById,
   createProduct,
   deleteProductFromDB,
+  updateProductFromDB,
 } = require("../4-Service/queries-to-db/products");
 
 async function getProducts(req, res) {
@@ -27,6 +28,17 @@ async function postProduct(req, res) {
   }
 }
 
+async function updateProduct(req, res) {
+  // {title, price, thumbnail, stock} = req.body
+  try {
+    const product = await updateProductFromDB(req.params.id, req.body);
+    res.send(product);
+  } catch (err) {
+    logger.error(err);
+    res.status(err.errorCode).send(err.error);
+  }
+}
+
 async function deleteProduct(req, res) {
   try {
     res.send(await deleteProductFromDB(req.params.id));
@@ -36,4 +48,4 @@ async function deleteProduct(req, res) {
   }
 }
 
-module.exports = { getProducts, postProduct, deleteProduct };
+module.exports = { getProducts, postProduct, updateProduct, deleteProduct };

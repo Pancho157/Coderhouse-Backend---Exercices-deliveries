@@ -9,6 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "autocannon": "^7.10.0",
+    "axios": "^1.2.2",
     "child_process": "^1.0.2",
     "cluster": "^0.7.7",
     "compression": "^1.7.4",

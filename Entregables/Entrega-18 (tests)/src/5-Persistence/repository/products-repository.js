@@ -41,6 +41,18 @@ async function insertProduct(data) {
   }
 }
 
+async function updateProduct(id, data) {
+  try {
+    const product = await DAOs.products.updateById(id, data);
+    return product;
+  } catch (err) {
+    throw {
+      error: "Se ha producido un error al generar el producto",
+      errorCode: 500,
+    };
+  }
+}
+
 async function deleteProductById(id) {
   try {
     const response = await DAOs.products.deleteById(id);
@@ -61,5 +73,6 @@ module.exports = {
   getAllProducts,
   getProductById,
   insertProduct,
+  updateProduct,
   deleteProductById,
 };

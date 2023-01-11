@@ -1,12 +1,19 @@
 const { Router } = require("express");
-const { getProducts, postProduct, deleteProduct } = require("../3-Controller/api-products");
+const {
+  getProducts,
+  postProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../3-Controller/api-products");
 
 const apiProducts = Router();
 
-apiProducts.get("/products", getProducts);
+apiProducts.get("/", getProducts);
 
-apiProducts.post("/products", postProduct);
+apiProducts.post("/", postProduct);
 
-apiProducts.delete("/products/:id", deleteProduct);
+apiProducts.put("/:id", updateProduct);
+
+apiProducts.delete("/:id", deleteProduct);
 
 module.exports = { apiProducts };
