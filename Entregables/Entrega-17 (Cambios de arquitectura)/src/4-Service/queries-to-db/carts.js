@@ -1,6 +1,7 @@
 const {
   deleteUserCart,
   updateUserCart,
+  getCart,
 } = require("../../5-Persistence/repository/carts-repository");
 const {
   getProductById,
@@ -18,30 +19,28 @@ const {
 
 // ---------------------------------------------------------------
 async function getCartProducts(user) {
-  let userInfo;
   let userCart;
 
   try {
-    userInfo = await getUserInfoFromDB(user);
+    userCart = await getCart(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
 
-  if (userInfo.userCart == []) {
+  if (userCart == []) {
     return { userCartProducts: [], total: 0, name: user };
   } else {
-    const cartProducts = userInfo.userCart;
     let userCartProducts = [];
     let total = 0;
     // for of = secuencial  -  forEach = paralelo (deja los await como promesas)
-    for (const product of cartProducts) {
+    for (const product of userCart) {
       try {
         const productInfo = await getProductById(product.id);
 
         const productDetail = {
           thumbnail: productInfo.thumbnail,
           title: productInfo.title,
-          quantity: productQuantity,
+          quantity: product.quantity,
           price: productInfo.price,
           unitaryPrice: productInfo.price * product.quantity,
           _id: productInfo._id,
@@ -67,24 +66,22 @@ async function addProductToUserCart(user, productId, prodQuantity = 1) {
     throw { error: "Producto no especificado", errorCode: 400 };
   }
 
-  let userInfo;
+  let userCart;
   try {
-    userInfo = await getUserInfoFromDB(user);
+    userCart = await getCart(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
 
-  let cart = userInfo.userCart;
-
-  const productIndex = cart.findIndex((prod) => prod.id == productId);
+  const productIndex = userCart.findIndex((prod) => prod.id == productId);
   if (productIndex == -1) {
-    cart.push({ id: productId, quantity: prodQuantity });
+    userCart.push({ id: productId, quantity: prodQuantity });
   } else {
-    cart[productIndex].quantity += 1;
+    userCart[productIndex].quantity += 1;
   }
 
   try {
-    const response = await updateUserCart(userInfo.alias, cart);
+    const response = await updateUserCart(user, userCart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -93,14 +90,12 @@ async function addProductToUserCart(user, productId, prodQuantity = 1) {
 
 // ---------------------------------------------------------------
 async function removeOneFromCartProduct(user, productId) {
-  let userInfo;
+  let cart;
   try {
-    userInfo = await getUserInfoFromDB(user);
+    cart = await getCart(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
-
-  let cart = userInfo.userCart;
 
   const productIndex = cart.findIndex((prod) => prod.id == productId);
   if (productIndex == -1) {
@@ -110,7 +105,7 @@ async function removeOneFromCartProduct(user, productId) {
   }
 
   try {
-    const response = await updateUserCart(userInfo.alias, cart);
+    const response = await updateUserCart(user, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -119,14 +114,12 @@ async function removeOneFromCartProduct(user, productId) {
 
 // ---------------------------------------------------------------
 async function deleteProductFromUserCart(user, productId) {
-  let userInfo;
+  let cart;
   try {
-    userInfo = await getUserInfoFromDB(user);
+    cart = await getCart(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }
-
-  let cart = userInfo.userCart;
 
   const productIndex = cart.findIndex((prod) => prod.id == productId);
   if (productIndex == -1) {
@@ -136,7 +129,7 @@ async function deleteProductFromUserCart(user, productId) {
   }
 
   try {
-    const response = await updateUserCart(userInfo.alias, cart);
+    const response = await updateUserCart(user, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };

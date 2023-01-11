@@ -1,48 +1,13 @@
 const { DAO } = require("../DAOs/DAOselector");
-const {
-  sendNewOrderEmailToAdmin,
-} = require("../../4-Service/utils/nodemailerMessages");
-const {
-  sendNewOrderMessageToAdmin,
-  sendOrderConfirmationMessageToUser,
-} = require("../../4-Service/utils/twilioMessages");
-const { getProductById } = require("./products-repository");
-const { cartProductDTO } = require("../DTOs/products-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
-async function getCartProducts(user) {
-  let userInfo;
+async function getCart(user) {
   try {
-    userInfo = await DAOs.users.getUserInfo(user);
+    const response = await DAOs.users.getUserInfo(user);
+    return response.userCart;
   } catch (err) {
-    throw { error: "No se encontró el usuario indicado", errorCode: 400 };
-  }
-
-  if (userInfo.userCart == []) {
-    return { userCartProducts: [], total: 0, name: user };
-  } else {
-    const cartProducts = userInfo.userCart;
-    let userCartProducts = [];
-    let total = 0;
-    // for of = secuencial  -  forEach = paralelo (deja los await como promesas)
-    for (const product of cartProducts) {
-      try {
-        const foundProduct = await getProductById(product.id);
-
-        const cartProductInfo = cartProductDTO(foundProduct, product.quantity);
-
-        userCartProducts.push(cartProductInfo);
-        total += cartProductInfo.unitaryPrice;
-      } catch (err) {
-        throw {
-          errorCode: 500,
-          error: "Error al buscar un producto del carrito",
-        };
-      }
-    }
-
-    return { userCartProducts, total, name: user };
+    throw { error: "Error al buscar el carrito", errorCode: 500 };
   }
 }
 
@@ -66,7 +31,7 @@ async function deleteUserCart(user) {
 }
 
 module.exports = {
-  getCartProducts,
+  getCart,
   updateUserCart,
   deleteUserCart,
 };

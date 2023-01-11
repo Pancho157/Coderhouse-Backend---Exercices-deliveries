@@ -21,8 +21,6 @@ async function addOneToCartProduct(req, res) {
   const { productId, prodQuantity } = req.body;
   const user = req.session.userName;
 
-  console.log(productId);
-
   try {
     let userCart = await addProductToUserCart(user, productId, prodQuantity);
     if (userCart) res.redirect("/userCart");
