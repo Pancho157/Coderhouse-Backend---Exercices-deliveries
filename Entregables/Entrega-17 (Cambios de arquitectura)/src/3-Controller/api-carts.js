@@ -1,11 +1,11 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
 const {
+  getCartProducts,
   addProductToUserCart,
   removeOneFromCartProduct,
   deleteProductFromUserCart,
   buyCart,
-  getCartProducts,
-} = require("../5-Persistence/repository/carts-repository");
+} = require("../4-Service/queries-to-db/carts");
 
 async function getUserCartProducts(req, res) {
   try {

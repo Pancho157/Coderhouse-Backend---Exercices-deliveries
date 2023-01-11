@@ -46,79 +46,9 @@ async function getCartProducts(user) {
   }
 }
 
-async function addProductToUserCart(user, productId, prodQuantity = 1) {
-  if (productId == null) {
-    throw { error: "Producto no especificado", errorCode: 400 };
-  }
-
-  let userInfo;
+async function updateUserCart(userAlias, cart) {
   try {
-    userInfo = await DAOs.users.getUserInfo(user);
-  } catch (err) {
-    throw { error: "No se encontró el usuario indicado", errorCode: 400 };
-  }
-
-  let cart = userInfo.userCart;
-
-  const productIndex = cart.findIndex((prod) => prod.id == productId);
-  if (productIndex == -1) {
-    cart.push({ id: productId, quantity: prodQuantity });
-  } else {
-    cart[productIndex].quantity += 1;
-  }
-
-  try {
-    const response = await DAOs.users.updateCart(userInfo.alias, cart);
-    return response;
-  } catch (err) {
-    throw { error: "Error al actualizar el carrito", errorCode: 500 };
-  }
-}
-
-async function removeOneFromCartProduct(user, productId) {
-  let userInfo;
-  try {
-    userInfo = await DAOs.users.getUserInfo(user);
-  } catch (err) {
-    throw { error: "No se encontró el usuario indicado", errorCode: 400 };
-  }
-
-  let cart = userInfo.userCart;
-
-  const productIndex = cart.findIndex((prod) => prod.id == productId);
-  if (productIndex == -1) {
-    throw { error: "Producto no encontrado", errorCode: 400 };
-  } else {
-    cart[productIndex].quantity -= 1;
-  }
-
-  try {
-    const response = await DAOs.users.updateCart(userInfo.alias, cart);
-    return response;
-  } catch (err) {
-    throw { error: "Error al actualizar el carrito", errorCode: 500 };
-  }
-}
-
-async function deleteProductFromUserCart(user, productId) {
-  let userInfo;
-  try {
-    userInfo = await DAOs.users.getUserInfo(user);
-  } catch (err) {
-    throw { error: "No se encontró el usuario indicado", errorCode: 400 };
-  }
-
-  let cart = userInfo.userCart;
-
-  const productIndex = cart.findIndex((prod) => prod.id == productId);
-  if (productIndex == -1) {
-    throw { error: "Producto no encontrado", errorCode: 400 };
-  } else {
-    cart.splice(productIndex, 1);
-  }
-
-  try {
-    const response = await DAOs.users.updateCart(userInfo.alias, cart);
+    const response = await DAOs.users.updateCart(userAlias, cart);
     return response;
   } catch (err) {
     throw { error: "Error al actualizar el carrito", errorCode: 500 };
@@ -137,8 +67,6 @@ async function deleteUserCart(user) {
 
 module.exports = {
   getCartProducts,
-  addProductToUserCart,
-  removeOneFromCartProduct,
-  deleteProductFromUserCart,
+  updateUserCart,
   deleteUserCart,
 };
