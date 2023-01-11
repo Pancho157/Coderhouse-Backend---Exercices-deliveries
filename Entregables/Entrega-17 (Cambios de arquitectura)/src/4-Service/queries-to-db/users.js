@@ -6,6 +6,7 @@ const {
   verifyUserExists,
   getUserInfoFromDB,
 } = require("../../5-Persistence/repository/users-repository");
+const md5 = require("md5");
 
 // ----------------------------------------------------------------
 async function newUser(data) {
@@ -58,7 +59,7 @@ async function login(data) {
     throw err;
   }
 
-  if (loginInfo.password == md5(userInput.password)) {
+  if (loginInfo.password == md5(data.password)) {
     return { alias: loginInfo.alias, pathToPhoto: loginInfo.pathToPhoto };
   } else {
     throw {

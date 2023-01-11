@@ -50,10 +50,10 @@ async function deleteProductById(id) {
       throw { error: "No se ha encontrado el producto", errorCode: 400 };
     }
   } catch (err) {
-    throw {
-      error: "Ha ocurrido un error al eliminar el producto",
-      errorCode: 500,
-    };
+    // throw {
+    //   error: "Ha ocurrido un error al eliminar el producto",
+    //   errorCode: 500,
+    // };
   }
 }
 
