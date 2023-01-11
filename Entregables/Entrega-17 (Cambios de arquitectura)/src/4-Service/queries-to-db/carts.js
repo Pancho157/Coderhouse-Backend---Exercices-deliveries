@@ -7,7 +7,7 @@ const {
   getProductById,
 } = require("../../5-Persistence/repository/products-repository");
 const {
-  getUserInfoFromDB,
+  getDetailedUserInfo,
 } = require("../../5-Persistence/repository/users-repository");
 
 // Messages
@@ -142,7 +142,7 @@ async function buyCart(user) {
   let userCart;
 
   try {
-    userInfo = await getUserInfoFromDB(user);
+    userInfo = await getDetailedUserInfo(user);
   } catch (err) {
     throw { error: "No se encontró el usuario indicado", errorCode: 400 };
   }

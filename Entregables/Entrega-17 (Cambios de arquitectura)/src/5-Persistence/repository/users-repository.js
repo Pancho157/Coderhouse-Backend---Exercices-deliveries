@@ -1,7 +1,11 @@
 const md5 = require("md5");
 const { logger } = require("../../../loggers-testing/loggers/log4js-config");
 const { DAO } = require("../DAOs/DAOselector");
-const { userInfoDTO, registerDTO, userLoginInfoDTO } = require("../DTOs/users-dto");
+const {
+  userInfoDTO,
+  registerDTO,
+  userLoginInfoDTO,
+} = require("../DTOs/users-dto");
 
 const DAOs = new DAO(process.env.PERS);
 
@@ -43,7 +47,7 @@ async function getUserLoginInfo(user) {
     };
   }
 
-  return userLoginInfoDTO(userInfo)
+  return userLoginInfoDTO(userInfo);
 }
 
 // -------------------------------------------------------------
@@ -93,9 +97,34 @@ async function getUserInfoFromDB(user) {
   }
 }
 
+async function getDetailedUserInfo(user) {
+  try {
+    let userInfo = await DAOs.users.getUserInfo(user);
+
+    if (!userInfo) {
+      throw {
+        error: "El usuario ingresado no existe",
+        errorCode: 400,
+      };
+    }
+
+    delete userInfo.password;
+
+    return userInfo;
+  } catch (err) {
+    logger.error(err);
+    throw {
+      error:
+        "Lo sentimos, ha ocurrido un error, recargue la pábina e intentelo de nuevo",
+      errorCode: 500,
+    };
+  }
+}
+
 module.exports = {
   registerUser,
   getUserLoginInfo,
   verifyUserExists,
   getUserInfoFromDB,
+  getDetailedUserInfo,
 };
