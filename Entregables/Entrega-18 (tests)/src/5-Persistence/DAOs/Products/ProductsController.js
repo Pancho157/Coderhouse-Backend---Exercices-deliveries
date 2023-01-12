@@ -15,17 +15,9 @@ class ProductsMongoAtlas {
   }
 
   async updateById(productId, data) {
-    const { title, price, thumbnail, stock } = data;
-    const dataToUpdate = {};
-
-    if (title) dataToUpdate.title = title;
-    if (price) dataToUpdate.price = price;
-    if (thumbnail) dataToUpdate.thumbnail = thumbnail;
-    if (stock) dataToUpdate.stock = stock;
-
     try {
-      const updated = await Products.findByIdAndUpdate(productId, {
-        dataToUpdate,
+      const updated = await Products.findByIdAndUpdate(productId, data, {
+        new: true,
       });
 
       return updated;

@@ -52,8 +52,16 @@ async function createProduct(data) {
 
 // ---------------------------------------------------------------
 async function updateProductFromDB(id, data) {
+  const { title, price, thumbnail, stock } = data;
+  const dataToUpdate = {};
+
+  if (title) dataToUpdate.title = title;
+  if (price) dataToUpdate.price = price;
+  if (thumbnail) dataToUpdate.thumbnail = thumbnail;
+  if (stock) dataToUpdate.stock = stock;
+
   try {
-    const response = await updateProduct(id, data);
+    const response = await updateProduct(id, dataToUpdate);
     return response;
   } catch (err) {
     throw {
