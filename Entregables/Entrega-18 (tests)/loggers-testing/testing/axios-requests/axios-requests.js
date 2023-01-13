@@ -3,7 +3,7 @@ const axios = require("axios");
 const getProducts = async () => {
   try {
     const response = await axios.get("http://localhost:8080/api/products");
-    return response.data;
+    return response;
   } catch (err) {
     console.error(err);
   }
@@ -22,7 +22,7 @@ const postProduct = async (data) => {
       // }
     );
 
-    return response.data;
+    return response;
   } catch (err) {
     console.error(err);
   }
@@ -41,7 +41,7 @@ const updateProduct = async (id, data) => {
       // stock: 0,
       // },
     });
-    return response.data;
+    return response;
   } catch (err) {
     console.error(err);
   }
@@ -50,7 +50,7 @@ const updateProduct = async (id, data) => {
 const deleteProduct = async (id) => {
   try {
     const response = await axios.delete(`https://reqres.in/api/posts/${id}`);
-    return response.data;
+    return response;
   } catch (err) {
     console.error(err);
   }

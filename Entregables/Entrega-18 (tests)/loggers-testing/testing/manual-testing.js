@@ -1,4 +1,3 @@
-const { postProduct } = require("../axios-client/axios-requests");
 const {
   getProducts,
   postProduct,
@@ -9,7 +8,7 @@ const {
 const manualTesting = async () => {
   console.log("-------------------- GET - All products --------------------");
   const products = await getProducts();
-  console.log(products);
+  console.log(products.data);
 
   console.log("\n \n");
 
@@ -31,9 +30,9 @@ const manualTesting = async () => {
     // "https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ",
     // stock: 9,
   });
-  console.log(update);
+  console.log(update.data);
 
   console.log("-------------------- DELETE - Product --------------------");
   const deleteById = await deleteProduct(7);
-  console.log(deleteById);
+  console.log(deleteById.data);
 };
