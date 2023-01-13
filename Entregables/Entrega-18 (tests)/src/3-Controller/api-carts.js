@@ -1,15 +1,9 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
-const {
-  getCartProducts,
-  addProductToUserCart,
-  removeOneFromCartProduct,
-  deleteProductFromUserCart,
-  buyCart,
-} = require("../4-Service/queries-to-db/carts");
+const { userCart } = require("../4-Service/queries-to-db/carts");
 
 async function getUserCartProducts(req, res) {
   try {
-    const userAndCart = await getCartProducts(req.session.userName);
+    const userAndCart = await userCart.getProducts(req.session.userName);
     res.render("userCart", userAndCart);
   } catch (err) {
     logger.error(err);
@@ -22,8 +16,8 @@ async function addOneToCartProduct(req, res) {
   const user = req.session.userName;
 
   try {
-    let userCart = await addProductToUserCart(user, productId, prodQuantity);
-    if (userCart) res.redirect("/userCart");
+    let response = await userCart.addOne(user, productId, prodQuantity);
+    if (response) res.redirect("/userCart");
   } catch (err) {
     logger.error(err);
     res.status(err.errorCode).send(err.error);
@@ -35,8 +29,8 @@ async function removeOneOfProduct(req, res) {
   const user = req.session.userName;
 
   try {
-    let userCart = await removeOneFromCartProduct(user, productId);
-    if (userCart) res.redirect("/userCart");
+    let cart = await userCart.removeOne(user, productId);
+    if (cart) res.redirect("/userCart");
   } catch (err) {
     logger.error(err);
     res.status(err.errorCode).send(err.error);
@@ -48,7 +42,7 @@ async function deleteProductFromCart(req, res) {
   const user = req.session.userName;
 
   try {
-    let userCart = await deleteProductFromUserCart(user, productId);
+    let response = await userCart.deleteProduct(user, productId);
     res.redirect("/userCart");
   } catch (err) {
     logger.error(err);
@@ -60,7 +54,7 @@ async function buyUserCart(req, res) {
   const user = req.session.userName;
 
   try {
-    const response = await buyCart(user);
+    const response = await userCart.buy(user);
     res.status(response.status).send();
   } catch (err) {
     logger.error(err);

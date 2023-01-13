@@ -1,15 +1,9 @@
 const { logger } = require("../../loggers-testing/loggers/log4js-config");
-const {
-  getProductsFromDB,
-  productById,
-  createProduct,
-  deleteProductFromDB,
-  updateProductFromDB,
-} = require("../4-Service/queries-to-db/products");
+const { productsService } = require("../4-Service/queries-to-db/products");
 
 async function getProducts(req, res) {
   try {
-    const products = await getProductsFromDB();
+    const products = await productsService.getProductsFromDB();
     res.json(products);
   } catch (err) {
     logger.error(err);
@@ -20,7 +14,7 @@ async function getProducts(req, res) {
 async function postProduct(req, res) {
   // {title, price, thumbnail, stock} = req.body
   try {
-    const product = await createProduct(req.body);
+    const product = await productsService.create(req.body);
     res.send(product);
   } catch (err) {
     logger.error(err);
@@ -31,7 +25,7 @@ async function postProduct(req, res) {
 async function updateProduct(req, res) {
   // {title, price, thumbnail, stock} = req.body
   try {
-    const product = await updateProductFromDB(req.params.id, req.body);
+    const product = await productsService.update(req.params.id, req.body);
     res.send(product);
   } catch (err) {
     logger.error(err);
@@ -41,7 +35,7 @@ async function updateProduct(req, res) {
 
 async function deleteProduct(req, res) {
   try {
-    res.send(await deleteProductFromDB(req.params.id));
+    res.send(await productsService.deleteById(req.params.id));
   } catch (err) {
     logger.error(err);
     res.status(err.errorCode).send(err.error);

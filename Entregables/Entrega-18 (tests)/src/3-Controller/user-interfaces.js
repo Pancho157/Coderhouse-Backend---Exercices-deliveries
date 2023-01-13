@@ -1,8 +1,4 @@
-const {
-  newUser,
-  login,
-  getUserData,
-} = require("../4-Service/queries-to-db/users");
+const { users } = require("../4-Service/queries-to-db/users");
 
 // -------------------- CONTENT PAGES --------------------
 function getLandingPage(req, res) {
@@ -35,7 +31,7 @@ async function getUserInfo(req, res) {
     res.redirect("/login");
   } else {
     try {
-      userInfo = await getUserData(req.session.userName);
+      userInfo = await users.getUserData(req.session.userName);
     } catch (err) {
       res.status(err.errorCode).send(err.error);
     }
@@ -63,7 +59,7 @@ function getLoginPage(req, res) {
 async function postLoginForm(req, res) {
   let loggedIn;
   try {
-    loggedIn = await login(req.body);
+    loggedIn = await users.login(req.body);
   } catch (err) {
     res.render("loginError", err);
   }
@@ -95,7 +91,7 @@ function getRegisterForm(req, res) {
 
 async function postRegisterForm(req, res) {
   try {
-    const response = await newUser(req.body);
+    const response = await users.newUser(req.body);
     req.session.userName = response;
     res.redirect("/");
   } catch (err) {
