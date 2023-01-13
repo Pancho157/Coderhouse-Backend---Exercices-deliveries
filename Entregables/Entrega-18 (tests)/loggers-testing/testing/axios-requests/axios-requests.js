@@ -32,7 +32,7 @@ const updateProduct = async (id, data) => {
   try {
     const response = await axios({
       method: "put",
-      url: `http://localhost:8080/api/products${id}`,
+      url: `http://localhost:8080/api/products/${id}`,
       data: data,
       // data: {
       // title: "Nuevo nombre de producto",
@@ -49,7 +49,9 @@ const updateProduct = async (id, data) => {
 
 const deleteProduct = async (id) => {
   try {
-    const response = await axios.delete(`https://reqres.in/api/posts/${id}`);
+    const response = await axios.delete(
+      `http://localhost:8080/api/products/${id}`
+    );
     return response;
   } catch (err) {
     console.error(err);

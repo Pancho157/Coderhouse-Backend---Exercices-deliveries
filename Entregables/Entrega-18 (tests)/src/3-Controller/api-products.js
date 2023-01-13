@@ -3,7 +3,7 @@ const { productsService } = require("../4-Service/queries-to-db/products");
 
 async function getProducts(req, res) {
   try {
-    const products = await productsService.getProductsFromDB();
+    const products = await productsService.getAll();
     res.json(products);
   } catch (err) {
     logger.error(err);

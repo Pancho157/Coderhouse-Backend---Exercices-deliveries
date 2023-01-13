@@ -23,11 +23,7 @@ describe("Prueba MOCHA", function () {
     });
 
     assert.equal(status, 200);
-    assert.equal(typeof data, "object");
-    assert.equal(
-      JSON.stringify(data),
-      JSON.stringify({ id: parseInt(data.id) })
-    );
+    assert.equal(typeof data, "string");
   });
 
   it("PUT de un producto por su ID, retorna status 200 y un objeto con un mensaje de exito", async function () {
