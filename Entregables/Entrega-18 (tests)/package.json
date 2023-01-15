@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon src/1-Server/index.js",
     "test": "mocha",
-    "manual-test": "node loggers-testing/testing/manual-testing.js"
+    "axios-test": "node loggers-testing/testing/manual-testing.js"
   },
   "license": "MIT",
   "dependencies": {
