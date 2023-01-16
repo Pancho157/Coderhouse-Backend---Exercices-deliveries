@@ -11,7 +11,6 @@
   "dependencies": {
     "autocannon": "^7.10.0",
     "axios": "^1.2.2",
-    "chai": "^4.3.7",
     "child_process": "^1.0.2",
     "cluster": "^0.7.7",
     "compression": "^1.7.4",
@@ -34,12 +33,13 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "socket.io": "^4.5.4",
-    "supertest": "^6.3.3",
     "twilio": "^3.84.0",
     "util": "^0.12.5",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "mocha": "^10.2.0"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

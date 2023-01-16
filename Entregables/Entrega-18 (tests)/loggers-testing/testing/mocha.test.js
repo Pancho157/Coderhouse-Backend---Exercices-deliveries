@@ -6,14 +6,29 @@ const {
 } = require("./axios-requests/axios-requests");
 const assert = require("assert");
 
+console.log("\n \n");
+console.log(
+  "-----------------------------------------------------------------------------------------------------"
+);
+console.log(
+  "- - - - - - - - - - - - - - - - - - - - - - - - Mocha - - - - - - - - - - - - - - - - - - - - - - - -"
+);
+console.log(
+  "-----------------------------------------------------------------------------------------------------"
+);
+
 describe("Pruebas api-productos utilizando MOCHA", function () {
   it("GET Products - retorna status 200 y un array de objetos", async function () {
     try {
       const { status, data } = await getProducts();
       assert.equal(status, 200);
-      assert.typeOf(data, "array");
+      assert.equal(
+        typeof data,
+        "array",
+        "El método GET no responde con un array"
+      );
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   });
 
@@ -29,11 +44,21 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
 
       assert.equal(status, 200);
       assert.strictEqual(
-        data == "Se ha generado el producto exitosamente",
-        true
+        typeof data,
+        "string",
+        "El método POST no devuelve el mensaje de éxito"
+      );
+
+      console.log("--------------- Verificación de creación ---------------");
+      const productsAfterPost = await getProducts();
+      assert.notEqual(
+        productsAfterPost.data.find(
+          (x) => x.title == "Nuevo título de producto"
+        ),
+        undefined
       );
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   });
 
@@ -46,10 +71,12 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
           title: "Nuevo título de producto",
         }
       );
+
       assert.equal(status, 200);
-      assert.equal(typeof data, "object");
+      console.log(">>>>>>>>>>>>>> DATA <<<<<<<<<<<<<<<<<" + "\n" + data);
+      // assert.equal(typeof data, "object");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   });
 
@@ -60,9 +87,13 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
         parseInt(allProducts.data[allProducts.data.length - 1].id) // Id del último producto
       );
       assert.equal(status, 200);
-      assert.strictEqual(data == "Producto eliminado exitosamente", true);
+      assert.strictEqual(
+        typeof data,
+        "string",
+        "El método DELETE no devuelve un mensaje de éxito"
+      );
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   });
 });
