@@ -8,8 +8,11 @@ describe("Pruebas api-productos utilizando SUPERTEST", () => {
       .get("/")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .expect(200, done)
-      .expect();
+      .expect(200)
+      .end((err, res) => {
+        if (err) done(err);
+        done();
+      });
   });
 
   // --------------------------------------------------------------------------
