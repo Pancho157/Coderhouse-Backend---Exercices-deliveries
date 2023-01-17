@@ -17,21 +17,20 @@ console.log(
   "-----------------------------------------------------------------------------------------------------"
 );
 
+// ---------------------------------------------------------------------------------------
 describe("Pruebas api-productos utilizando MOCHA", function () {
   it("GET Products - retorna status 200 y un array de objetos", async function () {
     try {
       const { status, data } = await getProducts();
+
       assert.equal(status, 200);
-      assert.equal(
-        typeof data,
-        "array",
-        "El método GET no responde con un array"
-      );
+      assert.equal(typeof data, "object");
     } catch (err) {
       console.error(err);
     }
   });
 
+  // ---------------------------------------------------------------------------------------
   it("POST Product - retorna status 200 y el mensaje 'Se ha generado el producto exitosamente'", async function () {
     try {
       const { status, data } = await postProduct({
@@ -49,19 +48,18 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
         "El método POST no devuelve el mensaje de éxito"
       );
 
-      console.log("--------------- Verificación de creación ---------------");
+      // --------------- Verificación de creación ---------------
       const productsAfterPost = await getProducts();
       assert.notEqual(
-        productsAfterPost.data.find(
-          (x) => x.title == "Nuevo título de producto"
-        ),
-        undefined
+        productsAfterPost.data.findIndex((x) => x.title == "Nuevo producto"),
+        -1
       );
     } catch (err) {
       console.error(err);
     }
   });
 
+  // ---------------------------------------------------------------------------------------
   it("PUT Product, retorna status 200 y un objeto con el producto luego de los cambios", async function () {
     try {
       const allProducts = await getProducts();
@@ -73,13 +71,19 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
       );
 
       assert.equal(status, 200);
-      console.log(">>>>>>>>>>>>>> DATA <<<<<<<<<<<<<<<<<" + "\n" + data);
-      // assert.equal(typeof data, "object");
+      // --------------- Verificación de actualización ---------------
+      assert.notEqual(
+        productsAfterPost.data.findIndex(
+          (x) => x.title == "Nuevo título de producto"
+        ),
+        -1
+      );
     } catch (err) {
       console.error(err);
     }
   });
 
+  // ---------------------------------------------------------------------------------------
   it("Delete product, retorna status 200 y un string diciendo 'Producto eliminado exitosamente'", async function () {
     try {
       const allProducts = await getProducts();
