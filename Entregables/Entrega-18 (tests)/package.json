@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/1-Server/index.js",
-    "test": "mocha loggers-testing/testing",
-    "axios-test": "node loggers-testing/testing/manual-testing.js"
+    "test": "mocha loggers-testing/testing/automatic-tests",
+    "axios-test": "node loggers-testing/testing/manual-test/manual-testing.js"
   },
   "license": "MIT",
   "dependencies": {
