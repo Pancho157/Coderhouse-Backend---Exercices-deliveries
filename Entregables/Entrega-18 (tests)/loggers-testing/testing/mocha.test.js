@@ -50,10 +50,10 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
 
       // --------------- Verificación de creación ---------------
       const productsAfterPost = await getProducts();
-      assert.notEqual(
-        productsAfterPost.data.findIndex((x) => x.title == "Nuevo producto"),
-        -1
-      );
+      const postedProduct =
+        productsAfterPost.data[productsAfterPost.data.length - 1];
+      console.log(postedProduct);
+      assert.equal(postedProduct.title, "Nuevo producto");
     } catch (err) {
       console.error(err);
     }
@@ -71,13 +71,7 @@ describe("Pruebas api-productos utilizando MOCHA", function () {
       );
 
       assert.equal(status, 200);
-      // --------------- Verificación de actualización ---------------
-      assert.notEqual(
-        productsAfterPost.data.findIndex(
-          (x) => x.title == "Nuevo título de producto"
-        ),
-        -1
-      );
+      assert.equal(data.title, "Nuevo título de producto");
     } catch (err) {
       console.error(err);
     }
