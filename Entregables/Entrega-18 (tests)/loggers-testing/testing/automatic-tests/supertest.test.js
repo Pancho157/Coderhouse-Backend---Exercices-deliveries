@@ -22,14 +22,13 @@ describe("Pruebas api-productos utilizando SUPERTEST", () => {
       .get("/")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .expect(200)
-      .end((err, res) => {
+      .expect((err, res) => {
         if (err) done(err);
         if (typeof res.data != "array") {
           throw new Error("GET Products - no retorna un array de objetos");
         }
-        done();
-      });
+      })
+      .end(200, done());
   });
 
   // --------------------------------------------------------------------------
@@ -51,7 +50,7 @@ describe("Pruebas api-productos utilizando SUPERTEST", () => {
       .expect(function (res) {
         res == "Se ha generado el producto exitosamente";
       })
-      .expect(200, done);
+      .expect(200, done());
   });
 
   // --------------------------------------------------------------------------
@@ -68,19 +67,15 @@ describe("Pruebas api-productos utilizando SUPERTEST", () => {
       })
       .expect(200)
       .expect(
-        // Info del producto agregado en el test de POST
         {
           title: "Nuevo título de producto",
           price: 100,
           thumbnail:
             "https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ",
           stock: 9,
-        }
-      )
-      .end((err) => {
-        if (err) return done(err);
-        done();
-      });
+        },
+        done()
+      );
   });
 
   // --------------------------------------------------------------------------
@@ -93,6 +88,6 @@ describe("Pruebas api-productos utilizando SUPERTEST", () => {
     request
       .delete(`/${lastId}`)
       .expect(200)
-      .expect("Producto eliminado exitosamente", done);
+      .expect("Producto eliminado exitosamente", done());
   });
 });
