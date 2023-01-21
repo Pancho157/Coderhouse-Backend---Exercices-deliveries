@@ -14,6 +14,7 @@ const { engine } = require("express-handlebars");
 const userInterfaces = require("../2-Router/user-interfaces");
 const { info } = require("../2-Router/server-info");
 const { apiRandoms } = require("../2-Router/api-randoms");
+const { graphqlMiddleware } = require("../4-Service/middlewares/graphql");
 const { apiProducts } = require("../2-Router/api-products");
 const { carts } = require("../2-Router/api-carts");
 
@@ -111,6 +112,7 @@ if (process.env.CLUSTER && process.env.CLUSTER == "true" && cluster.isPrimary) {
   app.use("/", info);
   app.use("/api", apiRandoms);
   app.use("/api/products", apiProducts);
+  app.use("/api/products/graphql/v1", graphqlMiddleware);
   app.use("/api/carts", carts);
 
   // ----------------------- Error 404 -----------------------
