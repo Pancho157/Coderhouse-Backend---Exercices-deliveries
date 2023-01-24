@@ -4,19 +4,18 @@ import { UpdateProductDto } from './dto/update.product.dto';
 
 @Injectable()
 export class ProductsService {
-  delete(id: number) {
-    return id;
-  }
-
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return { id, updateProductDto };
+  getAll() {
+    return 'Hola mundo';
   }
 
   create(createProductDto: CreateProductDto) {
     return createProductDto;
   }
+  update(id: number, updateProductDto: UpdateProductDto) {
+    return { id, updateProductDto };
+  }
 
-  getHello(): string {
-    return 'Hola mundo';
+  delete(id: number) {
+    return id;
   }
 }
