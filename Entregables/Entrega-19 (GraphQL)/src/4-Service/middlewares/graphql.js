@@ -26,11 +26,11 @@ const schema = buildSchema(`
     response: String
   }
   type Query {
-    getProducts(): [Product]
+    getProducts: [Product]
   }
   type Mutation {
-    postProduct(ProductInput): Response
-    updateProduct(id: Int, data: ProductsInput): Product
+    postProduct(data: ProductInput): Response
+    updateProduct(id: Int, data: ProductInput): Product
     deleteProduct(id: Int): Response
   }
 `);
